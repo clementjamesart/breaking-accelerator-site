@@ -4,61 +4,54 @@ import Layout from '../layouts/Layout.astro';
 const LP_URL = 'https://breaking.dancingaccelerator.com/f6c65326';
 ---
 
-<Layout>
+<Layout title="Breaking Accelerator | L'accompagnement pour construire une carrière dans le breaking" description="Bboy Junior accompagne les breakers qui ont choisi de faire de leur art un vrai métier. Clarté, connaissance, mindset.">
 
   <!-- BANNER -->
-  <div class="bg-[#1C1C1C] text-[#F5F3EF] text-xs font-medium py-3 text-center tracking-wide uppercase px-4">
-    30 breakers accompagnés — Programme ouvert Q2 2026
+  <div class="bg-[#1C1C1C] text-[#F5F3EF] text-xs font-medium py-3 text-center tracking-widest uppercase px-4">
+    Quand la passion devient une carrière.
   </div>
 
   <!-- NAV -->
   <nav class="sticky top-0 z-50 w-full px-6 py-5 flex justify-between items-center bg-[#F5F3EF]/90 backdrop-blur-sm border-b border-stone-200/50">
+    <a href="/" class="text-xl md:text-2xl tracking-tight text-stone-900 leading-none" style="font-family: 'DM Serif Display', serif;">
+      Breaking Accelerator
+    </a>
+    <div class="hidden md:flex items-center space-x-8 text-sm font-medium tracking-wide text-stone-600">
+      <a href="/" class="hover:text-stone-900 transition-colors">Accueil</a>
+      <a href="/a-propos" class="hover:text-stone-900 transition-colors">À propos</a>
+      <a href="/journal" class="hover:text-stone-900 transition-colors">Le Journal</a>
+      <a href="/rejoindre" class="hover:text-stone-900 transition-colors">Rejoindre</a>
+      <a href="https://bboyjunior.com" target="_blank" rel="noopener" class="hover:text-stone-900 transition-colors flex items-center gap-1">
+        Bboy Junior
+        <iconify-icon icon="solar:arrow-right-up-linear" stroke-width="1.5" class="text-xs"></iconify-icon>
+      </a>
+    </div>
     <button class="md:hidden text-2xl">
       <iconify-icon icon="solar:hamburger-menu-linear" stroke-width="1.5"></iconify-icon>
     </button>
-    <a href="/" class="text-xl md:text-2xl tracking-tight text-stone-900 leading-none uppercase" style="font-family: 'DM Serif Display', serif;">
-      BREAKING ACCELERATOR
-    </a>
-    <div class="hidden md:flex items-center space-x-8 text-sm font-medium tracking-wide text-stone-600">
-      <a href="#programme" class="hover:text-stone-900 transition-colors">Programme</a>
-      <a href="#resultats" class="hover:text-stone-900 transition-colors">Résultats</a>
-      <a href="#journal" class="hover:text-stone-900 transition-colors">Journal</a>
-      <a href="#a-propos" class="hover:text-stone-900 transition-colors">À propos</a>
-      <a href={LP_URL} class="ml-4 px-5 py-2.5 bg-stone-900 text-[#F5F3EF] rounded-full hover:bg-stone-700 transition-colors duration-300">
-        Voir la méthode →
-      </a>
-    </div>
-    <div class="flex items-center gap-4 md:hidden">
-      <iconify-icon icon="solar:user-circle-linear" class="text-xl" stroke-width="1.5"></iconify-icon>
-    </div>
   </nav>
 
   <!-- HERO -->
   <header class="relative w-full min-h-[90vh] flex flex-col items-center justify-center text-center px-4 md:px-0 py-20 overflow-hidden">
     <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-[#EBE8E0] rounded-full blur-3xl -z-10 opacity-60"></div>
     <div class="max-w-5xl mx-auto space-y-8 z-10">
-      <h1 class="text-6xl md:text-8xl lg:text-9xl text-stone-900 leading-[0.9] tracking-tighter">
-        Vivre de ta passion,<br />
-        sans piston, sans buzz,<br />
-        <span class="italic font-light text-stone-800">sans être le meilleur.</span>
+      <h1 class="text-5xl md:text-7xl lg:text-8xl text-stone-900 leading-[0.95] tracking-tighter">
+        Bâtir sa carrière<br />
+        professionnelle dans le breaking<br />
+        <span class="italic font-light text-stone-600">avec méthode et ambition.</span>
       </h1>
-      <p class="max-w-xl mx-auto text-lg md:text-xl text-stone-600 font-light leading-relaxed mt-6">
-        Breaking Accelerator est le premier programme d'accompagnement conçu pour les breakers qui veulent transformer leur niveau artistique en revenu stable.
+      <p class="max-w-xl mx-auto text-lg md:text-xl text-stone-500 font-light leading-relaxed mt-6">
+        Bboy Junior accompagne les breakers qui ont choisi de faire de leur art un vrai métier.
       </p>
-      <div class="flex flex-col md:flex-row items-center justify-center gap-4 mt-10">
-        <a href={LP_URL} class="group px-8 py-4 bg-stone-900 text-[#F5F3EF] rounded-full hover:scale-[1.02] transition-all duration-300 w-full md:w-auto">
-          <span class="flex items-center justify-center gap-2 font-medium">
-            Voir la méthode
-            <iconify-icon icon="solar:arrow-right-linear" stroke-width="1.5" class="group-hover:translate-x-1 transition-transform"></iconify-icon>
-          </span>
-        </a>
-        <a href="#resultats" class="px-8 py-4 border border-stone-300 text-stone-900 rounded-full hover:bg-stone-200 transition-all duration-300 w-full md:w-auto font-medium text-center">
-          Lire les résultats
+      <div class="mt-12 flex justify-center">
+        <a href="#accroche" class="flex flex-col items-center gap-2 text-stone-400 hover:text-stone-700 transition-colors text-sm font-medium tracking-wide">
+          Découvrir
+          <iconify-icon icon="solar:arrow-down-linear" stroke-width="1.5" class="text-xl animate-bounce"></iconify-icon>
         </a>
       </div>
     </div>
     <div class="mt-16 w-full max-w-6xl h-64 md:h-96 rounded-t-3xl md:rounded-3xl overflow-hidden shadow-2xl shadow-[#D1CEC7]/50">
-      <img src="/images/hero.jpg" alt="Breaking Accelerator" class="w-full h-full object-cover" />
+      <img src="/images/hero.jpg" alt="Bboy Junior" class="w-full h-full object-cover" />
     </div>
   </header>
 
@@ -66,8 +59,8 @@ const LP_URL = 'https://breaking.dancingaccelerator.com/f6c65326';
   <section class="border-y border-stone-300 py-4 bg-[#EBE8E0] overflow-hidden">
     <div class="marquee-container w-full whitespace-nowrap overflow-hidden">
       <div class="animate-scroll inline-block">
-        {['BREAKING', 'CARRIÈRE', 'INTERMITTENCE', 'CONTRATS', 'AUTONOMIE', 'PROSPECTION',
-          'BREAKING', 'CARRIÈRE', 'INTERMITTENCE', 'CONTRATS', 'AUTONOMIE', 'PROSPECTION'].map((word) => (
+        {['BREAKING', 'EXCELLENCE', 'TRANSMISSION', 'SCÈNE', 'MÉTIER', 'LÉGITIMITÉ', 'DISCIPLINE', 'RECONNAISSANCE',
+          'BREAKING', 'EXCELLENCE', 'TRANSMISSION', 'SCÈNE', 'MÉTIER', 'LÉGITIMITÉ', 'DISCIPLINE', 'RECONNAISSANCE'].map((word) => (
           <>
             <span class="text-2xl md:text-4xl px-8 text-stone-400" style="font-family: 'DM Serif Display', serif;">•</span>
             <span class="text-sm md:text-base font-medium tracking-widest uppercase text-stone-800">{word}</span>
@@ -78,120 +71,72 @@ const LP_URL = 'https://breaking.dancingaccelerator.com/f6c65326';
   </section>
 
   <!-- ACCROCHE -->
-  <section id="programme" class="py-24 px-6 md:px-12 bg-[#F5F3EF]">
+  <section id="accroche" class="py-24 px-6 md:px-12 bg-[#F5F3EF]">
     <div class="max-w-4xl mx-auto text-center space-y-8">
       <h2 class="text-4xl md:text-6xl text-stone-900 leading-tight tracking-tight">
-        Nous abordons ta carrière avec une <span class="italic text-stone-500" style="font-family: 'DM Serif Display', serif;">rigueur entrepreneuriale</span> absolue.
+        Junior compte parmi les breakers les plus respectés au monde. Dans Breaking Accelerator, <span class="italic text-stone-500">il vous accompagne personnellement.</span>
       </h2>
       <div class="w-24 h-px bg-stone-300 mx-auto"></div>
-      <p class="text-lg md:text-xl text-stone-600 leading-relaxed">
-        La plupart des danseurs naviguent à vue ou copient les influenceurs. Nous comblons ce vide, en apportant des stratégies concrètes et un accompagnement professionnel aux breakers qui veulent construire une carrière durable, pas juste gagner des battles.
-      </p>
     </div>
   </section>
 
-  <!-- CE QUE TU VAS CONSTRUIRE -->
+  <!-- 3 PILIERS -->
   <section class="py-20 px-6 md:px-12 border-t border-stone-200">
     <div class="max-w-7xl mx-auto">
-      <div class="flex flex-col md:flex-row justify-between items-end mb-16 gap-6">
-        <div>
-          <h3 class="text-4xl md:text-5xl text-stone-900 mb-2 tracking-tight">Ce que tu vas construire</h3>
-          <p class="text-stone-500">Une méthode. Pas de la motivation.</p>
-        </div>
-        <a href={LP_URL} class="text-stone-900 border-b border-stone-900 pb-1 hover:opacity-60 transition-opacity">Découvrir le programme</a>
-      </div>
       <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
         {[
-          { icon: 'solar:document-text-linear', title: 'Tes premiers contrats', body: 'Prospection proactive, candidatures structurées, portfolio qui convainc.' },
-          { icon: 'solar:wallet-linear', title: 'Un revenu régulier', body: 'Statut intermittent, facturation, gestion des revenus artistiques.' },
-          { icon: 'solar:route-linear', title: 'Une carrière durable', body: 'Vision à 3-5 ans, réseau, offre cohérente avec ton style.' },
-        ].map(({ icon, title, body }) => (
+          {
+            title: 'Clarté',
+            body: 'Savoir exactement où aller et pourquoi. Plus de tâtonnements, une direction précise pour construire ta carrière.',
+          },
+          {
+            title: 'Connaissance',
+            body: 'Les informations concrètes du terrain — ce qui fonctionne vraiment pour vivre du breaking aujourd\'hui.',
+          },
+          {
+            title: 'Mindset',
+            body: 'Oser passer à l\'action. Développer la posture et la confiance d\'un professionnel.',
+          },
+        ].map(({ title, body }) => (
           <div class="group bg-[#EBE8E0] p-8 md:p-10 rounded-2xl hover:bg-[#E5E1D8] transition-colors duration-300 flex flex-col h-full">
-            <div class="w-12 h-12 bg-stone-900 text-[#F5F3EF] rounded-full flex items-center justify-center mb-8 group-hover:scale-110 transition-transform shrink-0">
-              <iconify-icon icon={icon} stroke-width="1.5" class="text-2xl"></iconify-icon>
-            </div>
             <h4 class="text-3xl text-stone-900 mb-4 tracking-tight">{title}</h4>
-            <p class="text-stone-600 mb-8 leading-relaxed flex-grow">{body}</p>
-            <a href={LP_URL} class="inline-flex items-center text-sm font-semibold uppercase tracking-wider text-stone-900 mt-auto">
-              En savoir plus <iconify-icon icon="solar:arrow-right-up-linear" stroke-width="1.5" class="ml-1"></iconify-icon>
-            </a>
+            <p class="text-stone-600 leading-relaxed flex-grow">{body}</p>
           </div>
         ))}
       </div>
     </div>
   </section>
 
-  <!-- LE PROBLÈME (dark) -->
-  <section class="py-20 px-6 md:px-12 bg-[#1C1C1C] text-[#F5F3EF] rounded-t-[3rem]">
-    <div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-      <div class="relative">
-        <div class="absolute inset-0 bg-stone-700 rounded-2xl rotate-3 opacity-30"></div>
-        <img src="/images/junior-action.jpg" alt="Bboy Junior" class="relative rounded-2xl shadow-2xl w-full object-cover h-[500px]" />
-      </div>
-      <div class="space-y-8">
-        <span class="text-stone-400 uppercase tracking-widest text-sm font-semibold">Le Problème</span>
-        <h3 class="text-5xl md:text-6xl leading-tight tracking-tight">On t'a appris à danser. Jamais à en vivre.</h3>
-        <p class="text-lg md:text-xl text-stone-300 font-light leading-relaxed">
-          Tu t'entraînes depuis des années. Tu connais la culture break, les battles, les fondamentaux. Mais entre s'entraîner et construire une carrière stable, il manque quelque chose que personne ne t'a enseigné. Breaking Accelerator comble ce manque.
-        </p>
-        <a href={LP_URL} class="inline-block bg-[#F5F3EF] text-stone-900 px-8 py-4 rounded-full font-medium hover:bg-stone-300 transition-colors">
-          Voir la méthode →
-        </a>
-      </div>
-    </div>
-  </section>
-
   <!-- CITATION -->
   <section class="py-24 px-6 md:px-12 bg-[#F5F3EF]">
-    <div class="max-w-4xl mx-auto text-center">
-      <iconify-icon icon="solar:shield-check-linear" stroke-width="1.5" class="text-stone-900 text-5xl inline-block mb-4"></iconify-icon>
-      <h4 class="mt-8 text-3xl md:text-5xl leading-tight text-stone-900 tracking-tight">
-        "On nous a appris à danser. Mais on nous a jamais appris à envoyer des candidatures convaincantes, à signer des contrats, à construire quelque chose de durable."
-      </h4>
-      <div class="mt-10 pt-8 border-t border-stone-300/60 flex flex-col items-center space-y-2">
-        <p class="text-stone-600 font-medium tracking-wide uppercase text-sm">— Clément James, fondateur</p>
-        <p class="text-stone-500 text-sm">8 ans de carrière artistique</p>
+    <div class="max-w-3xl mx-auto text-center">
+      <p class="text-4xl md:text-6xl text-stone-900 tracking-tight" style="font-family: 'DM Serif Display', serif;">
+        "Each one, teach one."
+      </p>
+      <div class="mt-10 pt-8 border-t border-stone-300/60">
+        <p class="text-stone-500 text-sm tracking-widest uppercase font-medium">La philosophie de Bboy Junior</p>
       </div>
     </div>
   </section>
 
-  <!-- RÉSULTATS -->
-  <section id="resultats" class="py-20 px-6 md:px-12 border-t border-stone-200 bg-[#EBE8E0]">
-    <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-12">
-      <div class="md:w-1/2 space-y-6">
-        <h3 class="text-4xl md:text-5xl text-stone-900 tracking-tight">Résultats &amp; Transformations</h3>
-        <p class="text-lg text-stone-600 leading-relaxed">
-          Explore les parcours de nos élèves. De la validation du statut d'intermittent à la signature de contrats réguliers avec des marques et des institutions.
-        </p>
-        <ul class="space-y-3 pt-4">
-          {['Création de portfolio d\'artiste', 'Acquisition de contrats et intermittence', 'Monétisation de l\'expertise pédagogique'].map((item) => (
-            <li class="flex items-center text-stone-800">
-              <iconify-icon icon="solar:check-circle-linear" stroke-width="1.5" class="mr-3 text-lg shrink-0"></iconify-icon>
-              {item}
-            </li>
-          ))}
-        </ul>
-        <a href="#resultats" class="px-8 py-3 border border-stone-900 text-stone-900 rounded-full hover:bg-stone-900 hover:text-[#F5F3EF] transition-all duration-300 inline-block">
-          Lire les résultats
-        </a>
+  <!-- SOCIAL PROOF -->
+  <section class="py-20 px-6 md:px-12 bg-[#EBE8E0] border-t border-stone-200">
+    <div class="max-w-7xl mx-auto">
+      <div class="mb-16 text-center">
+        <span class="text-xs text-stone-500 uppercase tracking-widest font-medium">Ils ont fait le chemin</span>
       </div>
-      <div class="md:w-1/2">
-        <div class="aspect-[4/3] bg-white rounded-xl shadow-lg border border-stone-200 p-8 flex flex-col justify-between rotate-2 hover:rotate-0 transition-transform duration-500">
-          <div class="flex justify-between items-start">
-            <div class="w-1/3 h-4 bg-stone-200 rounded"></div>
-            <div class="w-8 h-8 bg-stone-100 rounded-full"></div>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        {[
+          { quote: 'Je signe mes premiers contrats réguliers.', name: 'Yanis', context: 'Breaker professionnel' },
+          { quote: 'J\'ai validé mon statut d\'intermittent en moins de six mois.', name: 'David', context: 'Danseur et enseignant' },
+          { quote: 'Pour la première fois, j\'ai une vraie vision de ma carrière.', name: 'Alpha', context: 'Breaker, Lyon' },
+        ].map(({ quote, name, context }) => (
+          <div class="border-t border-stone-300 pt-8">
+            <p class="text-xl text-stone-800 leading-relaxed mb-6" style="font-family: 'DM Serif Display', serif;">"{quote}"</p>
+            <p class="text-sm font-medium text-stone-900">{name}</p>
+            <p class="text-xs text-stone-500 mt-1">{context}</p>
           </div>
-          <div class="space-y-4">
-            <div class="w-full h-px bg-stone-100"></div>
-            <div class="w-3/4 h-3 bg-stone-100 rounded"></div>
-            <div class="w-5/6 h-3 bg-stone-100 rounded"></div>
-            <div class="w-2/3 h-3 bg-stone-100 rounded"></div>
-          </div>
-          <div class="flex justify-between items-center mt-8">
-            <div class="px-4 py-2 bg-stone-900 text-white text-xs rounded">Voir l'Étude de Cas</div>
-            <span class="text-stone-300 text-4xl italic" style="font-family: 'DM Serif Display', serif;">Succès.</span>
-          </div>
-        </div>
+        ))}
       </div>
     </div>
   </section>
@@ -201,10 +146,10 @@ const LP_URL = 'https://breaking.dancingaccelerator.com/f6c65326';
     <div class="max-w-7xl mx-auto">
       <div class="flex flex-col md:flex-row justify-between items-end mb-16 gap-6">
         <div>
-          <h3 class="text-4xl md:text-5xl text-stone-900 mb-2 tracking-tight">Le Journal</h3>
-          <p class="text-stone-500">Méthode, terrain et retours d'expérience pour les breakers sérieux.</p>
+          <span class="text-xs text-stone-500 uppercase tracking-widest font-medium block mb-4">Journal</span>
+          <h3 class="text-4xl md:text-5xl text-stone-900 tracking-tight">Méthode, terrain et retours d'expérience.</h3>
         </div>
-        <a href="/journal" class="text-stone-900 border-b border-stone-900 pb-1 hover:opacity-60 transition-opacity">Tous les articles</a>
+        <a href="/journal" class="text-stone-900 border-b border-stone-900 pb-1 hover:opacity-60 transition-opacity text-sm font-medium">Tous les articles</a>
       </div>
       <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
         {[
@@ -216,7 +161,7 @@ const LP_URL = 'https://breaking.dancingaccelerator.com/f6c65326';
             <span class="text-xs text-stone-500 uppercase tracking-widest font-medium block mb-4">{cat}</span>
             <h5 class="text-2xl text-stone-900 mb-4 tracking-tight group-hover:text-stone-600 transition-colors" style="font-family: 'DM Serif Display', serif;">{title}</h5>
             <span class="inline-flex items-center text-sm font-semibold uppercase tracking-wider text-stone-900">
-              Lire l'article <iconify-icon icon="solar:arrow-right-linear" stroke-width="1.5" class="ml-2 group-hover:translate-x-1 transition-transform"></iconify-icon>
+              Lire <iconify-icon icon="solar:arrow-right-linear" stroke-width="1.5" class="ml-2 group-hover:translate-x-1 transition-transform"></iconify-icon>
             </span>
           </a>
         ))}
@@ -224,54 +169,75 @@ const LP_URL = 'https://breaking.dancingaccelerator.com/f6c65326';
     </div>
   </section>
 
+  <!-- NEWSLETTER -->
+  <section class="py-20 px-6 md:px-12 bg-[#1C1C1C] text-[#F5F3EF]">
+    <div class="max-w-2xl mx-auto text-center space-y-8">
+      <span class="text-xs text-stone-400 uppercase tracking-widest font-medium">Newsletter</span>
+      <h3 class="text-4xl md:text-5xl tracking-tight leading-tight">Rejoins les breakers qui construisent leur carrière.</h3>
+      <p class="text-stone-400 font-light leading-relaxed">Méthode, retours terrain et conseils pratiques — directement dans ta boite mail.</p>
+      <form class="flex flex-col sm:flex-row gap-3 max-w-md mx-auto">
+        <input
+          type="email"
+          placeholder="ton@email.com"
+          class="flex-1 px-5 py-3 rounded-full bg-stone-800 border border-stone-700 text-[#F5F3EF] placeholder-stone-500 focus:outline-none focus:border-stone-500 text-sm"
+        />
+        <button type="submit" class="px-6 py-3 bg-[#F5F3EF] text-stone-900 rounded-full font-medium hover:bg-stone-300 transition-colors text-sm whitespace-nowrap">
+          S'inscrire
+        </button>
+      </form>
+    </div>
+  </section>
+
   <!-- FOOTER -->
-  <footer id="a-propos" class="bg-[#1C1C1C] text-[#F5F3EF] pt-20 pb-10 px-6 md:px-12">
-    <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-12 border-b border-stone-800 pb-16">
-      <div class="md:col-span-1 space-y-6">
-        <a href="/" class="text-2xl tracking-tight uppercase" style="font-family: 'DM Serif Display', serif;">BREAKING ACCELERATOR</a>
+  <footer class="bg-[#1C1C1C] text-[#F5F3EF] pt-16 pb-8 px-6 md:px-12 border-t border-stone-800">
+    <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-start gap-12 pb-12 border-b border-stone-800">
+
+      <!-- Colonne gauche -->
+      <div class="space-y-4 md:w-1/3">
+        <a href="/" class="text-xl tracking-tight" style="font-family: 'DM Serif Display', serif;">Breaking Accelerator</a>
         <p class="text-stone-400 text-sm leading-relaxed">
-          Le premier programme d'accompagnement dédié à la carrière et la structuration professionnelle des breakers.
+          L'accompagnement pour construire une carrière dans le breaking.
         </p>
-        <div class="flex space-x-4">
-          <a href="https://www.instagram.com/breakingaccelerator/" class="w-10 h-10 border border-stone-700 rounded-full flex items-center justify-center hover:bg-[#F5F3EF] hover:text-stone-900 transition-colors">
-            <iconify-icon icon="solar:camera-linear" stroke-width="1.5" class="text-lg"></iconify-icon>
+        <div class="flex space-x-3 pt-2">
+          <a href="https://www.instagram.com/breakingaccelerator/" target="_blank" rel="noopener" class="w-9 h-9 border border-stone-700 rounded-full flex items-center justify-center hover:bg-[#F5F3EF] hover:text-stone-900 transition-colors">
+            <iconify-icon icon="solar:camera-linear" stroke-width="1.5" class="text-base"></iconify-icon>
           </a>
-          <a href="mailto:contact@dancingaccelerator.com" class="w-10 h-10 border border-stone-700 rounded-full flex items-center justify-center hover:bg-[#F5F3EF] hover:text-stone-900 transition-colors">
-            <iconify-icon icon="solar:letter-linear" stroke-width="1.5" class="text-lg"></iconify-icon>
+          <a href="mailto:contact@dancingaccelerator.com" class="w-9 h-9 border border-stone-700 rounded-full flex items-center justify-center hover:bg-[#F5F3EF] hover:text-stone-900 transition-colors">
+            <iconify-icon icon="solar:letter-linear" stroke-width="1.5" class="text-base"></iconify-icon>
           </a>
         </div>
       </div>
-      <div>
-        <h5 class="text-xl mb-6 text-stone-300 tracking-tight" style="font-family: 'DM Serif Display', serif;">Navigation</h5>
+
+      <!-- Navigation -->
+      <div class="space-y-4">
         <ul class="space-y-3 text-sm text-stone-400">
-          <li><a href="#programme" class="hover:text-white transition-colors">Programme</a></li>
-          <li><a href="#resultats" class="hover:text-white transition-colors">Résultats</a></li>
-          <li><a href="#journal" class="hover:text-white transition-colors">Journal</a></li>
-          <li><a href="#a-propos" class="hover:text-white transition-colors">À propos</a></li>
+          <li><a href="/" class="hover:text-white transition-colors">Accueil</a></li>
+          <li><a href="/a-propos" class="hover:text-white transition-colors">À propos</a></li>
+          <li><a href="/journal" class="hover:text-white transition-colors">Le Journal</a></li>
+          <li><a href="/rejoindre" class="hover:text-white transition-colors">Rejoindre</a></li>
+          <li>
+            <a href="https://bboyjunior.com" target="_blank" rel="noopener" class="hover:text-white transition-colors flex items-center gap-1">
+              Bboy Junior
+              <iconify-icon icon="solar:arrow-right-up-linear" stroke-width="1.5" class="text-xs"></iconify-icon>
+            </a>
+          </li>
         </ul>
       </div>
-      <div>
-        <h5 class="text-xl mb-6 text-stone-300 tracking-tight" style="font-family: 'DM Serif Display', serif;">Modules</h5>
-        <ul class="space-y-3 text-sm text-stone-400">
-          <li><a href={LP_URL} class="hover:text-white transition-colors">Stratégie Carrière</a></li>
-          <li><a href={LP_URL} class="hover:text-white transition-colors">Démarchage &amp; Contrats</a></li>
-          <li><a href={LP_URL} class="hover:text-white transition-colors">Présence Digitale</a></li>
-          <li><a href={LP_URL} class="hover:text-white transition-colors">Statuts &amp; Négociation</a></li>
-        </ul>
-      </div>
-      <div>
-        <h5 class="text-xl mb-6 text-stone-300 tracking-tight" style="font-family: 'DM Serif Display', serif;">Inscription</h5>
-        <p class="text-xs text-stone-500 mb-6 leading-relaxed">Passe un cap dans ta carrière et sécurise tes revenus issus de la danse.</p>
-        <a href={LP_URL} class="inline-block bg-[#F5F3EF] text-stone-900 px-6 py-3 rounded-lg text-sm font-medium hover:bg-stone-300 transition-colors text-center w-full">
-          Voir la méthode
+
+      <!-- Contact -->
+      <div class="space-y-3 text-sm text-stone-400">
+        <a href="mailto:contact@dancingaccelerator.com" class="hover:text-white transition-colors block">contact@dancingaccelerator.com</a>
+        <a href={LP_URL} class="inline-block mt-4 px-6 py-3 bg-[#F5F3EF] text-stone-900 rounded-full text-sm font-medium hover:bg-stone-300 transition-colors">
+          Rejoindre l'accompagnement
         </a>
       </div>
+
     </div>
-    <div class="max-w-7xl mx-auto pt-10 flex flex-col md:flex-row justify-between items-center text-xs text-stone-500">
+    <div class="max-w-7xl mx-auto pt-8 flex flex-col md:flex-row justify-between items-center text-xs text-stone-600">
       <p>© 2026 Breaking Accelerator. Tous droits réservés.</p>
       <div class="flex space-x-6 mt-4 md:mt-0">
-        <a href="/mentions-legales" class="hover:text-white transition-colors">Mentions Légales</a>
-        <a href="/conditions-generales" class="hover:text-white transition-colors">Conditions Générales</a>
+        <a href="/mentions-legales" class="hover:text-white transition-colors">Mentions légales</a>
+        <a href="/conditions-generales" class="hover:text-white transition-colors">Conditions générales</a>
       </div>
     </div>
   </footer>
