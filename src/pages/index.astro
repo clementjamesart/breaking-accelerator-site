@@ -191,16 +191,67 @@ const LP_URL = 'https://breaking.dancingaccelerator.com/f6c65326';
       <span class="text-xs text-stone-400 uppercase tracking-widest font-medium">Newsletter</span>
       <h3 class="text-4xl md:text-5xl tracking-tight leading-tight">Méthode et retours terrain, chaque semaine</h3>
       <p class="text-stone-400 font-light leading-relaxed">Des conseils pratiques pour construire ta carrière dans le breaking — dans ta boite mail.</p>
-      <form class="flex flex-col sm:flex-row gap-3 max-w-md mx-auto">
-        <input
-          type="email"
-          placeholder="ton@email.com"
-          class="flex-1 px-5 py-3 rounded-full bg-stone-800 border border-stone-700 text-[#F5F3EF] placeholder-stone-500 focus:outline-none focus:border-stone-500 text-sm"
-        />
-        <button type="submit" class="px-6 py-3 bg-[#F5F3EF] text-stone-900 rounded-full font-medium hover:bg-stone-300 transition-colors text-sm whitespace-nowrap">
+      <form id="newsletter-form" class="flex flex-col gap-3 max-w-md mx-auto">
+        <div class="flex flex-col sm:flex-row gap-3">
+          <input
+            type="text"
+            id="newsletter-prenom"
+            placeholder="Ton prénom"
+            class="flex-1 px-5 py-3 rounded-full bg-stone-800 border border-stone-700 text-[#F5F3EF] placeholder-stone-500 focus:outline-none focus:border-stone-500 text-sm"
+          />
+          <input
+            type="email"
+            id="newsletter-email"
+            placeholder="ton@email.com"
+            required
+            class="flex-1 px-5 py-3 rounded-full bg-stone-800 border border-stone-700 text-[#F5F3EF] placeholder-stone-500 focus:outline-none focus:border-stone-500 text-sm"
+          />
+        </div>
+        <button type="submit" id="newsletter-btn" class="w-full sm:w-auto sm:self-center px-8 py-3 bg-[#F5F3EF] text-stone-900 rounded-full font-medium hover:bg-stone-300 transition-colors text-sm">
           S'inscrire
         </button>
+        <p id="newsletter-msg" class="text-sm text-center hidden"></p>
       </form>
+      <script>
+        const form = document.getElementById('newsletter-form');
+        const btn = document.getElementById('newsletter-btn');
+        const msg = document.getElementById('newsletter-msg');
+
+        form?.addEventListener('submit', async (e) => {
+          e.preventDefault();
+          const email = (document.getElementById('newsletter-email') as HTMLInputElement).value.trim();
+          const prenom = (document.getElementById('newsletter-prenom') as HTMLInputElement).value.trim();
+
+          btn.textContent = 'Inscription…';
+          btn.setAttribute('disabled', 'true');
+          msg.classList.add('hidden');
+
+          try {
+            const res = await fetch('/api/subscribe', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({ email, prenom }),
+            });
+            const data = await res.json();
+
+            if (data.success) {
+              form.innerHTML = '<p class="text-stone-300 text-center">Inscription confirmée. À très vite.</p>';
+            } else {
+              msg.textContent = data.error || 'Une erreur est survenue.';
+              msg.classList.remove('hidden');
+              msg.style.color = '#fca5a5';
+              btn.textContent = "S'inscrire";
+              btn.removeAttribute('disabled');
+            }
+          } catch {
+            msg.textContent = 'Erreur réseau. Réessaie dans un instant.';
+            msg.classList.remove('hidden');
+            msg.style.color = '#fca5a5';
+            btn.textContent = "S'inscrire";
+            btn.removeAttribute('disabled');
+          }
+        });
+      </script>
     </div>
   </section>
 
