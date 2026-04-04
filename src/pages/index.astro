@@ -232,12 +232,10 @@ const LP_URL = 'https://breaking.dancingaccelerator.com/f6c65326';
               headers: { 'Content-Type': 'application/json' },
               body: JSON.stringify({ email, prenom }),
             });
-            const data = await res.json();
-
-            if (data.success) {
+            if (res.ok) {
               form.innerHTML = '<p class="text-stone-300 text-center">Inscription confirmée. À très vite.</p>';
             } else {
-              msg.textContent = data.error || 'Une erreur est survenue.';
+              msg.textContent = 'Une erreur est survenue.';
               msg.classList.remove('hidden');
               msg.style.color = '#fca5a5';
               btn.textContent = "S'inscrire";
