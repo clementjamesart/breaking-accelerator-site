@@ -1,0 +1,617 @@
+---
+const R2_BASE = 'https://pub-082a1b16b2b048e9ace33389cff3fac5.r2.dev';
+---
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Merci | Breaking Accelerator</title>
+  <meta name="robots" content="noindex, nofollow" />
+
+  <!-- Meta Pixel Code -->
+  <script>
+    !function(f,b,e,v,n,t,s)
+    {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+    n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+    if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+    n.queue=[];t=b.createElement(e);t.async=!0;
+    t.src=v;s=b.getElementsByTagName(e)[0];
+    s.parentNode.insertBefore(t,s)}(window,document,'script',
+    'https://connect.facebook.net/en_US/fbevents.js');
+    fbq('init', '1525345608489094');
+    fbq('track', 'PageView');
+    fbq('track', 'CompleteRegistration');
+  </script>
+  <noscript><img height="1" width="1" style="display:none"
+    src="https://www.facebook.com/tr?id=1525345608489094&ev=PageView&noscript=1" /></noscript>
+
+  <!-- Microsoft Clarity -->
+  <script type="text/javascript">
+    (function(c,l,a,r,i,t,y){
+        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+    })(window, document, "clarity", "script", "vkvuziprou");
+  </script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet" />
+
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Poppins', sans-serif;
+      background-color: #FFFFFF;
+      color: #000000;
+    }
+
+    .container {
+      max-width: 700px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    /* LOGO */
+    .logo-top {
+      display: block;
+      width: 80px;
+      height: 80px;
+      margin: 32px auto 16px;
+    }
+
+    /* HERO */
+    .hero-title {
+      text-align: center;
+      font-size: 24px;
+      font-weight: 700;
+      text-transform: uppercase;
+      margin-bottom: 24px;
+      line-height: 1.3;
+    }
+
+    .divider {
+      border: none;
+      border-top: 1px solid #ddd;
+      margin: 32px 0;
+    }
+
+    /* ETAPE */
+    .etape-title {
+      text-align: center;
+      font-size: 18px;
+      margin-bottom: 24px;
+      line-height: 1.5;
+    }
+    .etape-title strong {
+      font-weight: 700;
+    }
+
+    .video-embed {
+      margin: 0 auto 24px;
+      max-width: 500px;
+    }
+    .video-embed video {
+      width: 100%;
+      border-radius: 8px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+    }
+
+    .encore {
+      text-align: center;
+      font-size: 16px;
+      font-weight: 700;
+      margin: 24px 0 12px;
+    }
+
+    .junior-img {
+      display: block;
+      max-width: 280px;
+      margin: 0 auto 24px;
+      border-radius: 8px;
+    }
+
+    /* RAPPELS */
+    .rappels-title {
+      font-size: 16px;
+      font-weight: 700;
+      margin-bottom: 16px;
+    }
+    .rappel {
+      font-size: 14px;
+      line-height: 1.6;
+      margin-bottom: 12px;
+    }
+
+    /* TEMOIGNAGES */
+    .section-title {
+      text-align: center;
+      font-size: 20px;
+      font-weight: 700;
+      text-transform: uppercase;
+      margin-bottom: 24px;
+    }
+
+    .temoignages-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      margin-bottom: 32px;
+    }
+    .temoignages-grid video {
+      width: 100%;
+      border-radius: 8px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    }
+    @media (max-width: 600px) {
+      .temoignages-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* FAQ SECTIONS */
+    .faq-section-title {
+      text-align: center;
+      font-size: 16px;
+      font-weight: 700;
+      margin-bottom: 24px;
+    }
+
+    .faq-item {
+      display: flex;
+      gap: 16px;
+      align-items: flex-start;
+      margin-bottom: 24px;
+    }
+    .faq-item .faq-video {
+      flex: 0 0 300px;
+    }
+    .faq-item .faq-video video {
+      width: 100%;
+      border-radius: 6px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    }
+    .faq-item .faq-text {
+      flex: 1;
+    }
+    .faq-item .faq-text .faq-q {
+      display: inline-block;
+      background: #0174C7;
+      color: #FFFFFF;
+      font-size: 14px;
+      font-weight: 600;
+      padding: 8px 16px;
+      border-radius: 4px;
+      margin-bottom: 8px;
+      line-height: 1.4;
+    }
+    .faq-item .faq-text .faq-a {
+      font-size: 13px;
+      line-height: 1.5;
+      color: #333;
+    }
+
+    @media (max-width: 600px) {
+      .faq-item {
+        flex-direction: column;
+      }
+      .faq-item .faq-video {
+        flex: none;
+        width: 100%;
+      }
+    }
+
+    /* PLAY OVERLAY */
+    .play-wrap {
+      position: relative;
+      cursor: pointer;
+    }
+    .play-btn {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 2;
+      border-radius: 8px;
+    }
+    .play-btn:hover .play-circle {
+      transform: scale(1.1);
+    }
+    .play-circle {
+      width: 60px;
+      height: 60px;
+      background: rgba(0, 0, 0, 0.65);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: transform 0.2s;
+    }
+    .play-circle::after {
+      content: '';
+      display: block;
+      width: 0;
+      height: 0;
+      border-left: 20px solid #FFFFFF;
+      border-top: 12px solid transparent;
+      border-bottom: 12px solid transparent;
+      margin-left: 4px;
+    }
+
+    /* FOOTER */
+    .footer-section {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 40px 24px;
+    }
+    .disclaimers {
+      font-family: 'Times New Roman', Times, serif;
+      font-size: 9px;
+      font-style: italic;
+      color: #000000;
+      text-align: center;
+      line-height: 1.6;
+    }
+    .disclaimers p {
+      margin-bottom: 8px;
+    }
+    .ba-logo {
+      display: block;
+      width: 120px;
+      height: 120px;
+      margin: 24px auto;
+    }
+    .legal-links {
+      display: flex;
+      gap: 24px;
+      justify-content: center;
+      margin-top: 16px;
+      font-size: 12px;
+    }
+    .legal-links a {
+      color: #0174C7;
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- LOGO -->
+  <img class="logo-top" src="/images/ba-logo.png" alt="Breaking Accelerator" />
+
+  <!-- HERO -->
+  <div class="container">
+    <h1 class="hero-title">Félicitations ! Ton rendez-vous est bien réservé !</h1>
+
+    <hr class="divider" />
+
+    <!-- ÉTAPE 1 -->
+    <p class="etape-title"><strong>Étape 1 (Important) :</strong> Pour que tu puisses profiter un maximum de notre conversation et que celle-ci soit productive, regarde la <strong>vidéo ci-dessous en priorité</strong></p>
+
+    <div class="video-embed play-wrap">
+      <video playsinline preload="none" poster={`${R2_BASE}/merci/thumb-etape1.jpg`}>
+        <source src={`${R2_BASE}/merci/etape1-call-booke.mp4`} type="video/mp4" />
+      </video>
+      <div class="play-btn"><div class="play-circle"></div></div>
+    </div>
+
+    <p class="encore">Encore une chose...</p>
+    <img class="junior-img" src="/images/junior-doigt-redbull.jpg" alt="Bboy Junior" />
+
+    <!-- RAPPELS -->
+    <p class="rappels-title">Quelques rappels pour préparer au mieux notre rendez-vous :</p>
+    <p class="rappel">&#x2705; Connecte-toi sur Google Meet à l'heure exacte de notre rendez-vous.</p>
+    <p class="rappel">&#x2705; Si tu as plus de 10 minutes de retard et que nous n'en sommes pas prévenus, le rendez-vous sera annulé et tu ne pourras pas le replanifier.</p>
+    <p class="rappel">&#x2705; Sois dans un endroit calme (pas en voiture, pas dans une salle d'attente, pas en train de marcher, etc.) et prévois environ 30 à 45 minutes.</p>
+    <p class="rappel">&#x2705; Tu as reçu un e-mail confirmant la date et l'heure de notre rendez-vous (note-la bien). Dans cet e-mail, il y a le lien pour accéder à l'appel.</p>
+
+    <hr class="divider" />
+
+    <!-- TEMOIGNAGES -->
+    <p class="section-title">Témoignages</p>
+    <div class="temoignages-grid">
+      <div class="play-wrap">
+        <video playsinline preload="none" poster={`${R2_BASE}/temoignages/thumb-mario.jpg`}>
+          <source src={`${R2_BASE}/temoignages/mario.mp4`} type="video/mp4" />
+        </video>
+        <div class="play-btn"><div class="play-circle"></div></div>
+      </div>
+      <div class="play-wrap">
+        <video playsinline preload="none" poster={`${R2_BASE}/temoignages/thumb-axel.jpg`}>
+          <source src={`${R2_BASE}/temoignages/axel.mp4`} type="video/mp4" />
+        </video>
+        <div class="play-btn"><div class="play-circle"></div></div>
+      </div>
+      <div class="play-wrap">
+        <video playsinline preload="none" poster={`${R2_BASE}/temoignages/thumb-phouthone.jpg`}>
+          <source src={`${R2_BASE}/temoignages/phouthone.mp4`} type="video/mp4" />
+        </video>
+        <div class="play-btn"><div class="play-circle"></div></div>
+      </div>
+    </div>
+    <hr class="divider" />
+
+    <!-- ÉTAPE 2 -->
+    <h2 class="section-title">Étape 2 : Découvre ce qui rend Breaking Accelerator unique</h2>
+
+    <!-- Comprendre BA -->
+    <p class="faq-section-title">Comprendre Breaking Accelerator</p>
+
+    <div class="faq-item">
+      <div class="faq-video">
+        <video playsinline preload="none" poster={`${R2_BASE}/faq/thumb-01.png`}>
+          <source src={`${R2_BASE}/faq/01-suivi-individuel.mp4`} type="video/mp4" />
+        </video>
+      </div>
+      <div class="faq-text">
+        <span class="faq-q">Est-ce que Bboy Junior suit les Breakers individuellement ?</span>
+        <p class="faq-a">Oui</p>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-video">
+        <video playsinline preload="none" poster={`${R2_BASE}/faq/thumb-02.png`}>
+          <source src={`${R2_BASE}/faq/02-ba-different.mp4`} type="video/mp4" />
+        </video>
+      </div>
+      <div class="faq-text">
+        <span class="faq-q">En quoi Breaking Accelerator est différent ?</span>
+        <p class="faq-a">Découvre pourquoi Breaking Accelerator fonctionne là ou d'autres échouent</p>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-video">
+        <video playsinline preload="none" poster={`${R2_BASE}/faq/thumb-03.png`}>
+          <source src={`${R2_BASE}/faq/03-niveau-ne-suffit-pas.mp4`} type="video/mp4" />
+        </video>
+      </div>
+      <div class="faq-text">
+        <span class="faq-q">Pourquoi avoir un niveau ne suffit pas pour faire carrière ?</span>
+        <p class="faq-a">Le niveau ne fait pas tout, des breakers avec un très bon niveau n'en vivent pas, d'autres avec un niveau normal (voir même avec un petit niveau) en vivent. Et ce n'est pas un hasard.</p>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-video">
+        <video playsinline preload="none" poster={`${R2_BASE}/faq/thumb-04.png`}>
+          <source src={`${R2_BASE}/faq/04-comment-fonctionne.mp4`} type="video/mp4" />
+        </video>
+      </div>
+      <div class="faq-text">
+        <span class="faq-q">Comment fonctionne Breaking Accelerator ?</span>
+        <p class="faq-a">La transmission de toutes les méthodologies et outils sur l'espace membre en ligne + la mise en pratique de ces connaissances et outils avec le suivi de Junior.</p>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-video">
+        <video playsinline preload="none" poster={`${R2_BASE}/faq/thumb-05.png`}>
+          <source src={`${R2_BASE}/faq/05-preuves.mp4`} type="video/mp4" />
+        </video>
+      </div>
+      <div class="faq-text">
+        <span class="faq-q">Quelles sont les preuves que Breaking Accelerator fonctionne ?</span>
+        <p class="faq-a">Nos parcours en sont la preuve + les témoignages de ceux ayant fini Breaking Accelerator.</p>
+      </div>
+    </div>
+
+    <hr class="divider" />
+
+    <!-- FAQ -->
+    <p class="faq-section-title">Réponse aux questions les plus fréquentes</p>
+
+    <div class="faq-item">
+      <div class="faq-video">
+        <video playsinline preload="none" poster={`${R2_BASE}/faq/thumb-13.png`}>
+          <source src={`${R2_BASE}/faq/13-gagner-sa-vie.mp4`} type="video/mp4" />
+        </video>
+      </div>
+      <div class="faq-text">
+        <span class="faq-q">Est-ce que tout le monde a la capacité de gagner sa vie avec la danse ?</span>
+        <p class="faq-a">Avec l'envie et la bonne méthodologie oui.</p>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-video">
+        <video playsinline preload="none" poster={`${R2_BASE}/faq/thumb-06.png`}>
+          <source src={`${R2_BASE}/faq/06-fait-pour-moi.mp4`} type="video/mp4" />
+        </video>
+      </div>
+      <div class="faq-text">
+        <span class="faq-q">Est-ce que Breaking Accelerator c'est fait pour moi ?</span>
+        <p class="faq-a">Ce n'est pas pour toi si tu veux vivre de la danse en un claquement de doigt sans la volonté d'appliquer ce qui va t'être dévoilé dans Breaking Accelerator. Mais si tu fais bel et bien partie de ceux qui passent à l'action et qui sont déterminés à vivre de leur passion pour le break, alors Breaking Accelerator est fait pour toi ! Les prérequis sont d'être majeur et de vivre en France.</p>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-video">
+        <video playsinline preload="none" poster={`${R2_BASE}/faq/thumb-07.png`}>
+          <source src={`${R2_BASE}/faq/07-temps.mp4`} type="video/mp4" />
+        </video>
+      </div>
+      <div class="faq-text">
+        <span class="faq-q">Est-ce que j'aurais le temps de suivre Breaking Accelerator ?</span>
+        <p class="faq-a">Plusieurs l'ont fait : parents, étudiants, salariés, etc. Breaking Accelerator est conçu pour que tu puisses avancer à ton rythme, sans pression si tu as besoin de temps, ou à fond si tu veux pouvoir t'y mettre à 1000%.</p>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-video">
+        <video playsinline preload="none" poster={`${R2_BASE}/faq/thumb-08.png`}>
+          <source src={`${R2_BASE}/faq/08-si-ca-marche-pas.mp4`} type="video/mp4" />
+        </video>
+      </div>
+      <div class="faq-text">
+        <span class="faq-q">Et si ça ne fonctionne pas ?</span>
+        <p class="faq-a">Nous comprenons cette crainte, c'est pourquoi cette fois peut être différente.</p>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-video">
+        <video playsinline preload="none" poster={`${R2_BASE}/faq/thumb-10.png`}>
+          <source src={`${R2_BASE}/faq/10-budget-limite.mp4`} type="video/mp4" />
+        </video>
+      </div>
+      <div class="faq-text">
+        <span class="faq-q">Et si j'ai un budget limité ?</span>
+        <p class="faq-a">Le budget ne doit pas être un frein. Découvre les solutions qui existent.</p>
+      </div>
+    </div>
+
+    <hr class="divider" />
+
+    <!-- PASSER À L'ACTION -->
+    <p class="faq-section-title">Se sentir prêt à passer à l'action</p>
+
+    <div class="faq-item">
+      <div class="faq-video">
+        <video playsinline preload="none" poster={`${R2_BASE}/faq/thumb-09.png`}>
+          <source src={`${R2_BASE}/faq/09-pourquoi-attendre.mp4`} type="video/mp4" />
+        </video>
+      </div>
+      <div class="faq-text">
+        <span class="faq-q">Pourquoi attendre est une erreur ?</span>
+        <p class="faq-a">Chaque mois compte, voilà pourquoi il vaut mieux agir maintenant.</p>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-video">
+        <video playsinline preload="none" poster={`${R2_BASE}/faq/thumb-11.png`}>
+          <source src={`${R2_BASE}/faq/11-tout-essaye.mp4`} type="video/mp4" />
+        </video>
+      </div>
+      <div class="faq-text">
+        <span class="faq-q">"J'ai tout essayé"</span>
+        <p class="faq-a">Ne subis plus et décide en conscience d'avancer vers ton objectif.</p>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-video">
+        <video playsinline preload="none" poster={`${R2_BASE}/faq/thumb-12.png`}>
+          <source src={`${R2_BASE}/faq/12-doutes.mp4`} type="video/mp4" />
+        </video>
+      </div>
+      <div class="faq-text">
+        <span class="faq-q">Et si j'ai des doutes après avoir commencé ?</span>
+        <p class="faq-a">Breaking Accelerator s'adapte à toi et est fait pour te soutenir.</p>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-video">
+        <video playsinline preload="none" poster={`${R2_BASE}/faq/thumb-14.png`}>
+          <source src={`${R2_BASE}/faq/14-decision-seul.mp4`} type="video/mp4" />
+        </video>
+      </div>
+      <div class="faq-text">
+        <span class="faq-q">Je ne peux pas prendre une décision seul</span>
+        <p class="faq-a">Cette décision t'appartient. On t'explique pourquoi.</p>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-video">
+        <video playsinline preload="none" poster={`${R2_BASE}/faq/thumb-15.png`}>
+          <source src={`${R2_BASE}/faq/15-essayer-seul.mp4`} type="video/mp4" />
+        </video>
+      </div>
+      <div class="faq-text">
+        <span class="faq-q">Et si je préfère essayer seul ?</span>
+        <p class="faq-a">C'est possible, mais voilà ce que ça change concrètement.</p>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- FOOTER -->
+  <div class="footer-section">
+    <div class="disclaimers">
+      <p>Ce site ne fait pas partie du site web de Facebook ou de Facebook Inc. En outre, ce site n'est PAS approuvé par Facebook de quelque manière que ce soit.<br />FACEBOOK est une marque déposée de FACEBOOK, Inc.</p>
+      <p>&copy; Breaking Accelerator - Tous droits réservés</p>
+    </div>
+
+    <img class="ba-logo" src="/images/ba-logo.png" alt="Breaking Accelerator" />
+
+    <div class="legal-links">
+      <a href="/cgv">Conditions générales de vente</a>
+      <a href="/confidentialite">Politique de confidentialité</a>
+      <a href="/mentions-legales">Mentions légales</a>
+    </div>
+  </div>
+
+  <script is:inline>
+    // Custom play button for ALL videos (inline styles to bypass Astro CSS scoping)
+    document.querySelectorAll('video').forEach(function(video) {
+      video.removeAttribute('controls');
+
+      // Use existing .play-wrap or parent (.faq-video / .video-embed) as container
+      var wrap = video.closest('.play-wrap') || video.parentNode;
+      wrap.style.position = 'relative';
+      wrap.style.cursor = 'pointer';
+
+      // Create play overlay with inline styles (Astro scoped CSS won't reach JS-created elements)
+      var btn = document.createElement('div');
+      btn.style.position = 'absolute';
+      btn.style.top = '0';
+      btn.style.left = '0';
+      btn.style.right = '0';
+      btn.style.bottom = '0';
+      btn.style.display = 'flex';
+      btn.style.alignItems = 'center';
+      btn.style.justifyContent = 'center';
+      btn.style.zIndex = '2';
+      btn.style.borderRadius = '8px';
+      btn.style.cursor = 'pointer';
+
+      var circle = document.createElement('div');
+      circle.style.width = '60px';
+      circle.style.height = '60px';
+      circle.style.background = 'rgba(0, 0, 0, 0.65)';
+      circle.style.borderRadius = '50%';
+      circle.style.display = 'flex';
+      circle.style.alignItems = 'center';
+      circle.style.justifyContent = 'center';
+      circle.style.transition = 'transform 0.2s';
+
+      var triangle = document.createElement('div');
+      triangle.style.width = '0';
+      triangle.style.height = '0';
+      triangle.style.borderLeft = '20px solid #FFFFFF';
+      triangle.style.borderTop = '12px solid transparent';
+      triangle.style.borderBottom = '12px solid transparent';
+      triangle.style.marginLeft = '4px';
+
+      circle.appendChild(triangle);
+      btn.appendChild(circle);
+      wrap.appendChild(btn);
+
+      // Hover effect
+      btn.addEventListener('mouseenter', function() { circle.style.transform = 'scale(1.1)'; });
+      btn.addEventListener('mouseleave', function() { circle.style.transform = 'scale(1)'; });
+
+      // Click to play
+      btn.addEventListener('click', function() {
+        btn.style.display = 'none';
+        video.controls = true;
+        video.play();
+      });
+
+      // Show overlay again when video ends
+      video.addEventListener('ended', function() {
+        btn.style.display = 'flex';
+        video.controls = false;
+      });
+    });
+  </script>
+
+</body>
+</html>

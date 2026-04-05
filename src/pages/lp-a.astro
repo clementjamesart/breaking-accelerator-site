@@ -351,13 +351,6 @@ const META_PIXEL_ID = '1525345608489094';
   <!-- FOOTER -->
   <div class="footer-section">
     <div class="disclaimers">
-      <p>&nbsp;</p>
-      <p>Nous ne pouvons pas garantir, et nous ne prétendons pas garantir, que vous obtiendrez des résultats ou gagnerez de l'argent en utilisant nos idées, nos informations, nos outils ou nos stratégies. Rien sur cette page, ni sur aucun de nos sites web, ni aucun de nos contenus ou programmes ne constitue une promesse ou une garantie de résultats ou de gains futurs, et nous n'offrons aucun conseil juridique, médical, fiscal ou autre conseil professionnel.</p>
-      <p>Les témoignages, exemples de revenus et autres résultats présentés sur ce site, bien que réels et contrôlés, sont fournis à titre illustratif et ne constituent en aucun cas une garantie de résultats futurs. Les résultats obtenus peuvent varier considérablement en fonction de nombreux facteurs, notamment l'effort personnel, les compétences, l'expérience et les conditions de marché.</p>
-      <p>L'entreprise Sas.Sourcenet.Org ne garantit pas que les résultats présentés sur cette page, ou tout autre succès financier ou professionnel, soient réalisables par chaque participant.</p>
-      <p>En choisissant de suivre la formation, l'utilisateur reconnaît qu'il comprend les risques inhérents à toute activité professionnelle et que les résultats financiers ou personnels dépendent d'un ensemble de facteurs qu'il ne lui est pas possible de garantir en l'absence de maîtrise complète de ces éléments.</p>
-      <p>Soyez prudent et consultez toujours votre comptable, votre avocat ou votre conseiller professionnel avant d'agir sur la base de ces informations ou de toute autre information relative à un changement de mode de vie, à votre entreprise ou à vos finances.</p>
-      <p>Vous êtes seul responsable de vos décisions, actions et résultats dans la vie, et en vous inscrivant ici, vous acceptez de ne pas tenter de nous tenir responsables de vos décisions, actions ou résultats, à tout moment et en toutes circonstances.</p>
       <p>Ce site ne fait pas partie du site web de Facebook ou de Facebook Inc. En outre, ce site n'est PAS approuvé par Facebook de quelque manière que ce soit.<br />FACEBOOK est une marque déposée de FACEBOOK, Inc.</p>
       <p>&copy; Breaking Accelerator - Tous droits réservés</p>
     </div>
@@ -397,6 +390,15 @@ const META_PIXEL_ID = '1525345608489094';
       }
     });
 
+    // Reset button if user navigates back (bfcache restore)
+    window.addEventListener('pageshow', function(e) {
+      if (e.persisted) {
+        var btn = document.getElementById('submit-btn');
+        btn.disabled = false;
+        btn.innerHTML = 'Je découvre gratuitement<small style="display:block;font-size:14px;font-weight:400">(avant supression)</small>';
+      }
+    });
+
     // Form submit
     document.getElementById('optin-form').addEventListener('submit', async function(e) {
       e.preventDefault();
@@ -409,33 +411,21 @@ const META_PIXEL_ID = '1525345608489094';
       var formData = new FormData(e.target);
       var data = Object.fromEntries(formData);
 
-      try {
-        var resp = await fetch(WEBHOOK_URL, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(data),
-        });
+      // Build redirect URL
+      var vslParams = new URLSearchParams({
+        email: data.email,
+        utm_source: data.utm_source || '',
+        utm_medium: data.utm_medium || '',
+        utm_campaign: data.utm_campaign || '',
+        utm_content: data.utm_content || '',
+      }).toString();
 
-        if (resp.ok) {
-          // Lead pixel fires on VSL page load (comme Systeme.io)
-          // Pass lead identity to VSL page
-          var vslParams = new URLSearchParams({
-            email: data.email,
-            utm_source: data.utm_source || '',
-            utm_medium: data.utm_medium || '',
-            utm_campaign: data.utm_campaign || '',
-            utm_content: data.utm_content || '',
-          }).toString();
-          window.location.href = VSL_URL + '?' + vslParams;
-        } else {
-          throw new Error('Erreur serveur');
-        }
-      } catch (err) {
-        errorMsg.textContent = 'Une erreur est survenue. Réessaye.';
-        errorMsg.style.display = 'block';
-        btn.disabled = false;
-        btn.innerHTML = 'Je découvre gratuitement<small>(avant supression)</small>';
-      }
+      // Fire webhook in background (sendBeacon survives page navigation)
+      var blob = new Blob([JSON.stringify(data)], { type: 'application/json' });
+      navigator.sendBeacon(WEBHOOK_URL, blob);
+
+      // Redirect immediately
+      window.location.href = VSL_URL + '?' + vslParams;
     });
   </script>
 

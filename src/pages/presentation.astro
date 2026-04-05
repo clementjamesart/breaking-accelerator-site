@@ -1,5 +1,5 @@
 ---
-const BOOKING_URL = 'https://calendly.com/breakingaccelerator/bilan';
+const BOOKING_URL = '/booking';
 const VSL_VIDEO_URL = 'https://pub-082a1b16b2b048e9ace33389cff3fac5.r2.dev/vsl-v2.mp4';
 const TRACKING_URL = 'https://automate.dancingaccelerator.com/webhook/vsl-tracking-ba';
 const CTA_DELAY_SECONDS = 1460;
@@ -119,6 +119,12 @@ const CTA_DELAY_SECONDS = 1460;
       margin: 0 auto;
       padding: 0 24px 32px;
       position: relative;
+      aspect-ratio: 16 / 9;
+    }
+    .video-wrapper video,
+    .video-wrapper .plyr {
+      width: 100%;
+      height: 100%;
     }
     /* Overlay unmute */
     .unmute-overlay {
@@ -132,13 +138,18 @@ const CTA_DELAY_SECONDS = 1460;
       background: rgba(0, 0, 0, 0.3);
     }
     .unmute-overlay span {
-      background: rgba(0, 0, 0, 0.7);
+      background: rgba(220, 38, 38, 0.85);
       color: #FFFFFF;
       font-family: 'Poppins', sans-serif;
       font-size: 16px;
       font-weight: 600;
       padding: 12px 24px;
       border-radius: 8px;
+      animation: pulse-btn 1.8s ease-in-out infinite;
+    }
+    @keyframes pulse-btn {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.08); }
     }
 
     /* CTA BOOKING */
@@ -234,7 +245,7 @@ const CTA_DELAY_SECONDS = 1460;
 
   <!-- VIDEO -->
   <div class="video-wrapper">
-    <video id="vsl-player" playsinline muted autoplay>
+    <video id="vsl-player" playsinline muted autoplay poster="https://pub-082a1b16b2b048e9ace33389cff3fac5.r2.dev/poster-vsl.jpg" style="opacity:0;transition:opacity 0.3s;">
       <source src={VSL_VIDEO_URL} type="video/mp4" />
     </video>
     <div class="unmute-overlay" id="unmute-overlay">
@@ -253,13 +264,6 @@ const CTA_DELAY_SECONDS = 1460;
   <!-- FOOTER -->
   <div class="footer-section">
     <div class="disclaimers">
-      <p>&nbsp;</p>
-      <p>Nous ne pouvons pas garantir, et nous ne prétendons pas garantir, que vous obtiendrez des résultats ou gagnerez de l'argent en utilisant nos idées, nos informations, nos outils ou nos stratégies. Rien sur cette page, ni sur aucun de nos sites web, ni aucun de nos contenus ou programmes ne constitue une promesse ou une garantie de résultats ou de gains futurs, et nous n'offrons aucun conseil juridique, médical, fiscal ou autre conseil professionnel.</p>
-      <p>Les témoignages, exemples de revenus et autres résultats présentés sur ce site, bien que réels et contrôlés, sont fournis à titre illustratif et ne constituent en aucun cas une garantie de résultats futurs. Les résultats obtenus peuvent varier considérablement en fonction de nombreux facteurs, notamment l'effort personnel, les compétences, l'expérience et les conditions de marché.</p>
-      <p>L'entreprise Sas.Sourcenet.Org ne garantit pas que les résultats présentés sur cette page, ou tout autre succès financier ou professionnel, soient réalisables par chaque participant.</p>
-      <p>En choisissant de suivre la formation, l'utilisateur reconnaît qu'il comprend les risques inhérents à toute activité professionnelle et que les résultats financiers ou personnels dépendent d'un ensemble de facteurs qu'il ne lui est pas possible de garantir en l'absence de maîtrise complète de ces éléments.</p>
-      <p>Soyez prudent et consultez toujours votre comptable, votre avocat ou votre conseiller professionnel avant d'agir sur la base de ces informations ou de toute autre information relative à un changement de mode de vie, à votre entreprise ou à vos finances.</p>
-      <p>Vous êtes seul responsable de vos décisions, actions et résultats dans la vie, et en vous inscrivant ici, vous acceptez de ne pas tenter de nous tenir responsables de vos décisions, actions ou résultats, à tout moment et en toutes circonstances.</p>
       <p>Ce site ne fait pas partie du site web de Facebook ou de Facebook Inc. En outre, ce site n'est PAS approuvé par Facebook de quelque manière que ce soit.<br />FACEBOOK est une marque déposée de FACEBOOK, Inc.</p>
       <p>&copy; Breaking Accelerator - Tous droits réservés</p>
     </div>
@@ -296,6 +300,11 @@ const CTA_DELAY_SECONDS = 1460;
     // Shadow sur le player Plyr (bypass Astro CSS scoping)
     var plyrEl = document.querySelector('.plyr');
     if (plyrEl) plyrEl.style.boxShadow = '0 4px 30px rgba(0, 0, 0, 0.3)';
+
+    // Show video immediately (poster image covers the black)
+    var rawVideo = document.getElementById('vsl-player');
+    rawVideo.style.opacity = '1';
+    if (plyrEl) plyrEl.style.opacity = '1';
 
     var unmuteOverlay = document.getElementById('unmute-overlay');
 
