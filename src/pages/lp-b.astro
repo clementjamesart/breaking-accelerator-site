@@ -1,0 +1,435 @@
+---
+const WEBHOOK_URL = 'https://automate.dancingaccelerator.com/webhook/optin-ba';
+const VSL_URL = '/presentation';
+const META_PIXEL_ID = '1525345608489094';
+---
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Breaking Accelerator | Candidature</title>
+  <meta name="description" content="Découvre comment faire carrière et vivre de ta passion pour le break. Validé par Bboy Junior." />
+
+  <!-- Meta Pixel Code -->
+  <script>
+    !function(f,b,e,v,n,t,s)
+    {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+    n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+    if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+    n.queue=[];t=b.createElement(e);t.async=!0;
+    t.src=v;s=b.getElementsByTagName(e)[0];
+    s.parentNode.insertBefore(t,s)}(window,document,'script',
+    'https://connect.facebook.net/en_US/fbevents.js');
+    fbq('init', '1525345608489094');
+    fbq('track', 'PageView');
+  </script>
+  <noscript><img height="1" width="1" style="display:none"
+    src="https://www.facebook.com/tr?id=1525345608489094&ev=PageView&noscript=1" /></noscript>
+
+  <!-- Microsoft Clarity -->
+  <script type="text/javascript">
+    (function(c,l,a,r,i,t,y){
+        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+    })(window, document, "clarity", "script", "vkvuziprou");
+  </script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet" />
+
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Poppins', sans-serif;
+      background-color: #FFFFFF;
+      color: #000000;
+    }
+
+    /* TOPBAR */
+    .topbar {
+      background: #000000;
+      color: #FFFFFF;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 24px;
+      font-size: 12px;
+      font-weight: 700;
+    }
+    @media (max-width: 600px) {
+      .topbar {
+        flex-direction: column;
+        gap: 4px;
+        text-align: center;
+      }
+    }
+
+    /* HERO */
+    .hero {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 40px 24px 24px;
+      text-align: center;
+    }
+    .hero .subtitle {
+      font-size: 18px;
+      font-weight: 400;
+      margin-bottom: 16px;
+    }
+    .hero .title {
+      font-size: 23px;
+      font-weight: 700;
+      text-transform: uppercase;
+      line-height: 1.3;
+      margin-bottom: 16px;
+    }
+    .hero .sub {
+      font-size: 18px;
+      font-weight: 400;
+      margin-bottom: 24px;
+    }
+
+    @media (max-width: 600px) {
+      .hero .subtitle { font-size: 16px; }
+      .hero .title { font-size: 13px; }
+      .hero .sub { font-size: 16px; }
+    }
+
+    /* CTA SECTION */
+    .cta-section {
+      text-align: center;
+      padding: 0 24px 32px;
+    }
+    .cta-btn {
+      display: inline-block;
+      background: #0174C7;
+      color: #FFFFFF;
+      font-family: 'Poppins', sans-serif;
+      font-size: 20px;
+      font-weight: 600;
+      padding: 4px 30px;
+      border: 2px solid #FFFFFF;
+      border-radius: 8px;
+      cursor: pointer;
+      line-height: 1.6;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+      transition: transform 0.2s, background-color 0.2s, box-shadow 0.2s;
+    }
+    .cta-btn:hover {
+      transform: scale(1.05);
+      background: #28a745;
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.5);
+    }
+    .cta-btn small {
+      display: block;
+      font-size: 14px;
+      font-weight: 400;
+    }
+
+    /* HERO BANNER */
+    .hero-banner {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 0 24px 40px;
+      text-align: center;
+    }
+    .hero-banner img {
+      width: 100%;
+      max-width: 700px;
+      cursor: pointer;
+    }
+
+    /* FOOTER */
+    .footer-section {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 40px 24px;
+    }
+    .disclaimers {
+      font-family: 'Times New Roman', Times, serif;
+      font-size: 9px;
+      font-style: italic;
+      color: #000000;
+      text-align: center;
+      line-height: 1.6;
+    }
+    .disclaimers p {
+      margin-bottom: 8px;
+    }
+    .ba-logo {
+      display: block;
+      width: 120px;
+      height: 120px;
+      margin: 24px auto;
+    }
+    .legal-links {
+      display: flex;
+      gap: 24px;
+      justify-content: center;
+      margin-top: 16px;
+      font-size: 12px;
+    }
+    .legal-links a {
+      color: #0174C7;
+      text-decoration: underline;
+    }
+
+    /* POPUP OVERLAY */
+    .overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.5);
+      z-index: 100;
+      align-items: center;
+      justify-content: center;
+    }
+    .overlay.active { display: flex; }
+
+    .popup {
+      background: #FFFFFF;
+      padding: 40px 32px;
+      max-width: 500px;
+      width: 90%;
+      position: relative;
+      border: 2px solid #0174C7;
+      border-radius: 4px;
+    }
+    .popup-close {
+      position: absolute;
+      top: 8px;
+      right: 12px;
+      background: none;
+      border: none;
+      color: #666;
+      font-size: 28px;
+      cursor: pointer;
+      line-height: 1;
+    }
+    .popup h2 {
+      font-size: 18px;
+      font-weight: 700;
+      line-height: 1.4;
+      margin: 0 0 24px;
+      text-align: center;
+      color: #000000;
+    }
+    .popup input {
+      display: block;
+      width: 100%;
+      padding: 12px 16px;
+      margin-bottom: 16px;
+      background: #FFFFFF;
+      border: 1px solid #B0BACA;
+      border-radius: 5px;
+      color: #000000;
+      font-family: 'Poppins', sans-serif;
+      font-size: 18px;
+      box-sizing: border-box;
+    }
+    .popup input::placeholder { color: #999; }
+    .popup input:focus {
+      outline: none;
+      border-color: #0174C7;
+    }
+    .popup .submit-btn {
+      display: block;
+      width: auto;
+      margin: 0 auto;
+      background: #0174C7;
+      color: #FFFFFF;
+      font-family: 'Poppins', sans-serif;
+      font-size: 20px;
+      font-weight: 600;
+      padding: 4px 30px;
+      border: 2px solid #FFFFFF;
+      border-radius: 8px;
+      cursor: pointer;
+      line-height: 1.6;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+      transition: transform 0.2s, background-color 0.2s, box-shadow 0.2s;
+    }
+    .popup .submit-btn:hover {
+      transform: scale(1.05);
+      background: #28a745;
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.5);
+    }
+    .popup .submit-btn:disabled {
+      opacity: 0.5;
+      cursor: wait;
+    }
+    .popup .submit-btn small {
+      display: block;
+      font-size: 14px;
+      font-weight: 400;
+    }
+    .popup .disclaimer {
+      font-family: 'Poppins', sans-serif;
+      font-size: 12px;
+      font-style: italic;
+      color: #000000;
+      text-align: center;
+      margin-top: 16px;
+      line-height: 1.5;
+    }
+    .popup .error-msg {
+      color: #EF4444;
+      font-size: 13px;
+      text-align: center;
+      margin-bottom: 12px;
+      display: none;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- TOPBAR -->
+  <div class="topbar">
+    <span>Message important pour les breakers</span>
+    <span>De la part de Bboy Junior ayant + de 25 ans de carrière</span>
+  </div>
+
+  <!-- HERO -->
+  <div class="hero">
+    <p class="subtitle">Révélé dans ce documentaire gratuit par Bboy Junior :</p>
+    <p class="title">Comment un breaker "normal" a décroché 300 contrats sans être célèbre et pourquoi c'est possible de faire pareil</p>
+    <p class="sub">Sans contact, sans followers et sans avoir gagné un seul battle</p>
+  </div>
+
+  <!-- CTA -->
+  <div class="cta-section">
+    <button class="cta-btn" id="open-popup">
+      Je découvre (gratuitement)
+      <small>Clique ici</small>
+    </button>
+  </div>
+
+  <!-- HERO BANNER -->
+  <div class="hero-banner">
+    <img src="/images/hero-banner.jpg" alt="Bboy Junior en action" id="banner-cta" loading="eager" />
+  </div>
+
+  <!-- POPUP OPTIN -->
+  <div class="overlay" id="overlay">
+    <div class="popup">
+      <button class="popup-close" id="close-popup">&times;</button>
+      <h2>Pour le découvrir, clique sur le bouton après avoir renseigné tes informations :</h2>
+      <div class="error-msg" id="error-msg"></div>
+      <form id="optin-form">
+        <input type="text" name="prenom" placeholder="Prénom + Nom" required />
+        <input type="email" name="email" placeholder="Email" required />
+        <input type="hidden" name="utm_source" id="utm_source" />
+        <input type="hidden" name="utm_medium" id="utm_medium" />
+        <input type="hidden" name="utm_campaign" id="utm_campaign" />
+        <input type="hidden" name="utm_content" id="utm_content" />
+        <button type="submit" class="submit-btn" id="submit-btn">
+          Je découvre gratuitement
+          <small>(avant supression)</small>
+        </button>
+      </form>
+      <p class="disclaimer">
+        Tes informations sont protégées et ne seront pas partagées.
+      </p>
+      <p class="disclaimer">
+        Ceci est une vérification pour nous protéger des BOTS et des curieux qui mettent des e-mails erronés.
+      </p>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <div class="footer-section">
+    <div class="disclaimers">
+      <p>&nbsp;</p>
+      <p>Nous ne pouvons pas garantir, et nous ne prétendons pas garantir, que vous obtiendrez des résultats ou gagnerez de l'argent en utilisant nos idées, nos informations, nos outils ou nos stratégies. Rien sur cette page, ni sur aucun de nos sites web, ni aucun de nos contenus ou programmes ne constitue une promesse ou une garantie de résultats ou de gains futurs, et nous n'offrons aucun conseil juridique, médical, fiscal ou autre conseil professionnel.</p>
+      <p>Les témoignages, exemples de revenus et autres résultats présentés sur ce site, bien que réels et contrôlés, sont fournis à titre illustratif et ne constituent en aucun cas une garantie de résultats futurs. Les résultats obtenus peuvent varier considérablement en fonction de nombreux facteurs, notamment l'effort personnel, les compétences, l'expérience et les conditions de marché.</p>
+      <p>L'entreprise Sas.Sourcenet.Org ne garantit pas que les résultats présentés sur cette page, ou tout autre succès financier ou professionnel, soient réalisables par chaque participant.</p>
+      <p>En choisissant de suivre la formation, l'utilisateur reconnaît qu'il comprend les risques inhérents à toute activité professionnelle et que les résultats financiers ou personnels dépendent d'un ensemble de facteurs qu'il ne lui est pas possible de garantir en l'absence de maîtrise complète de ces éléments.</p>
+      <p>Soyez prudent et consultez toujours votre comptable, votre avocat ou votre conseiller professionnel avant d'agir sur la base de ces informations ou de toute autre information relative à un changement de mode de vie, à votre entreprise ou à vos finances.</p>
+      <p>Vous êtes seul responsable de vos décisions, actions et résultats dans la vie, et en vous inscrivant ici, vous acceptez de ne pas tenter de nous tenir responsables de vos décisions, actions ou résultats, à tout moment et en toutes circonstances.</p>
+      <p>Ce site ne fait pas partie du site web de Facebook ou de Facebook Inc. En outre, ce site n'est PAS approuvé par Facebook de quelque manière que ce soit.<br />FACEBOOK est une marque déposée de FACEBOOK, Inc.</p>
+      <p>&copy; Breaking Accelerator - Tous droits réservés</p>
+    </div>
+
+    <img class="ba-logo" src="/images/ba-logo.png" alt="Breaking Accelerator" />
+
+    <div class="legal-links">
+      <a href="/cgv">Conditions générales de vente</a>
+      <a href="/confidentialite">Politique de confidentialité</a>
+      <a href="/mentions-legales">Mentions légales</a>
+    </div>
+  </div>
+
+  <script define:vars={{ WEBHOOK_URL, VSL_URL }}>
+    // UTM capture
+    const params = new URLSearchParams(window.location.search);
+    ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content'].forEach(function(k) {
+      var el = document.getElementById(k);
+      if (el && params.get(k)) el.value = params.get(k);
+    });
+
+    // Popup open
+    document.getElementById('open-popup').addEventListener('click', function() {
+      document.getElementById('overlay').classList.add('active');
+    });
+    // Banner also opens popup
+    document.getElementById('banner-cta').addEventListener('click', function() {
+      document.getElementById('overlay').classList.add('active');
+    });
+    // Close popup
+    document.getElementById('close-popup').addEventListener('click', function() {
+      document.getElementById('overlay').classList.remove('active');
+    });
+    document.getElementById('overlay').addEventListener('click', function(e) {
+      if (e.target === e.currentTarget) {
+        document.getElementById('overlay').classList.remove('active');
+      }
+    });
+
+    // Form submit
+    document.getElementById('optin-form').addEventListener('submit', async function(e) {
+      e.preventDefault();
+      var btn = document.getElementById('submit-btn');
+      var errorMsg = document.getElementById('error-msg');
+      btn.disabled = true;
+      btn.textContent = 'Envoi en cours...';
+      errorMsg.style.display = 'none';
+
+      var formData = new FormData(e.target);
+      var data = Object.fromEntries(formData);
+
+      try {
+        var resp = await fetch(WEBHOOK_URL, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(data),
+        });
+
+        if (resp.ok) {
+          // Lead pixel fires on VSL page load (comme Systeme.io)
+          // Pass lead identity to VSL page
+          var vslParams = new URLSearchParams({
+            email: data.email,
+            utm_source: data.utm_source || '',
+            utm_medium: data.utm_medium || '',
+            utm_campaign: data.utm_campaign || '',
+            utm_content: data.utm_content || '',
+          }).toString();
+          window.location.href = VSL_URL + '?' + vslParams;
+        } else {
+          throw new Error('Erreur serveur');
+        }
+      } catch (err) {
+        errorMsg.textContent = 'Une erreur est survenue. Réessaye.';
+        errorMsg.style.display = 'block';
+        btn.disabled = false;
+        btn.innerHTML = 'Je découvre gratuitement<small>(avant supression)</small>';
+      }
+    });
+  </script>
+
+</body>
+</html>
