@@ -45,6 +45,19 @@ const {
     .animate-scroll {
       animation: scroll 30s linear infinite;
     }
+    .testimonial-marquee {
+      mask-image: linear-gradient(to right, transparent, black 5%, black 95%, transparent);
+    }
+    @keyframes testimonial-scroll {
+      0% { transform: translateX(var(--manual-offset, 0px)); }
+      100% { transform: translateX(calc(-50% + var(--manual-offset, 0px))); }
+    }
+    .testimonial-scroll {
+      animation: testimonial-scroll 70s linear infinite;
+    }
+    .testimonial-scroll:hover {
+      animation-play-state: paused;
+    }
     ::-webkit-scrollbar { width: 6px; }
     ::-webkit-scrollbar-track { background: #F5F3EF; }
     ::-webkit-scrollbar-thumb { background: #D1CEC7; border-radius: 3px; }

@@ -1,0 +1,192 @@
+---
+import Layout from '../../layouts/Layout.astro';
+
+const LP_URL = 'https://breaking.dancingaccelerator.com/f6c65326';
+---
+
+<Layout title="Ton entourage a peur pour toi, pas contre toi | Breaking Accelerator" description="La majorité des danseurs qui vivent de leur art aujourd'hui sont passés exactement par là. Pas de soutien au départ. Parfois même rejetés. C'est le parcours classique.">
+
+  <!-- BANNER -->
+  <div class="bg-[#1C1C1C] text-[#F5F3EF] text-xs font-bold py-3 text-center tracking-widest uppercase px-4">
+    Quand la passion devient une carrière
+  </div>
+
+  <!-- NAV -->
+  <nav class="sticky top-0 z-50 w-full px-6 py-5 flex justify-between items-center bg-[#F5F3EF]/90 backdrop-blur-sm border-b border-stone-200/50">
+    <a href="/" class="text-xl md:text-2xl tracking-tight text-stone-900 leading-none" style="font-family: 'DM Serif Display', serif;">
+      Breaking Accelerator
+    </a>
+    <div class="hidden md:flex items-center space-x-8 text-sm font-medium tracking-wide text-stone-600">
+      <a href="/" class="hover:text-stone-900 transition-colors">Accueil</a>
+      <a href="/a-propos" class="hover:text-stone-900 transition-colors">À propos</a>
+      <a href="/journal" class="text-stone-900 transition-colors">Le Journal</a>
+      <a href={LP_URL} class="hover:text-stone-900 transition-colors">Rejoindre</a>
+      <a href="https://bboyjunior.com" target="_blank" rel="noopener" class="hover:text-stone-900 transition-colors flex items-center gap-1">
+        Bboy Junior
+        <iconify-icon icon="solar:arrow-right-up-linear" stroke-width="1.5" class="text-xs"></iconify-icon>
+      </a>
+    </div>
+    <button id="menu-toggle" class="md:hidden text-2xl">
+      <iconify-icon icon="solar:hamburger-menu-linear" stroke-width="1.5"></iconify-icon>
+    </button>
+  </nav>
+
+  <!-- MOBILE MENU -->
+  <div id="mobile-menu" class="hidden fixed inset-0 z-40 bg-[#F5F3EF] flex flex-col items-center justify-center space-y-8 text-2xl font-medium text-stone-900">
+    <button id="menu-close" class="absolute top-6 right-6 text-3xl">
+      <iconify-icon icon="solar:close-linear" stroke-width="1.5"></iconify-icon>
+    </button>
+    <a href="/" class="hover:text-stone-500 transition-colors">Accueil</a>
+    <a href="/a-propos" class="hover:text-stone-500 transition-colors">À propos</a>
+    <a href="/journal" class="text-stone-500 transition-colors">Le Journal</a>
+    <a href={LP_URL} class="hover:text-stone-500 transition-colors">Rejoindre</a>
+    <a href="https://bboyjunior.com" target="_blank" rel="noopener" class="hover:text-stone-500 transition-colors flex items-center gap-2">
+      Bboy Junior
+      <iconify-icon icon="solar:arrow-right-up-linear" stroke-width="1.5" class="text-lg"></iconify-icon>
+    </a>
+  </div>
+
+  <!-- ARTICLE -->
+  <article class="py-20 px-6 md:px-12">
+    <div class="max-w-3xl mx-auto">
+
+      <!-- HEADER -->
+      <a href="/journal" class="text-sm text-stone-500 hover:text-stone-900 transition-colors inline-flex items-center gap-2 mb-8">
+        <iconify-icon icon="solar:arrow-left-linear" stroke-width="1.5"></iconify-icon>
+        Retour au Journal
+      </a>
+      <span class="text-xs text-stone-500 uppercase tracking-widest font-medium block mb-4">Mindset</span>
+      <h1 class="text-3xl md:text-4xl lg:text-5xl text-stone-900 leading-[1.1] tracking-tight mb-12" style="font-family: 'DM Serif Display', serif;">
+        Ton entourage a peur pour toi, pas contre toi
+      </h1>
+
+      <!-- CONTENT -->
+      <div class="space-y-6 text-stone-700 text-lg leading-relaxed font-light">
+
+        <p>Ton père te dit de trouver un vrai métier. Ta mère s'inquiète. Ton ou ta partenaire pense que tu rêves. Tes potes ne comprennent pas pourquoi tu t'accroches.</p>
+
+        <p>Et toi, chaque fois que tu parles de vivre de ton art, tu sens que ça crée un malaise. Alors tu en parles de moins en moins. Tu gardes ça pour toi. Et parfois, tu commences à douter. Tu te demandes si c'est toi qui es à côté de la plaque. Si les autres n'ont pas raison. Si ce serait pas plus simple d'abandonner.</p>
+
+        <p>Pourtant, la majorité des danseurs qui vivent de leur art aujourd'hui sont passés exactement par là. Pas de soutien au départ. Parfois même rejetés. C'est le parcours classique.</p>
+
+        <h2 class="text-2xl md:text-3xl text-stone-900 tracking-tight pt-8" style="font-family: 'DM Serif Display', serif;">Ce que tu ressens, c'est ta boussole</h2>
+
+        <p>Malgré que personne ne t'encourage à le faire, tu ne peux pas t'empêcher de retourner à la salle pour t'entraîner. Et ça, c'est un signal. Le signal de ce qui compte vraiment pour toi.</p>
+
+        <p>Avoir quelque chose qui te fait vibrer, c'est une chance. Quand tu fais ce que tu aimes, tu ne comptes pas tes heures. Tu pratiques avec curiosité, avec l'envie d'apprendre et d'aller plus loin.</p>
+
+        <h2 class="text-2xl md:text-3xl text-stone-900 tracking-tight pt-8" style="font-family: 'DM Serif Display', serif;">Ce que tout le monde appelle la sécurité</h2>
+
+        <p>Mais la vie qu'on te vend à la place, c'est un job dans un domaine qui ne te correspond pas plus que ça. Qui au quotidien ne te nourrit pas et ne te stimule pas plus que ça non plus. Sur le papier, c'est rassurant pour ta famille. Dans la réalité, c'est peut-être se réveiller chaque matin avec la boule au ventre. Passer tes journées à t'ennuyer. Et te sentir vidé d'énergie et d'enthousiasme avant même que la journée n'ait réellement commencé.</p>
+
+        <p>Il faut se méfier de ce que tout le monde appelle la sécurité. Un bateau est en sécurité au port. Mais ce n'est pas pour ça qu'on construit des bateaux.</p>
+
+        <p>Il y a une infirmière qui a accompagné des personnes en fin de vie pendant huit ans. Et qui leur posait une question simple : avez-vous des regrets ? Le regret numéro un, celui qui revenait de façon récurrente, c'était celui-ci : "J'aurais aimé avoir le courage de vivre ma vie comme je le voulais, pas celle que les autres attendaient de moi."</p>
+
+        <p>Imagine-toi dans cette position. À la fin de ta vie, réaliser que tu n'as pas vécu ta vie. Que tu as vécu celle que les autres voulaient pour toi.</p>
+
+        <p>Pose-toi la question. Si tu as des enfants, ou si tu en veux un jour, quel exemple tu voudrais leur donner ? Celui de quelqu'un qui a accepté une vie qui ne lui ressemblait pas ? Ou celui de quelqu'un qui s'est battu pour ses rêves et pour ce en quoi il croyait ? Qui a osé.</p>
+
+        <h2 class="text-2xl md:text-3xl text-stone-900 tracking-tight pt-8" style="font-family: 'DM Serif Display', serif;">Ils finiront par comprendre</h2>
+
+        <p>Tu n'as pas besoin de convaincre tes proches avant d'avancer.</p>
+
+        <p>Il y a des danseurs qui vivent très bien de leur art aujourd'hui. Certains ont été mis à la porte de chez eux par leurs parents. Aujourd'hui, pourtant, ils font la fierté de leurs parents.</p>
+
+        <p>Tes proches finiront par accepter. S'ils veulent vraiment ton bonheur, ce sera simple pour eux. Surtout quand tu commenceras à en vivre. À ce moment-là, il n'y aura plus de problème.</p>
+
+        <p>Ce qu'ils ressentent, ce n'est pas du rejet. C'est de la peur. Ils s'inquiètent pour toi, pas contre toi. C'est de la surprotection, pas de la malveillance.</p>
+
+        <p>Mais tout parent digne de ce nom veut une chose : que son enfant devienne autonome. Être adulte, c'est prendre ses propres décisions et les assumer. Même quand elles ne vont pas dans le sens de ses parents.</p>
+
+        <p>Comme la chenille qui va devenir un papillon, elle va lutter pendant des heures dans son cocon à travers une ouverture minuscule. Et si tu coupes le cocon pour aider le papillon, il sortira facilement, mais ses ailes ne se déploieront jamais. C'est la lutte qui va forcer ses ailes à devenir assez fortes pour voler. Pour ton autonomie et ton indépendance, c'est la même chose, que ce soit avec tes proches ou avec d'autres. Il y a besoin de cette résistance pour que tes ailes soient assez fortes pour ensuite pouvoir voler. Et en fait, ce que tu vis aujourd'hui, cette résistance, cette friction que tu rencontres, c'est normal.</p>
+
+        <p>Mais est-ce que tu veux voler de tes propres ailes ou est-ce que tu veux rester à l'état de larve ?</p>
+
+        <p>Parce que les décisions que tu prends, c'est toi qui les prends. Si tu décides de les écouter, c'est encore toi qui as décidé. Et c'est toi qui devras assumer tes choix. C'est toi qui vas vivre ta vie. Ce n'est pas eux qui seront dans ton corps pour la vivre.</p>
+
+        <p>C'est ta vie. C'est ton art. Et personne d'autre que toi ne peut décider de ce que tu en fais.</p>
+
+      </div>
+
+      <!-- CTA -->
+      <div class="mt-16 pt-12 border-t border-stone-200 text-center">
+        <a href={LP_URL} class="inline-block px-8 py-4 bg-[#1C1C1C] text-[#F5F3EF] rounded-full text-sm font-medium tracking-wide hover:bg-stone-800 transition-colors">
+          Rejoindre Breaking Accelerator
+        </a>
+      </div>
+
+    </div>
+  </article>
+
+  <!-- FOOTER -->
+  <footer class="bg-[#1C1C1C] text-[#F5F3EF] pt-16 pb-8 px-6 md:px-12 border-t border-stone-800">
+    <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-start gap-12 pb-12 border-b border-stone-800">
+      <div class="space-y-4 md:w-1/3">
+        <a href="/" class="text-xl tracking-tight" style="font-family: 'DM Serif Display', serif;">Breaking Accelerator</a>
+        <p class="text-stone-400 text-sm leading-relaxed">
+          L'accompagnement pour construire une carrière dans le breaking
+        </p>
+        <div class="flex space-x-3 pt-1">
+          <a href="https://www.instagram.com/breaking_accelerator/" target="_blank" rel="noopener" class="w-9 h-9 border border-stone-700 rounded-full flex items-center justify-center hover:bg-[#F5F3EF] hover:text-stone-900 transition-colors">
+            <iconify-icon icon="mdi:instagram" class="text-base"></iconify-icon>
+          </a>
+        </div>
+      </div>
+      <div class="space-y-4">
+        <ul class="space-y-3 text-sm text-stone-400">
+          <li><a href="/" class="hover:text-white transition-colors">Accueil</a></li>
+          <li><a href="/a-propos" class="hover:text-white transition-colors">À propos</a></li>
+          <li><a href="/journal" class="hover:text-white transition-colors">Le Journal</a></li>
+          <li><a href={LP_URL} class="hover:text-white transition-colors">Rejoindre</a></li>
+          <li>
+            <a href="https://bboyjunior.com" target="_blank" rel="noopener" class="hover:text-white transition-colors flex items-center gap-1">
+              Bboy Junior
+              <iconify-icon icon="solar:arrow-right-up-linear" stroke-width="1.5" class="text-xs"></iconify-icon>
+            </a>
+          </li>
+          <li>
+            <a href="mailto:breakingaccelerator@gmail.com" class="hover:text-white transition-colors">breakingaccelerator@gmail.com</a>
+          </li>
+        </ul>
+      </div>
+      <div class="space-y-3 text-sm text-stone-400">
+        <a href={LP_URL} class="inline-block px-6 py-3 bg-[#F5F3EF] text-stone-900 rounded-full text-sm font-medium hover:bg-stone-300 transition-colors">
+          Rejoindre Breaking Accelerator
+        </a>
+      </div>
+    </div>
+    <div class="max-w-7xl mx-auto pt-8 flex flex-col md:flex-row justify-between items-center text-xs text-stone-600">
+      <p>© 2026 Breaking Accelerator. Tous droits réservés.</p>
+      <div class="flex space-x-6 mt-4 md:mt-0">
+        <a href="/mentions-legales" class="hover:text-white transition-colors">Mentions légales</a>
+        <a href="/conditions-generales" class="hover:text-white transition-colors">Conditions générales</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- MOBILE MENU SCRIPT -->
+  <script>
+    const toggle = document.getElementById('menu-toggle');
+    const menu = document.getElementById('mobile-menu');
+    const close = document.getElementById('menu-close');
+
+    toggle?.addEventListener('click', () => {
+      menu?.classList.remove('hidden');
+      menu?.classList.add('flex');
+    });
+
+    close?.addEventListener('click', () => {
+      menu?.classList.add('hidden');
+      menu?.classList.remove('flex');
+    });
+
+    menu?.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        menu?.classList.add('hidden');
+        menu?.classList.remove('flex');
+      });
+    });
+  </script>
+
+</Layout>

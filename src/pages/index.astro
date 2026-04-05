@@ -136,26 +136,66 @@ const LP_URL = 'https://breaking.dancingaccelerator.com/f6c65326';
   </section>
 
   <!-- SOCIAL PROOF -->
-  <section class="py-20 px-6 md:px-12 bg-[#EBE8E0] border-t border-stone-200">
-    <div class="max-w-7xl mx-auto">
-      <div class="mb-16 text-center">
-        <span class="text-xs text-stone-500 uppercase tracking-widest font-medium">Ils ont fait le chemin</span>
-      </div>
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-        {[
-          { quote: 'Je signe mes premiers contrats réguliers.', name: 'Yanis', context: 'Breaker professionnel' },
-          { quote: 'J\'ai validé mon statut d\'intermittent en moins de six mois.', name: 'David', context: 'Danseur et enseignant' },
-          { quote: 'Pour la première fois, j\'ai une vraie vision de ma carrière.', name: 'Alpha', context: 'Breaker, Lyon' },
-        ].map(({ quote, name, context }) => (
-          <div class="border-t border-stone-300 pt-8">
-            <p class="text-xl text-stone-800 leading-relaxed mb-6" style="font-family: 'DM Serif Display', serif;">"{quote}"</p>
-            <p class="text-sm font-medium text-stone-900">{name}</p>
-            <p class="text-xs text-stone-500 mt-1">{context}</p>
+  <section class="py-20 bg-[#EBE8E0] border-t border-stone-200">
+    <div class="mb-12 text-center">
+      <span class="text-xs text-stone-500 uppercase tracking-widest font-medium">Ils ont fait le chemin</span>
+    </div>
+    <div class="relative">
+      <button id="testimonial-prev" class="absolute left-2 md:left-6 top-1/2 -translate-y-1/2 z-10 w-10 h-10 bg-[#F5F3EF] border border-stone-300 rounded-full flex items-center justify-center hover:bg-stone-300 transition-colors text-stone-500 hover:text-stone-800 shadow-sm">
+        <iconify-icon icon="solar:arrow-left-linear" stroke-width="1.5"></iconify-icon>
+      </button>
+      <button id="testimonial-next" class="absolute right-2 md:right-6 top-1/2 -translate-y-1/2 z-10 w-10 h-10 bg-[#F5F3EF] border border-stone-300 rounded-full flex items-center justify-center hover:bg-stone-300 transition-colors text-stone-500 hover:text-stone-800 shadow-sm">
+        <iconify-icon icon="solar:arrow-right-linear" stroke-width="1.5"></iconify-icon>
+      </button>
+    <div class="testimonial-marquee overflow-hidden">
+      <div id="testimonial-track" class="testimonial-scroll flex">
+        {[...Array(2)].flatMap(() => [
+          { quote: "L'accompagnement ainsi que le contenu de Breaking Accelerator ont dépassé mes attentes.", name: 'Membre de Breaking Accelerator' },
+          { quote: "C'est là où tu trouves toutes les informations, tous les outils. Ça m'a permis d'être dans le réel et de passer à l'action. Et après, tout a suivi.", name: 'Phouthone' },
+          { quote: "J'ai bossé par rapport aux modules et j'ai eu la réponse d'une compagnie avec laquelle je voulais bosser depuis des années.", name: 'Membre de Breaking Accelerator' },
+          { quote: "Les informations de Breaking Accelerator ont fait en sorte que j'obtienne ma stabilité financière.", name: 'Axel' },
+          { quote: "On sent le travail et l'envie de bien transmettre. Merci pour la qualité de ce que tu proposes.", name: 'Membre de Breaking Accelerator' },
+          { quote: "Merci à Junior. Il y a eu un gros suivi, il était derrière moi. J'ai pu définir tous mes objectifs et les accomplir. Il y a un vrai avant-après.", name: 'Mario' },
+          { quote: "Je kiffe ce que je fais, c'est incroyable. Merci à toi Junior.", name: 'Membre de Breaking Accelerator' },
+          { quote: "Le module masterclass est vraiment génial.", name: 'Membre de Breaking Accelerator' },
+          { quote: "Ça se passe super bien, je suis épanoui, je kiffe !", name: 'Membre de Breaking Accelerator' },
+        ]).map(({ quote, name }) => (
+          <div class="w-[350px] md:w-[400px] flex-shrink-0 px-4">
+            <div class="border-t border-stone-300 pt-6 h-full">
+              <p class="text-lg text-stone-800 leading-relaxed mb-4" style="font-family: 'DM Serif Display', serif;">"{quote}"</p>
+              <p class="text-sm font-medium text-stone-900">{name}</p>
+            </div>
           </div>
         ))}
       </div>
     </div>
+    </div>
   </section>
+
+  <script>
+    (function() {
+      const track = document.getElementById('testimonial-track');
+      const prev = document.getElementById('testimonial-prev');
+      const next = document.getElementById('testimonial-next');
+      if (!track) return;
+
+      let offset = 0;
+
+      function getCardWidth() {
+        const card = track.querySelector(':scope > div');
+        return card ? card.offsetWidth : 400;
+      }
+
+      function jump(direction) {
+        const cardWidth = getCardWidth();
+        offset += direction * cardWidth;
+        track.style.setProperty('--manual-offset', offset + 'px');
+      }
+
+      prev?.addEventListener('click', () => jump(1));
+      next?.addEventListener('click', () => jump(-1));
+    })();
+  </script>
 
   <!-- LE JOURNAL -->
   <section id="journal" class="py-24 px-6 md:px-12 bg-[#F5F3EF] border-t border-stone-200">
@@ -163,15 +203,14 @@ const LP_URL = 'https://breaking.dancingaccelerator.com/f6c65326';
       <div class="flex flex-col md:flex-row justify-between items-end mb-16 gap-6">
         <div>
           <span class="text-xs text-stone-500 uppercase tracking-widest font-medium block mb-4">Journal</span>
-          <h3 class="text-3xl md:text-4xl text-stone-900 tracking-tight">Méthode, terrain et retours d'expérience</h3>
+          <h3 class="text-3xl md:text-4xl text-stone-900 tracking-tight">Construire une carrière dans le breaking</h3>
         </div>
         <a href="/journal" class="text-stone-900 border-b border-stone-900 pb-1 hover:opacity-60 transition-opacity text-sm font-medium">Tous les articles</a>
       </div>
       <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
         {[
-          { href: '/journal/structurer-son-annee', cat: 'Carrière', title: 'Structurer son année pour sécuriser ses revenus' },
-          { href: '/journal/contacter-theatres-marques', cat: 'Prospection', title: "L'art de contacter les théâtres et les marques" },
-          { href: '/journal/syndrome-imposteur-danseur', cat: 'Mindset', title: "Dépasser le syndrome de l'imposteur en tant que danseur" },
+          { href: '/journal/pourquoi-le-niveau-ne-suffit-pas', cat: 'Comprendre son écosystème', title: 'Pourquoi le niveau ne suffit pas pour vivre du breaking' },
+          { href: '/journal/ton-entourage-a-peur-pour-toi-pas-contre-toi', cat: 'Mindset', title: 'Ton entourage a peur pour toi, pas contre toi' },
         ].map(({ href, cat, title }) => (
           <a href={href} class="group block border-t border-stone-300 pt-6">
             <span class="text-xs text-stone-500 uppercase tracking-widest font-medium block mb-4">{cat}</span>
@@ -189,8 +228,7 @@ const LP_URL = 'https://breaking.dancingaccelerator.com/f6c65326';
   <section class="py-20 px-6 md:px-12 bg-[#1C1C1C] text-[#F5F3EF]">
     <div class="max-w-2xl mx-auto text-center">
       <span class="text-xs text-stone-400 uppercase tracking-widest font-medium">Newsletter</span>
-      <h3 class="text-2xl md:text-3xl tracking-tight leading-tight mt-4 mb-3">Méthode et retours terrain, chaque semaine</h3>
-      <p class="text-stone-400 font-light leading-relaxed mb-8">Des conseils pratiques pour construire ta carrière dans le breaking, dans ta boite mail</p>
+      <p class="text-lg md:text-xl text-stone-300 font-light leading-relaxed mt-4 mb-8">Des conseils pratiques pour construire ta carrière dans le breaking, dans ta boite mail</p>
       <form id="newsletter-form" class="flex flex-col gap-3 max-w-md mx-auto">
         <div class="flex flex-col sm:flex-row gap-3">
           <input
