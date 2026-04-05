@@ -1,0 +1,297 @@
+---
+const BOOKING_URL = 'https://calendly.com/breakingaccelerator/bilan'; // TODO: remplacer par Cal.com
+const VSL_VIDEO_URL = ''; // TODO: URL R2 quand upload fait
+const TRACKING_URL = 'https://automate.dancingaccelerator.com/webhook/vsl-tracking-ba';
+const CTA_DELAY_SECONDS = 300; // fallback timer 5 min
+---
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Breaking Accelerator | Presentation</title>
+  <meta name="robots" content="noindex, nofollow" />
+
+  <!-- Meta Pixel Code -->
+  <script>
+    !function(f,b,e,v,n,t,s)
+    {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+    n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+    if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+    n.queue=[];t=b.createElement(e);t.async=!0;
+    t.src=v;s=b.getElementsByTagName(e)[0];
+    s.parentNode.insertBefore(t,s)}(window,document,'script',
+    'https://connect.facebook.net/en_US/fbevents.js');
+    fbq('init', '1525345608489094');
+    fbq('track', 'PageView');
+    fbq('track', 'ViewContent', { content_name: 'vsl_presentation' });
+  </script>
+  <noscript><img height="1" width="1" style="display:none"
+    src="https://www.facebook.com/tr?id=1525345608489094&ev=PageView&noscript=1" /></noscript>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Manrope:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+
+  <!-- Plyr CSS -->
+  <link rel="stylesheet" href="https://cdn.plyr.io/3.7.8/plyr.css" />
+
+  <style>
+    body {
+      font-family: 'Manrope', sans-serif;
+      background-color: #0D0D0D;
+      color: #F5F3EF;
+      margin: 0;
+    }
+    h1, h2 { font-family: 'DM Serif Display', serif; }
+
+    :root {
+      --plyr-color-main: #F5F3EF;
+      --plyr-video-background: #0D0D0D;
+      --plyr-menu-background: #1C1C1C;
+      --plyr-menu-color: #F5F3EF;
+      --plyr-control-color: #F5F3EF;
+      --plyr-control-spacing: 14px;
+    }
+    .plyr--video .plyr__control:hover {
+      background: rgba(245, 243, 239, 0.15);
+    }
+
+    .topbar {
+      background: #1C1C1C;
+      text-align: center;
+      padding: 12px 16px;
+      font-size: 13px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 40px 24px;
+    }
+
+    h1 {
+      font-size: clamp(24px, 4vw, 36px);
+      font-weight: 400;
+      text-align: center;
+      line-height: 1.2;
+      margin: 0 0 32px;
+    }
+
+    .video-wrapper {
+      width: 100%;
+      margin-bottom: 32px;
+    }
+    .video-placeholder {
+      width: 100%;
+      aspect-ratio: 16/9;
+      background: #1C1C1C;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #57534E;
+      font-size: 14px;
+    }
+
+    .cta-booking {
+      text-align: center;
+      padding: 24px 0;
+      opacity: 0;
+      transform: translateY(10px);
+      transition: opacity 0.5s, transform 0.5s;
+      pointer-events: none;
+    }
+    .cta-booking.visible {
+      opacity: 1;
+      transform: translateY(0);
+      pointer-events: auto;
+    }
+    .cta-booking a {
+      display: inline-block;
+      background: #F5F3EF;
+      color: #0D0D0D;
+      font-family: 'Manrope', sans-serif;
+      font-size: 16px;
+      font-weight: 700;
+      padding: 16px 48px;
+      text-decoration: none;
+      letter-spacing: 0.02em;
+      transition: transform 0.15s, box-shadow 0.15s;
+    }
+    .cta-booking a:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 4px 20px rgba(245, 243, 239, 0.15);
+    }
+    .cta-booking p {
+      font-size: 13px;
+      color: #78716C;
+      margin-top: 12px;
+    }
+
+    footer {
+      max-width: 800px;
+      margin: 64px auto 0;
+      padding: 32px 24px;
+      border-top: 1px solid #292524;
+      font-size: 11px;
+      color: #57534E;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- TOPBAR -->
+  <div class="topbar">Regarde cette presentation jusqu'au bout</div>
+
+  <div class="container">
+    <h1>Comment faire carriere et vivre de ta passion pour le break</h1>
+
+    <!-- VIDEO -->
+    <div class="video-wrapper" id="video-container">
+      <video id="vsl-player" playsinline>
+        <source src="" type="video/mp4" />
+      </video>
+      <div class="video-placeholder" id="video-placeholder" style="display:none;">
+        Video en cours de chargement...
+      </div>
+    </div>
+
+    <!-- CTA BOOKING (apparait a 75% ou apres fallback timer) -->
+    <div class="cta-booking" id="cta-booking">
+      <a href={BOOKING_URL} id="booking-link">
+        Reserver mon bilan de carriere (gratuit)
+      </a>
+      <p>Places limitees — 30 minutes avec l'equipe Breaking Accelerator</p>
+    </div>
+  </div>
+
+  <footer>
+    <p>&copy; Breaking Accelerator — Tous droits reserves</p>
+  </footer>
+
+  <!-- Plyr JS -->
+  <script src="https://cdn.plyr.io/3.7.8/plyr.polyfilled.js"></script>
+
+  <script define:vars={{ CTA_DELAY_SECONDS, BOOKING_URL, TRACKING_URL, VSL_VIDEO_URL }}>
+    // Lead identity from URL params (set by optin redirect)
+    const params = new URLSearchParams(window.location.search);
+    const email = params.get('email') || '';
+    const utm_source = params.get('utm_source') || '';
+    const utm_campaign = params.get('utm_campaign') || '';
+    const utm_content = params.get('utm_content') || '';
+    const device = /Mobi|Android/i.test(navigator.userAgent) ? 'mobile' : 'desktop';
+
+    // Show placeholder if no video URL yet
+    const videoEl = document.getElementById('vsl-player');
+    const placeholder = document.getElementById('video-placeholder');
+    if (!VSL_VIDEO_URL) {
+      videoEl.style.display = 'none';
+      placeholder.style.display = 'flex';
+    } else {
+      videoEl.querySelector('source').src = VSL_VIDEO_URL;
+    }
+
+    // Init Plyr
+    const player = new Plyr('#vsl-player', {
+      controls: ['play', 'progress', 'current-time', 'mute', 'volume', 'fullscreen'],
+      hideControls: true,
+      clickToPlay: true,
+    });
+
+    // Tracking state
+    const milestones = { 25: false, 50: false, 75: false, 100: false };
+    let totalWatchTime = 0;
+    let lastTimeUpdate = 0;
+
+    function sendEvent(eventType, extra) {
+      const payload = {
+        event_type: eventType,
+        email: email,
+        page: '/presentation',
+        utm_source: utm_source,
+        utm_campaign: utm_campaign,
+        utm_content: utm_content,
+        device: device,
+        duration_seconds: Math.round(player.currentTime || 0),
+        metadata: JSON.stringify(Object.assign({
+          total_watch_time: Math.round(totalWatchTime),
+          video_duration: Math.round(player.duration || 0),
+        }, extra || {})),
+      };
+      navigator.sendBeacon(TRACKING_URL, JSON.stringify(payload));
+    }
+
+    player.on('play', function() { sendEvent('vsl_start'); });
+    player.on('pause', function() { sendEvent('vsl_pause'); });
+
+    player.on('timeupdate', function() {
+      var current = player.currentTime;
+      var duration = player.duration;
+      if (!duration) return;
+
+      // Accumulate watch time
+      if (lastTimeUpdate > 0) {
+        var delta = current - lastTimeUpdate;
+        if (delta > 0 && delta < 2) totalWatchTime += delta;
+      }
+      lastTimeUpdate = current;
+
+      var pct = (current / duration) * 100;
+      [25, 50, 75, 100].forEach(function(m) {
+        if (pct >= m && !milestones[m]) {
+          milestones[m] = true;
+          sendEvent('vsl_' + m, { milestone: m });
+        }
+      });
+
+      // Show CTA at 75%
+      if (pct >= 75) {
+        document.getElementById('cta-booking').classList.add('visible');
+      }
+    });
+
+    player.on('ended', function() {
+      if (!milestones[100]) {
+        milestones[100] = true;
+        sendEvent('vsl_100', { milestone: 100 });
+      }
+    });
+
+    // Track drop-off on page leave
+    window.addEventListener('beforeunload', function() {
+      var pct = player.duration ? Math.round((player.currentTime / player.duration) * 100) : 0;
+      sendEvent('vsl_drop', { drop_pct: pct });
+    });
+
+    // Fallback CTA timer
+    setTimeout(function() {
+      document.getElementById('cta-booking').classList.add('visible');
+    }, CTA_DELAY_SECONDS * 1000);
+
+    // UTM passthrough to booking URL
+    var bookingLink = document.getElementById('booking-link');
+    var utmParams = new URLSearchParams();
+    ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content'].forEach(function(k) {
+      var v = params.get(k);
+      if (v) utmParams.set(k, v);
+    });
+    if (utmParams.toString()) {
+      var sep = BOOKING_URL.includes('?') ? '&' : '?';
+      bookingLink.href = BOOKING_URL + sep + utmParams.toString();
+    }
+
+    // Track booking click
+    bookingLink.addEventListener('click', function() {
+      if (typeof fbq === 'function') {
+        fbq('track', 'Schedule', { content_name: 'booking_ba' });
+      }
+    });
+  </script>
+
+</body>
+</html>

@@ -2,15 +2,9 @@
 import Layout from '../../layouts/Layout.astro';
 
 const LP_URL = 'https://breaking.dancingaccelerator.com/f6c65326';
-
-const articles = [
-  { slug: 'pourquoi-le-niveau-ne-suffit-pas', cat: 'Comprendre son écosystème', title: 'Pourquoi le niveau ne suffit pas pour vivre du breaking', excerpt: "Il y a une croyance dans le breaking qui est rarement remise en question : deviens bon, gagne des battles, et les contrats suivront." },
-  { slug: 'ton-entourage-a-peur-pour-toi-pas-contre-toi', cat: 'Mindset', title: 'Ton entourage a peur pour toi, pas contre toi', excerpt: "La majorité des danseurs qui vivent de leur art aujourd'hui sont passés exactement par là. Pas de soutien au départ. Parfois même rejetés. C'est le parcours classique." },
-  { slug: 'etre-paye-ca-veut-dire-apporter-de-la-valeur', cat: 'Comprendre son écosystème', title: 'Être payé, ça veut dire apporter de la valeur', excerpt: "Quand une marque te recrute, elle ne te fait pas une faveur. Elle a un besoin. Toi, tu y réponds. Elle, elle te rétribue." },
-];
 ---
 
-<Layout title="Le Journal | Breaking Accelerator" description="Construire une carrière dans le breaking.">
+<Layout title="Être payé, ça veut dire apporter de la valeur | Breaking Accelerator" description="Quand une marque te recrute, elle ne te fait pas une faveur. Elle a un besoin. Toi, tu y réponds. Elle, elle te rétribue.">
 
   <!-- BANNER -->
   <div class="bg-[#1C1C1C] text-[#F5F3EF] text-xs font-bold py-3 text-center tracking-widest uppercase px-4">
@@ -52,29 +46,72 @@ const articles = [
     </a>
   </div>
 
-  <!-- HEADER -->
-  <header class="py-20 px-6 md:px-12">
+  <!-- ARTICLE -->
+  <article class="py-20 px-6 md:px-12">
     <div class="max-w-3xl mx-auto">
-      <span class="text-xs text-stone-500 uppercase tracking-widest font-medium block mb-4">Journal</span>
-      <h1 class="text-3xl md:text-4xl text-stone-900 tracking-tight" style="font-family: 'DM Serif Display', serif;">Construire une carrière dans le breaking</h1>
-    </div>
-  </header>
 
-  <!-- ARTICLES -->
-  <section class="px-6 md:px-12 pb-24">
-    <div class="max-w-3xl mx-auto space-y-12">
-      {articles.map(({ slug, cat, title, excerpt }) => (
-        <a href={`/journal/${slug}`} class="group block border-t border-stone-300 pt-8">
-          <span class="text-xs text-stone-500 uppercase tracking-widest font-medium block mb-3">{cat}</span>
-          <h2 class="text-2xl md:text-3xl text-stone-900 tracking-tight mb-4 group-hover:text-stone-600 transition-colors" style="font-family: 'DM Serif Display', serif;">{title}</h2>
-          <p class="text-stone-500 font-light leading-relaxed mb-4">{excerpt}</p>
-          <span class="inline-flex items-center text-sm font-semibold uppercase tracking-wider text-stone-900">
-            Lire <iconify-icon icon="solar:arrow-right-linear" stroke-width="1.5" class="ml-2 group-hover:translate-x-1 transition-transform"></iconify-icon>
-          </span>
+      <!-- HEADER -->
+      <a href="/journal" class="text-sm text-stone-500 hover:text-stone-900 transition-colors inline-flex items-center gap-2 mb-8">
+        <iconify-icon icon="solar:arrow-left-linear" stroke-width="1.5"></iconify-icon>
+        Retour au Journal
+      </a>
+      <span class="text-xs text-stone-500 uppercase tracking-widest font-medium block mb-4">Comprendre son écosystème</span>
+      <h1 class="text-3xl md:text-4xl lg:text-5xl text-stone-900 leading-[1.1] tracking-tight mb-12" style="font-family: 'DM Serif Display', serif;">
+        Être payé, ça veut dire apporter de la valeur
+      </h1>
+
+      <!-- CONTENT -->
+      <div class="space-y-6 text-stone-700 text-lg leading-relaxed font-light">
+
+        <p>Quand une marque te recrute pour un événement, elle ne te fait pas une faveur. Elle aussi a un besoin : associer son image à l'énergie du breaking, créer un moment fort pour son audience, marquer les esprits. Toi, tu réponds à ce besoin. Elle, elle te rétribue.</p>
+
+        <p>Quand une entreprise te recrute pour son événement, elle n'achète pas une prestation. Elle achète le moment dont tout le monde parlera le lendemain. Toi, tu performes. Et elle marque les esprits grâce à son événement.</p>
+
+        <p>Quand un centre culturel te confie un stage de deux jours, il ne cherche pas le champion du monde. Il cherche quelqu'un qui va remplir sa salle, faire vivre une expérience aux participants, et donner envie aux gens de revenir. Si tu fais ça, tu vaux chaque euro qu'il t'a donné. Et il te rappellera.</p>
+
+        <h2 class="text-2xl md:text-3xl text-stone-900 tracking-tight pt-8" style="font-family: 'DM Serif Display', serif;">Ce que tu sais faire vaut quelque chose</h2>
+
+        <p>Le problème, c'est que la plupart des breakers sous-estiment la valeur de ce qu'ils savent faire.</p>
+
+        <p>Tu sais captiver une salle. Tu sais transmettre une énergie. Tu sais enseigner un mouvement à quelqu'un qui n'a jamais dansé de sa vie. Tu sais créer un moment que les gens n'oublieront pas.</p>
+
+        <p>Ces compétences, dans d'autres domaines, elles portent un nom : animation, pédagogie, performance, direction artistique. Et elles se paient.</p>
+
+        <p>Mais tant que tu penses que ta valeur se mesure à tes résultats en compétition, tu passes à côté de tout ce que tu as à offrir en dehors du battle.</p>
+
+        <h2 class="text-2xl md:text-3xl text-stone-900 tracking-tight pt-8" style="font-family: 'DM Serif Display', serif;">Ceux qui vivent de leur art ne sont pas forcément les meilleurs danseurs</h2>
+
+        <p>Regarde autour de toi. Les danseurs qui vivent confortablement de leur art ne sont pas forcément ceux qui gagnent les battles. Ce sont ceux qui ont compris une chose : la personne en face d'eux a un besoin, et ils sont capables d'y répondre.</p>
+
+        <p>Un programmateur de festival veut savoir si ton show va plaire au public. Un directeur de MJC qui te recrute veut savoir si tu vas gérer son groupe d'ados. Un centre de formation veut savoir si tu vas faire progresser ses élèves. Un responsable événementiel veut savoir si tu es fiable, ponctuel, professionnel.</p>
+
+        <p>Aucun d'entre eux ne va te demander tes résultats en battle. Ils vont te demander : est-ce que je peux compter sur toi ? Est-ce que tu vas me livrer ce que j'attends ? Est-ce que je vais être content de t'avoir choisi ?</p>
+
+        <p>Si la réponse est oui, tu as un contrat.</p>
+
+        <h2 class="text-2xl md:text-3xl text-stone-900 tracking-tight pt-8" style="font-family: 'DM Serif Display', serif;">La question qui change tout</h2>
+
+        <p>La plupart des danseurs se posent la mauvaise question. Ils se demandent : "Est-ce que je suis assez bon ?"</p>
+
+        <p>La bonne question, c'est : "De quoi est-ce que cette personne, cette entreprise, cette association ou cette municipalité a besoin ? Et comment je peux lui apporter ?"</p>
+
+        <p>Quand tu poses cette question, tu ne te vends plus. Tu proposes un service. Tu résous un problème. Et la conversation change complètement. Tu n'es plus un danseur qui espère qu'on lui donne sa chance. Tu es un professionnel qui apporte une solution.</p>
+
+        <p>Mais savoir formuler ta valeur, identifier les bonnes personnes, et leur proposer quelque chose de concret, c'est tout un savoir-faire et une méthodologie à mettre en place.</p>
+
+        <p>Et c'est précisément pour ça que Breaking Accelerator existe.</p>
+
+      </div>
+
+      <!-- CTA -->
+      <div class="mt-16 pt-12 border-t border-stone-200 text-center">
+        <a href={LP_URL} class="inline-block px-8 py-4 bg-[#1C1C1C] text-[#F5F3EF] rounded-full text-sm font-medium tracking-wide hover:bg-stone-800 transition-colors">
+          Rejoindre Breaking Accelerator
         </a>
-      ))}
+      </div>
+
     </div>
-  </section>
+  </article>
 
   <!-- FOOTER -->
   <footer class="bg-[#1C1C1C] text-[#F5F3EF] pt-16 pb-8 px-6 md:px-12 border-t border-stone-800">
