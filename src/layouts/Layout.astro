@@ -53,7 +53,12 @@ const {
       100% { transform: translateX(calc(-50% + var(--manual-offset, 0px))); }
     }
     .testimonial-scroll {
-      animation: testimonial-scroll 70s linear infinite;
+      animation: testimonial-scroll 7s linear infinite;
+    }
+    @media (min-width: 768px) {
+      .testimonial-scroll {
+        animation-duration: 70s;
+      }
     }
     .testimonial-scroll:hover {
       animation-play-state: paused;

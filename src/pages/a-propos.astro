@@ -21,10 +21,6 @@ const LP_URL = '/rejoindre';
       <a href="/a-propos" class="text-stone-900 transition-colors">À propos</a>
       <a href="/journal" class="hover:text-stone-900 transition-colors">Le Journal</a>
       <a href={LP_URL} class="hover:text-stone-900 transition-colors">Rejoindre</a>
-      <a href="https://bboyjunior.com" target="_blank" rel="noopener" class="hover:text-stone-900 transition-colors flex items-center gap-1">
-        Bboy Junior
-        <iconify-icon icon="solar:arrow-right-up-linear" stroke-width="1.5" class="text-xs"></iconify-icon>
-      </a>
     </div>
     <button id="menu-toggle" class="md:hidden text-2xl">
       <iconify-icon icon="solar:hamburger-menu-linear" stroke-width="1.5"></iconify-icon>
@@ -40,10 +36,6 @@ const LP_URL = '/rejoindre';
     <a href="/a-propos" class="text-stone-500 transition-colors">À propos</a>
     <a href="/journal" class="hover:text-stone-500 transition-colors">Le Journal</a>
     <a href={LP_URL} class="hover:text-stone-500 transition-colors">Rejoindre</a>
-    <a href="https://bboyjunior.com" target="_blank" rel="noopener" class="hover:text-stone-500 transition-colors flex items-center gap-2">
-      Bboy Junior
-      <iconify-icon icon="solar:arrow-right-up-linear" stroke-width="1.5" class="text-lg"></iconify-icon>
-    </a>
   </div>
 
   <!-- HERO -->
@@ -151,11 +143,6 @@ const LP_URL = '/rejoindre';
           <li><a href="/journal" class="hover:text-white transition-colors">Le Journal</a></li>
           <li><a href={LP_URL} class="hover:text-white transition-colors">Rejoindre</a></li>
           <li>
-            <a href="https://bboyjunior.com" target="_blank" rel="noopener" class="hover:text-white transition-colors flex items-center gap-1">
-              Bboy Junior
-              <iconify-icon icon="solar:arrow-right-up-linear" stroke-width="1.5" class="text-xs"></iconify-icon>
-            </a>
-          </li>
           <li>
             <a href="mailto:breakingaccelerator@gmail.com" class="hover:text-white transition-colors">breakingaccelerator@gmail.com</a>
           </li>
@@ -186,8 +173,13 @@ const LP_URL = '/rejoindre';
     const close = document.getElementById('menu-close');
 
     toggle?.addEventListener('click', () => {
-      menu?.classList.remove('hidden');
-      menu?.classList.add('flex');
+      if (menu?.classList.contains('hidden')) {
+        menu?.classList.remove('hidden');
+        menu?.classList.add('flex');
+      } else {
+        menu?.classList.add('hidden');
+        menu?.classList.remove('flex');
+      }
     });
 
     close?.addEventListener('click', () => {

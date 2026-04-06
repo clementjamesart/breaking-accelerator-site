@@ -22,10 +22,6 @@ const R2_BASE = 'https://pub-082a1b16b2b048e9ace33389cff3fac5.r2.dev';
       <a href="/a-propos" class="hover:text-stone-900 transition-colors">À propos</a>
       <a href="/journal" class="hover:text-stone-900 transition-colors">Le Journal</a>
       <a href={LP_URL} class="hover:text-stone-900 transition-colors">Rejoindre</a>
-      <a href="https://bboyjunior.com" target="_blank" rel="noopener" class="hover:text-stone-900 transition-colors flex items-center gap-1">
-        Bboy Junior
-        <iconify-icon icon="solar:arrow-right-up-linear" stroke-width="1.5" class="text-xs"></iconify-icon>
-      </a>
     </div>
     <button id="menu-toggle" class="md:hidden text-2xl">
       <iconify-icon icon="solar:hamburger-menu-linear" stroke-width="1.5"></iconify-icon>
@@ -41,36 +37,29 @@ const R2_BASE = 'https://pub-082a1b16b2b048e9ace33389cff3fac5.r2.dev';
     <a href="/a-propos" class="hover:text-stone-500 transition-colors">À propos</a>
     <a href="/journal" class="hover:text-stone-500 transition-colors">Le Journal</a>
     <a href={LP_URL} class="hover:text-stone-500 transition-colors">Rejoindre</a>
-    <a href="https://bboyjunior.com" target="_blank" rel="noopener" class="hover:text-stone-500 transition-colors flex items-center gap-2">
-      Bboy Junior
-      <iconify-icon icon="solar:arrow-right-up-linear" stroke-width="1.5" class="text-lg"></iconify-icon>
-    </a>
   </div>
 
   <!-- HERO -->
-  <header class="relative w-full min-h-[90vh] flex flex-col items-center justify-center text-center px-4 md:px-0 py-20 overflow-hidden">
-    <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-[#EBE8E0] rounded-full blur-3xl -z-10 opacity-60"></div>
-    <div class="max-w-4xl mx-auto space-y-8 z-10">
-      <h1 class="text-4xl md:text-5xl lg:text-6xl text-stone-900 leading-[1.05] tracking-tight">
+  <header class="relative w-full h-screen flex flex-col items-center justify-center text-center px-6 overflow-hidden">
+    <video autoplay loop muted playsinline poster={`${R2_BASE}/hero-ba-poster.jpg`} class="absolute inset-0 w-full h-full object-cover">
+      <source src={`${R2_BASE}/hero-ba.mp4`} type="video/mp4" />
+    </video>
+    <div class="absolute inset-0 bg-black/50"></div>
+    <div class="relative z-10 max-w-4xl mx-auto space-y-8">
+      <h1 class="text-4xl md:text-5xl lg:text-6xl text-white leading-[1.05] tracking-tight">
         Bâtir sa carrière<br />
         professionnelle dans le breaking<br />
-        <span class="italic font-light text-stone-500">avec méthode et ambition</span>
+        <span class="italic font-light text-stone-300">avec méthode et ambition</span>
       </h1>
-      <p class="max-w-xl mx-auto text-lg md:text-xl text-stone-500 font-light leading-relaxed mt-6">
+      <p class="max-w-xl mx-auto text-lg md:text-xl text-stone-300 font-light leading-relaxed mt-6">
         Bboy Junior accompagne les breakers qui ont choisi de faire de leur art un vrai métier
       </p>
       <div class="mt-12 flex justify-center">
-        <a href="#accroche" class="flex flex-col items-center gap-2 text-stone-400 hover:text-stone-700 transition-colors text-sm font-medium tracking-wide">
+        <a href="#accroche" class="flex flex-col items-center gap-2 text-stone-400 hover:text-white transition-colors text-sm font-medium tracking-wide">
           Découvrir
           <iconify-icon icon="solar:arrow-down-linear" stroke-width="1.5" class="text-xl animate-bounce"></iconify-icon>
         </a>
       </div>
-    </div>
-    <div class="mt-16 w-full max-w-6xl h-72 md:h-[600px] rounded-t-3xl md:rounded-3xl overflow-hidden shadow-2xl shadow-[#D1CEC7]/50">
-      <video autoplay loop muted playsinline poster={`${R2_BASE}/hero-ba-poster.jpg`} class="w-full h-full object-cover object-center">
-        <source src={`${R2_BASE}/hero-ba.mp4`} type="video/mp4" />
-        <img src={`${R2_BASE}/hero-ba-poster.jpg`} alt="Bboy Junior" class="w-full h-full object-cover object-center" />
-      </video>
     </div>
   </header>
 
@@ -164,9 +153,9 @@ const R2_BASE = 'https://pub-082a1b16b2b048e9ace33389cff3fac5.r2.dev';
           { quote: "Le module masterclass est vraiment génial.", name: 'Membre de Breaking Accelerator' },
           { quote: "Ça se passe super bien, je suis épanoui, je kiffe !", name: 'Membre de Breaking Accelerator' },
         ]).map(({ quote, name }) => (
-          <div class="w-[350px] md:w-[400px] flex-shrink-0 px-4">
+          <div class="w-[240px] md:w-[400px] flex-shrink-0 px-3 md:px-4">
             <div class="border-t border-stone-300 pt-6 h-full">
-              <p class="text-lg text-stone-800 leading-relaxed mb-4" style="font-family: 'DM Serif Display', serif;">"{quote}"</p>
+              <p class="text-sm md:text-lg text-stone-800 leading-relaxed mb-3 md:mb-4" style="font-family: 'DM Serif Display', serif;">"{quote}"</p>
               <p class="text-sm font-medium text-stone-900">{name}</p>
             </div>
           </div>
@@ -319,12 +308,6 @@ const R2_BASE = 'https://pub-082a1b16b2b048e9ace33389cff3fac5.r2.dev';
           <li><a href="/journal" class="hover:text-white transition-colors">Le Journal</a></li>
           <li><a href={LP_URL} class="hover:text-white transition-colors">Rejoindre</a></li>
           <li>
-            <a href="https://bboyjunior.com" target="_blank" rel="noopener" class="hover:text-white transition-colors flex items-center gap-1">
-              Bboy Junior
-              <iconify-icon icon="solar:arrow-right-up-linear" stroke-width="1.5" class="text-xs"></iconify-icon>
-            </a>
-          </li>
-          <li>
             <a href="mailto:breakingaccelerator@gmail.com" class="hover:text-white transition-colors">breakingaccelerator@gmail.com</a>
           </li>
         </ul>
@@ -354,8 +337,13 @@ const R2_BASE = 'https://pub-082a1b16b2b048e9ace33389cff3fac5.r2.dev';
     const close = document.getElementById('menu-close');
 
     toggle?.addEventListener('click', () => {
-      menu?.classList.remove('hidden');
-      menu?.classList.add('flex');
+      if (menu?.classList.contains('hidden')) {
+        menu?.classList.remove('hidden');
+        menu?.classList.add('flex');
+      } else {
+        menu?.classList.add('hidden');
+        menu?.classList.remove('flex');
+      }
     });
 
     close?.addEventListener('click', () => {
