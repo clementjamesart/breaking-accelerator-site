@@ -13,38 +13,11 @@ const CTA_DELAY_SECONDS = 1460;
   <title>Breaking Accelerator | Présentation</title>
   <meta name="robots" content="noindex, nofollow" />
 
-  <!-- Meta Pixel Code -->
-  <script>
-    !function(f,b,e,v,n,t,s)
-    {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-    n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-    if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
-    n.queue=[];t=b.createElement(e);t.async=!0;
-    t.src=v;s=b.getElementsByTagName(e)[0];
-    s.parentNode.insertBefore(t,s)}(window,document,'script',
-    'https://connect.facebook.net/en_US/fbevents.js');
-    fbq('init', '1525345608489094');
-    fbq('track', 'PageView');
-    fbq('track', 'Lead');
-  </script>
-  <noscript><img height="1" width="1" style="display:none"
-    src="https://www.facebook.com/tr?id=1525345608489094&ev=PageView&noscript=1" /></noscript>
-
-  <!-- Microsoft Clarity -->
-  <script type="text/javascript">
-    (function(c,l,a,r,i,t,y){
-        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
-        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
-        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
-    })(window, document, "clarity", "script", "vkvuziprou");
-  </script>
-
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="preload" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" as="style" />
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet" />
 
-  <!-- Plyr CSS -->
-  <link rel="stylesheet" href="https://cdn.plyr.io/3.7.8/plyr.css" />
 
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -54,14 +27,6 @@ const CTA_DELAY_SECONDS = 1460;
       color: #000000;
     }
 
-    :root {
-      --plyr-color-main: #008EFF;
-      --plyr-video-background: #000000;
-      --plyr-menu-background: #1C1C1C;
-      --plyr-menu-color: #FFFFFF;
-      --plyr-control-color: #FFFFFF;
-      --plyr-control-spacing: 14px;
-    }
 
     /* TOPBAR */
     .topbar {
@@ -121,10 +86,10 @@ const CTA_DELAY_SECONDS = 1460;
       position: relative;
       aspect-ratio: 16 / 9;
     }
-    .video-wrapper video,
-    .video-wrapper .plyr {
+    .video-wrapper video {
       width: 100%;
       height: 100%;
+      box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
     }
     /* Overlay unmute */
     .unmute-overlay {
@@ -153,15 +118,20 @@ const CTA_DELAY_SECONDS = 1460;
     }
 
     /* FAKE PROGRESS BAR */
-    .fake-progress {
+    .fake-progress-track {
       position: absolute;
       bottom: 0;
       left: 0;
-      height: 3px;
-      width: 0%;
-      background: rgba(255, 255, 255, 0.7);
+      right: 0;
+      height: 4px;
+      background: rgba(0, 0, 0, 0.1);
       z-index: 5;
       pointer-events: none;
+    }
+    .fake-progress {
+      height: 100%;
+      width: 0%;
+      background: #0174C7;
       transition: width 0.3s linear;
       border-radius: 0 2px 2px 0;
     }
@@ -259,13 +229,13 @@ const CTA_DELAY_SECONDS = 1460;
 
   <!-- VIDEO -->
   <div class="video-wrapper">
-    <video id="vsl-player" playsinline muted autoplay poster="https://pub-082a1b16b2b048e9ace33389cff3fac5.r2.dev/poster-vsl.jpg" style="opacity:0;transition:opacity 0.3s;">
+    <video id="vsl-player" playsinline muted autoplay preload="auto" poster="https://pub-082a1b16b2b048e9ace33389cff3fac5.r2.dev/poster-vsl.jpg">
       <source src={VSL_VIDEO_URL} type="video/mp4" />
     </video>
     <div class="unmute-overlay" id="unmute-overlay">
       <span>Clique pour activer le son</span>
     </div>
-    <div class="fake-progress" id="fake-progress"></div>
+    <div class="fake-progress-track"><div class="fake-progress" id="fake-progress"></div></div>
   </div>
 
   <!-- CTA BOOKING (apparait après 1460 secondes) -->
@@ -292,9 +262,6 @@ const CTA_DELAY_SECONDS = 1460;
     </div>
   </div>
 
-  <!-- Plyr JS -->
-  <script is:inline src="https://cdn.plyr.io/3.7.8/plyr.polyfilled.js"></script>
-
   <script define:vars={{ CTA_DELAY_SECONDS, BOOKING_URL, TRACKING_URL, VSL_VIDEO_URL }}>
     // Lead identity from URL params (set by optin redirect)
     var params = new URLSearchParams(window.location.search);
@@ -304,43 +271,27 @@ const CTA_DELAY_SECONDS = 1460;
     var utm_content = params.get('utm_content') || '';
     var device = /Mobi|Android/i.test(navigator.userAgent) ? 'mobile' : 'desktop';
 
-    // Init Plyr
-    var player = new Plyr('#vsl-player', {
-      controls: [],
-      clickToPlay: true,
-      muted: true,
-      keyboard: { focused: false, global: false },
-    });
-
-    // Shadow sur le player Plyr (bypass Astro CSS scoping)
-    var plyrEl = document.querySelector('.plyr');
-    if (plyrEl) plyrEl.style.boxShadow = '0 4px 30px rgba(0, 0, 0, 0.3)';
-
-    // Show video immediately (poster image covers the black)
-    var rawVideo = document.getElementById('vsl-player');
-    rawVideo.style.opacity = '1';
-    if (plyrEl) plyrEl.style.opacity = '1';
-
+    // Native video player (no Plyr = no CDN delay)
+    var player = document.getElementById('vsl-player');
     var unmuteOverlay = document.getElementById('unmute-overlay');
-
-    // Afficher l'overlay immédiatement (style direct pour bypass Astro CSS scoping)
     unmuteOverlay.style.display = 'flex';
 
-    // Si la vidéo n'a pas démarré (Plyr override autoplay), relancer
-    setTimeout(function() {
-      if (player.paused) {
-        player.muted = true;
-        var p = player.play();
-        if (p && p.catch) p.catch(function() {});
-      }
-    }, 500);
+    // Autoplay muted
+    player.muted = true;
+    var p = player.play();
+    if (p && p.catch) p.catch(function() {});
 
-    // Click overlay pour activer le son
+    // Click overlay to unmute
     unmuteOverlay.addEventListener('click', function() {
       player.muted = false;
       player.volume = 1;
       if (player.paused) player.play();
       unmuteOverlay.style.display = 'none';
+    });
+
+    // Click video to toggle play/pause
+    player.addEventListener('click', function() {
+      if (player.paused) { player.play(); } else { player.pause(); }
     });
 
     // Fake progress bar
@@ -373,10 +324,10 @@ const CTA_DELAY_SECONDS = 1460;
     // page_view on load (for play rate calculation)
     sendEvent('page_view');
 
-    player.on('play', function() { sendEvent('vsl_start'); });
-    player.on('pause', function() { sendEvent('vsl_pause'); });
+    player.addEventListener('play', function() { sendEvent('vsl_start'); });
+    player.addEventListener('pause', function() { sendEvent('vsl_pause'); });
 
-    player.on('timeupdate', function() {
+    player.addEventListener('timeupdate', function() {
       var current = player.currentTime;
       var duration = player.duration;
       if (!duration) return;
@@ -403,7 +354,7 @@ const CTA_DELAY_SECONDS = 1460;
       });
     });
 
-    player.on('ended', function() {
+    player.addEventListener('ended', function() {
       if (!milestones[100]) {
         milestones[100] = true;
         sendEvent('vsl_100', { milestone: 100 });
@@ -439,6 +390,36 @@ const CTA_DELAY_SECONDS = 1460;
         fbq('track', 'Schedule', { content_name: 'booking_ba' });
       }
     });
+  </script>
+
+  <!-- Meta Pixel (deferred) -->
+  <script is:inline>
+    setTimeout(function(){
+      !function(f,b,e,v,n,t,s)
+      {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+      n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+      if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+      n.queue=[];t=b.createElement(e);t.async=!0;
+      t.src=v;s=b.getElementsByTagName(e)[0];
+      s.parentNode.insertBefore(t,s)}(window,document,'script',
+      'https://connect.facebook.net/en_US/fbevents.js');
+      fbq('init', '1525345608489094');
+      fbq('track', 'PageView');
+      fbq('track', 'Lead');
+    }, 0);
+  </script>
+  <noscript><img height="1" width="1" style="display:none"
+    src="https://www.facebook.com/tr?id=1525345608489094&ev=PageView&noscript=1" /></noscript>
+
+  <!-- Microsoft Clarity (deferred) -->
+  <script is:inline>
+    setTimeout(function(){
+      (function(c,l,a,r,i,t,y){
+          c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+          t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+          y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+      })(window, document, "clarity", "script", "vkvuziprou");
+    }, 0);
   </script>
 
 </body>
