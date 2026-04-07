@@ -1,0 +1,12 @@
+# Redirections anciennes URLs funnel → URLs obfusquées
+/presentation/* /p-7f3a9d/:splat 301
+/booking/* /b-9d2ce4/:splat 301
+/merci/* /t-4e8b2f/:splat 301
+/lp-a/* /lpa/:splat 301
+/lp-b/* /lpb/:splat 301
+/rejoindre/* /lpa/:splat 301
+
+# Redirections URLs intermédiaires (premier renommage)
+/p-7f3a/* /p-7f3a9d/:splat 301
+/b-9d2c/* /b-9d2ce4/:splat 301
+/t-4e8b/* /t-4e8b2f/:splat 301

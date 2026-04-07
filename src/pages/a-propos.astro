@@ -1,7 +1,7 @@
 ---
 import Layout from '../layouts/Layout.astro';
 
-const LP_URL = '/rejoindre';
+const LP_URL = '/lpa';
 ---
 
 <Layout title="À propos | Breaking Accelerator" description="Entre la passion et la profession, il y a une décision. Breaking Accelerator existe pour ceux qui ont fait ce choix.">
@@ -83,7 +83,7 @@ const LP_URL = '/rejoindre';
 
   <!-- POURQUOI JUNIOR -->
   <section class="relative py-36 md:py-48 px-6 md:px-12 overflow-hidden">
-    <img id="junior-img" src="/images/junior-arches.jpg" alt="" class="absolute inset-0 w-full h-full object-cover" />
+    <img id="junior-img" src="/images/junior-innsbruck.jpg" alt="" class="absolute inset-0 w-full h-full object-cover" />
     <div class="absolute inset-0 bg-black/65"></div>
     <div class="relative z-10 max-w-3xl mx-auto space-y-6" style="text-shadow: 0 1px 8px rgba(0,0,0,0.5);">
       <h2 class="text-2xl md:text-3xl text-white tracking-tight" style="font-family: 'DM Serif Display', serif;">
@@ -230,10 +230,10 @@ const LP_URL = '/rejoindre';
       #hero-img { object-position: center 50%; }
     }
 
-    /* Pourquoi Junior image: freeze in arched corridor */
-    #junior-img { object-position: center center; }
+    /* Pourquoi Junior: Innsbruck freeze — show hands, feet can crop */
+    #junior-img { object-position: center 65%; }
     @media (max-width: 768px) {
-      #junior-img { object-position: center center; }
+      #junior-img { object-position: center 55%; }
     }
   </style>
 
