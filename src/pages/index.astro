@@ -7,23 +7,18 @@ const R2_BASE = 'https://pub-082a1b16b2b048e9ace33389cff3fac5.r2.dev';
 
 <Layout title="Breaking Accelerator | L'accompagnement pour construire une carrière dans le breaking" description="Bboy Junior accompagne les breakers qui ont choisi de faire de leur art un vrai métier. Clarté, connaissance, mindset.">
 
-  <!-- BANNER -->
-  <div class="bg-[#1C1C1C] text-[#F5F3EF] text-xs font-bold py-3 text-center tracking-widest uppercase px-4">
-    Quand la passion devient une carrière
-  </div>
-
   <!-- NAV -->
-  <nav class="sticky top-0 z-50 w-full px-6 py-5 flex justify-between items-center bg-[#F5F3EF]/90 backdrop-blur-sm border-b border-stone-200/50">
-    <a href="/" class="text-xl md:text-2xl tracking-tight text-stone-900 leading-none" style="font-family: 'DM Serif Display', serif;">
+  <nav id="main-nav" class="fixed top-0 z-50 w-full px-6 py-5 flex justify-between items-center transition-all duration-300">
+    <a href="/" class="text-xl md:text-2xl tracking-tight text-white leading-none nav-brand transition-colors duration-300" style="font-family: 'DM Serif Display', serif;">
       Breaking Accelerator
     </a>
-    <div class="hidden md:flex items-center space-x-8 text-sm font-medium tracking-wide text-stone-600">
-      <a href="/" class="hover:text-stone-900 transition-colors">Accueil</a>
-      <a href="/a-propos" class="hover:text-stone-900 transition-colors">À propos</a>
-      <a href="/journal" class="hover:text-stone-900 transition-colors">Le Journal</a>
-      <a href={LP_URL} class="hover:text-stone-900 transition-colors">Rejoindre</a>
+    <div class="hidden md:flex items-center space-x-8 text-sm font-medium tracking-wide text-stone-300 nav-links transition-colors duration-300">
+      <a href="/" class="hover:text-white transition-colors">Accueil</a>
+      <a href="/a-propos" class="hover:text-white transition-colors">À propos</a>
+      <a href="/journal" class="hover:text-white transition-colors">Le Journal</a>
+      <a href={LP_URL} class="hover:text-white transition-colors">Rejoindre</a>
     </div>
-    <button id="menu-toggle" class="md:hidden text-2xl">
+    <button id="menu-toggle" class="md:hidden text-2xl text-white nav-toggle transition-colors duration-300">
       <iconify-icon icon="solar:hamburger-menu-linear" stroke-width="1.5"></iconify-icon>
     </button>
   </nav>
@@ -80,10 +75,22 @@ const R2_BASE = 'https://pub-082a1b16b2b048e9ace33389cff3fac5.r2.dev';
 
   <!-- ACCROCHE -->
   <section id="accroche" class="py-24 px-6 md:px-12 bg-[#F5F3EF]">
-    <div class="max-w-4xl mx-auto text-center space-y-8">
-      <h2 class="text-3xl md:text-5xl text-stone-900 leading-tight tracking-tight">
-        <span class="text-2xl md:text-3xl">25 ans de carrière internationale. BC One All-Star. Porteur de la flamme olympique. Vainqueur d'Incroyable Talent. Guinness World Record. Conférencier à l'UNESCO.<br />
-        <span class="italic text-stone-500">Dans Breaking Accelerator, Bboy Junior vous accompagne personnellement</span></span>
+    <div class="max-w-4xl mx-auto text-center space-y-12">
+      <div class="flex flex-wrap justify-center gap-x-8 gap-y-4 text-xs md:text-sm tracking-widest uppercase font-medium text-stone-500">
+        <span>25 ans de carrière</span>
+        <span class="text-stone-300">|</span>
+        <span>BC One All-Star</span>
+        <span class="text-stone-300">|</span>
+        <span>Flamme olympique</span>
+        <span class="text-stone-300">|</span>
+        <span>Incroyable Talent</span>
+        <span class="text-stone-300">|</span>
+        <span>Guinness World Record</span>
+        <span class="text-stone-300">|</span>
+        <span>UNESCO</span>
+      </div>
+      <h2 class="text-2xl md:text-4xl text-stone-900 leading-snug tracking-tight italic" style="font-family: 'DM Serif Display', serif;">
+        Dans Breaking Accelerator, Bboy Junior vous accompagne personnellement
       </h2>
       <div class="w-24 h-px bg-stone-300 mx-auto"></div>
     </div>
@@ -95,20 +102,25 @@ const R2_BASE = 'https://pub-082a1b16b2b048e9ace33389cff3fac5.r2.dev';
       <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
         {[
           {
+            num: '01',
             title: 'Clarté',
             body: 'Plus de tâtonnements, une direction précise pour construire ta carrière.',
           },
           {
+            num: '02',
             title: 'Connaissance',
             body: 'Les informations concrètes du terrain : ce qui fonctionne vraiment pour vivre du breaking aujourd\'hui.',
           },
           {
+            num: '03',
             title: 'Mindset',
             body: 'Oser passer à l\'action, développer la posture et la confiance d\'un professionnel.',
           },
-        ].map(({ title, body }) => (
+        ].map(({ num, title, body }) => (
           <div class="group bg-[#EBE8E0] p-8 md:p-10 rounded-2xl hover:bg-[#E5E1D8] transition-colors duration-300 flex flex-col h-full">
-            <h4 class="text-3xl text-stone-900 mb-4 tracking-tight">{title}</h4>
+            <span class="text-xs text-stone-400 tracking-widest font-medium mb-4">{num}</span>
+            <h4 class="text-3xl text-stone-900 mb-3 tracking-tight">{title}</h4>
+            <div class="w-10 h-px bg-stone-400 mb-4"></div>
             <p class="text-stone-600 leading-relaxed flex-grow">{body}</p>
           </div>
         ))}
@@ -117,19 +129,24 @@ const R2_BASE = 'https://pub-082a1b16b2b048e9ace33389cff3fac5.r2.dev';
   </section>
 
   <!-- CITATION -->
-  <section class="py-24 px-6 md:px-12 bg-[#F5F3EF]">
-    <div class="max-w-3xl mx-auto text-center">
-      <p class="text-4xl md:text-6xl text-stone-900 tracking-tight" style="font-family: 'DM Serif Display', serif;">
+  <section class="relative py-32 md:py-40 px-6 md:px-12 overflow-hidden">
+    <img src="/images/junior-citation.jpg" alt="" class="absolute inset-0 w-full h-full object-cover" />
+    <div class="absolute inset-0 bg-black/60"></div>
+    <div class="relative z-10 max-w-3xl mx-auto text-center">
+      <p class="text-4xl md:text-6xl text-white tracking-tight" style="font-family: 'DM Serif Display', serif;">
         "Each one, teach one."
       </p>
-      <div class="mt-10 pt-8 border-t border-stone-300/60">
-        <p class="text-stone-500 text-sm tracking-widest uppercase font-medium">La philosophie de Bboy Junior</p>
+      <div class="mt-10 pt-8 border-t border-white/30">
+        <p class="text-stone-300 text-sm tracking-widest uppercase font-medium">La philosophie de Bboy Junior</p>
       </div>
     </div>
   </section>
 
   <!-- SOCIAL PROOF -->
-  <section class="py-20 bg-[#EBE8E0] border-t border-stone-200">
+  <section class="relative py-20 border-t border-stone-200 overflow-hidden">
+    <img src="/images/junior-temoignages.jpg" alt="" class="absolute inset-0 w-full h-full object-cover" />
+    <div class="absolute inset-0 bg-[#EBE8E0]/85"></div>
+    <div class="relative z-10">
     <div class="mb-12 text-center">
       <span class="text-xs text-stone-500 uppercase tracking-widest font-medium">Ils ont fait le chemin</span>
     </div>
@@ -161,6 +178,7 @@ const R2_BASE = 'https://pub-082a1b16b2b048e9ace33389cff3fac5.r2.dev';
           </div>
         ))}
       </div>
+    </div>
     </div>
     </div>
   </section>
@@ -357,6 +375,31 @@ const R2_BASE = 'https://pub-082a1b16b2b048e9ace33389cff3fac5.r2.dev';
         menu?.classList.remove('flex');
       });
     });
+
+    // Nav scroll behavior
+    const nav = document.getElementById('main-nav');
+    const hero = document.querySelector('header');
+    if (nav && hero) {
+      const heroHeight = hero.offsetHeight;
+      function updateNav() {
+        if (window.scrollY > heroHeight - 80) {
+          nav.classList.add('bg-[#F5F3EF]/95', 'backdrop-blur-sm', 'border-b', 'border-stone-200/50', 'nav-solid');
+          nav.classList.remove('nav-transparent');
+        } else {
+          nav.classList.remove('bg-[#F5F3EF]/95', 'backdrop-blur-sm', 'border-b', 'border-stone-200/50', 'nav-solid');
+          nav.classList.add('nav-transparent');
+        }
+      }
+      window.addEventListener('scroll', updateNav);
+      updateNav();
+    }
   </script>
+
+  <style>
+    .nav-solid .nav-brand { color: #1C1C1C !important; }
+    .nav-solid .nav-links a { color: #57534e !important; }
+    .nav-solid .nav-links a:hover { color: #1C1C1C !important; }
+    .nav-solid .nav-toggle { color: #1C1C1C !important; }
+  </style>
 
 </Layout>

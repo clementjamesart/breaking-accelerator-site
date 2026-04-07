@@ -1,5 +1,5 @@
 ---
-const BOOKING_URL = '/booking';
+const BOOKING_URL = '/b-9d2c';
 const VSL_VIDEO_URL = 'https://pub-082a1b16b2b048e9ace33389cff3fac5.r2.dev/vsl-v2.mp4';
 const TRACKING_URL = 'https://automate.dancingaccelerator.com/webhook/vsl-tracking-ba';
 const CTA_DELAY_SECONDS = 1460;
@@ -152,6 +152,20 @@ const CTA_DELAY_SECONDS = 1460;
       50% { transform: scale(1.08); }
     }
 
+    /* FAKE PROGRESS BAR */
+    .fake-progress {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      height: 3px;
+      width: 0%;
+      background: rgba(255, 255, 255, 0.7);
+      z-index: 5;
+      pointer-events: none;
+      transition: width 0.3s linear;
+      border-radius: 0 2px 2px 0;
+    }
+
     /* CTA BOOKING */
     .cta-booking {
       text-align: center;
@@ -251,6 +265,7 @@ const CTA_DELAY_SECONDS = 1460;
     <div class="unmute-overlay" id="unmute-overlay">
       <span>Clique pour activer le son</span>
     </div>
+    <div class="fake-progress" id="fake-progress"></div>
   </div>
 
   <!-- CTA BOOKING (apparait après 1460 secondes) -->
@@ -328,8 +343,12 @@ const CTA_DELAY_SECONDS = 1460;
       unmuteOverlay.style.display = 'none';
     });
 
-    // Tracking state
-    var milestones = { 25: false, 50: false, 75: false, 100: false };
+    // Fake progress bar
+    var fakeBar = document.getElementById('fake-progress');
+
+    // Tracking state (every 5% for retention curve)
+    var milestones = {};
+    for (var i = 5; i <= 100; i += 5) milestones[i] = false;
     var totalWatchTime = 0;
     var lastTimeUpdate = 0;
 
@@ -351,6 +370,9 @@ const CTA_DELAY_SECONDS = 1460;
       navigator.sendBeacon(TRACKING_URL, JSON.stringify(payload));
     }
 
+    // page_view on load (for play rate calculation)
+    sendEvent('page_view');
+
     player.on('play', function() { sendEvent('vsl_start'); });
     player.on('pause', function() { sendEvent('vsl_pause'); });
 
@@ -366,8 +388,14 @@ const CTA_DELAY_SECONDS = 1460;
       }
       lastTimeUpdate = current;
 
-      var pct = (current / duration) * 100;
-      [25, 50, 75, 100].forEach(function(m) {
+      // Fake progress bar (power curve: fast start, gradual slowdown)
+      var realProgress = current / duration;
+      var fakeProgress = Math.pow(realProgress, 0.4) * 100;
+      fakeBar.style.width = fakeProgress + '%';
+
+      // Milestones every 5% for retention curve
+      var pct = realProgress * 100;
+      [5,10,15,20,25,30,35,40,45,50,55,60,65,70,75,80,85,90,95,100].forEach(function(m) {
         if (pct >= m && !milestones[m]) {
           milestones[m] = true;
           sendEvent('vsl_' + m, { milestone: m });
