@@ -6,23 +6,18 @@ const LP_URL = '/rejoindre';
 
 <Layout title="À propos | Breaking Accelerator" description="Entre la passion et la profession, il y a une décision. Breaking Accelerator existe pour ceux qui ont fait ce choix.">
 
-  <!-- BANNER -->
-  <div class="bg-[#1C1C1C] text-[#F5F3EF] text-xs font-bold py-3 text-center tracking-widest uppercase px-4">
-    Quand la passion devient une carrière
-  </div>
-
-  <!-- NAV -->
-  <nav class="sticky top-0 z-50 w-full px-6 py-5 flex justify-between items-center bg-[#F5F3EF]/90 backdrop-blur-sm border-b border-stone-200/50">
-    <a href="/" class="text-xl md:text-2xl tracking-tight text-stone-900 leading-none" style="font-family: 'DM Serif Display', serif;">
+  <!-- NAV (transparent over hero, solid on scroll) -->
+  <nav id="main-nav" class="fixed top-0 z-50 w-full px-6 py-5 flex justify-between items-center transition-all duration-300">
+    <a href="/" class="text-xl md:text-2xl tracking-tight text-white leading-none nav-brand transition-colors duration-300" style="font-family: 'DM Serif Display', serif;">
       Breaking Accelerator
     </a>
-    <div class="hidden md:flex items-center space-x-8 text-sm font-medium tracking-wide text-stone-600">
-      <a href="/" class="hover:text-stone-900 transition-colors">Accueil</a>
-      <a href="/a-propos" class="text-stone-900 transition-colors">À propos</a>
-      <a href="/journal" class="hover:text-stone-900 transition-colors">Le Journal</a>
-      <a href={LP_URL} class="hover:text-stone-900 transition-colors">Rejoindre</a>
+    <div class="hidden md:flex items-center space-x-8 text-sm font-medium tracking-wide text-stone-300 nav-links transition-colors duration-300">
+      <a href="/" class="hover:text-white transition-colors">Accueil</a>
+      <a href="/a-propos" class="text-white transition-colors">À propos</a>
+      <a href="/journal" class="hover:text-white transition-colors">Le Journal</a>
+      <a href={LP_URL} class="hover:text-white transition-colors">Rejoindre</a>
     </div>
-    <button id="menu-toggle" class="md:hidden text-2xl">
+    <button id="menu-toggle" class="md:hidden text-2xl text-white nav-toggle transition-colors duration-300">
       <iconify-icon icon="solar:hamburger-menu-linear" stroke-width="1.5"></iconify-icon>
     </button>
   </nav>
@@ -38,21 +33,29 @@ const LP_URL = '/rejoindre';
     <a href={LP_URL} class="hover:text-stone-500 transition-colors">Rejoindre</a>
   </div>
 
-  <!-- HERO -->
-  <header class="relative w-full min-h-[60vh] flex flex-col items-center justify-center text-center px-6 md:px-0 py-24 overflow-hidden">
-    <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-[#EBE8E0] rounded-full blur-3xl -z-10 opacity-60"></div>
-    <div class="max-w-3xl mx-auto space-y-6 z-10">
-      <h1 class="text-3xl md:text-4xl lg:text-5xl text-stone-900 leading-[1.1] tracking-tight" style="font-family: 'DM Serif Display', serif;">
+  <!-- HERO (full screen with photo background, like homepage) -->
+  <header class="relative w-full h-screen flex flex-col items-center justify-center text-center px-6 overflow-hidden">
+    <img src="/images/junior-action.jpg" alt="" class="absolute inset-0 w-full h-full object-cover" style="object-position: 45% 75%;" />
+    <div class="absolute inset-0 bg-black/55"></div>
+    <div class="relative z-10 max-w-3xl mx-auto space-y-6">
+      <span class="text-xs text-stone-300 uppercase tracking-widest font-medium">Quand la passion devient une carrière</span>
+      <h1 class="text-4xl md:text-5xl lg:text-6xl text-white leading-[1.05] tracking-tight" style="font-family: 'DM Serif Display', serif;">
         Entre la passion et la profession,<br />il y a une décision
       </h1>
-      <p class="max-w-2xl mx-auto text-lg md:text-xl text-stone-500 font-light leading-relaxed mt-6">
+      <p class="max-w-2xl mx-auto text-lg md:text-xl text-stone-300 font-light leading-relaxed mt-6">
         Celle de faire de son art un vrai métier, et de s'y engager pleinement. Breaking Accelerator existe pour ceux qui ont fait ce choix.
       </p>
+      <div class="mt-12 flex justify-center">
+        <a href="#constat" class="flex flex-col items-center gap-2 text-stone-400 hover:text-white transition-colors text-sm font-medium tracking-wide">
+          Découvrir
+          <iconify-icon icon="solar:arrow-down-linear" stroke-width="1.5" class="text-xl animate-bounce"></iconify-icon>
+        </a>
+      </div>
     </div>
   </header>
 
   <!-- CONSTAT -->
-  <section class="py-20 px-6 md:px-12">
+  <section id="constat" class="py-20 px-6 md:px-12">
     <div class="max-w-3xl mx-auto space-y-6">
       <h2 class="text-2xl md:text-3xl text-stone-900 tracking-tight" style="font-family: 'DM Serif Display', serif;">
         Le constat
@@ -79,18 +82,17 @@ const LP_URL = '/rejoindre';
   </section>
 
   <!-- POURQUOI JUNIOR -->
-  <section class="py-20 px-6 md:px-12">
-    <div class="max-w-3xl mx-auto space-y-6">
-      <h2 class="text-2xl md:text-3xl text-stone-900 tracking-tight" style="font-family: 'DM Serif Display', serif;">
+  <section class="relative py-32 md:py-40 px-6 md:px-12 overflow-hidden">
+    <img src="/images/junior-apropos.jpg" alt="" class="absolute inset-0 w-full h-full object-cover" />
+    <div class="absolute inset-0 bg-black/55"></div>
+    <div class="relative z-10 max-w-3xl mx-auto space-y-6">
+      <h2 class="text-2xl md:text-3xl text-white tracking-tight" style="font-family: 'DM Serif Display', serif;">
         Pourquoi Bboy Junior
       </h2>
-      <div class="w-full rounded-2xl overflow-hidden my-8">
-        <img src="/images/junior-apropos.jpg" alt="Bboy Junior" class="w-full h-auto object-cover" />
-      </div>
-      <p class="text-stone-600 text-lg leading-relaxed font-light">
+      <p class="text-stone-200 text-lg leading-relaxed font-light">
         25 ans de carrière et des scènes sur les cinq continents. Plus de 1 000 contrats signés. Bboy Junior est l'un des breakers les plus reconnus au monde, et surtout l'un des rares à perdurer dans un milieu où la plupart s'arrêtent après quelques années.
       </p>
-      <p class="text-stone-600 text-lg leading-relaxed font-light">
+      <p class="text-stone-200 text-lg leading-relaxed font-light">
         Dans Breaking Accelerator, à ses côtés tu vas découvrir comment trouver des contrats, quelle vision adopter pour durer sur le long terme et comment transformer ta passion en une activité viable.
       </p>
     </div>
@@ -169,7 +171,7 @@ const LP_URL = '/rejoindre';
     </div>
   </footer>
 
-  <!-- MOBILE MENU SCRIPT -->
+  <!-- MOBILE MENU + NAV SCROLL SCRIPT -->
   <script>
     const toggle = document.getElementById('menu-toggle');
     const menu = document.getElementById('mobile-menu');
@@ -196,6 +198,31 @@ const LP_URL = '/rejoindre';
         menu?.classList.remove('flex');
       });
     });
+
+    // Nav scroll behavior (transparent → solid)
+    const nav = document.getElementById('main-nav');
+    const hero = document.querySelector('header');
+    if (nav && hero) {
+      const heroHeight = hero.offsetHeight;
+      function updateNav() {
+        if (window.scrollY > heroHeight - 80) {
+          nav.classList.add('bg-[#F5F3EF]/95', 'backdrop-blur-sm', 'border-b', 'border-stone-200/50', 'nav-solid');
+          nav.classList.remove('nav-transparent');
+        } else {
+          nav.classList.remove('bg-[#F5F3EF]/95', 'backdrop-blur-sm', 'border-b', 'border-stone-200/50', 'nav-solid');
+          nav.classList.add('nav-transparent');
+        }
+      }
+      window.addEventListener('scroll', updateNav);
+      updateNav();
+    }
   </script>
+
+  <style>
+    .nav-solid .nav-brand { color: #1C1C1C !important; }
+    .nav-solid .nav-links a { color: #57534e !important; }
+    .nav-solid .nav-links a:hover { color: #1C1C1C !important; }
+    .nav-solid .nav-toggle { color: #1C1C1C !important; }
+  </style>
 
 </Layout>
