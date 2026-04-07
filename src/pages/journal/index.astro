@@ -4,10 +4,12 @@ import Layout from '../../layouts/Layout.astro';
 const LP_URL = '/rejoindre';
 
 const articles = [
-  { slug: 'pourquoi-le-niveau-ne-suffit-pas', cat: 'Comprendre son écosystème', title: 'Pourquoi le niveau ne suffit pas pour vivre du breaking', excerpt: "Il y a une croyance dans le breaking qui est rarement remise en question : deviens bon, gagne des battles, et les contrats suivront." },
-  { slug: 'ton-entourage-a-peur-pour-toi-pas-contre-toi', cat: 'Mindset', title: 'Ton entourage a peur pour toi, pas contre toi', excerpt: "La majorité des danseurs qui vivent de leur art aujourd'hui sont passés exactement par là. Pas de soutien au départ. Parfois même rejetés. C'est le parcours classique." },
-  { slug: 'etre-paye-ca-veut-dire-apporter-de-la-valeur', cat: 'Comprendre son écosystème', title: 'Être payé, ça veut dire apporter de la valeur', excerpt: "Quand une marque te recrute, elle ne te fait pas une faveur. Elle a un besoin. Toi, tu y réponds. Elle, elle te rétribue." },
+  { slug: 'pourquoi-le-niveau-ne-suffit-pas', cat: 'Écosystème', title: 'Pourquoi le niveau ne suffit pas pour vivre du breaking', excerpt: "Il y a une croyance dans le breaking qui est rarement remise en question : deviens bon, gagne des battles, et les contrats suivront.", readTime: 8 },
+  { slug: 'ton-entourage-a-peur-pour-toi-pas-contre-toi', cat: 'Mindset', title: 'Ton entourage a peur pour toi, pas contre toi', excerpt: "La majorité des danseurs qui vivent de leur art aujourd'hui sont passés exactement par là. Pas de soutien au départ. Parfois même rejetés.", readTime: 6 },
+  { slug: 'etre-paye-ca-veut-dire-apporter-de-la-valeur', cat: 'Écosystème', title: 'Être payé, ça veut dire apporter de la valeur', excerpt: "Quand une marque te recrute, elle ne te fait pas une faveur. Elle a un besoin. Toi, tu y réponds. Elle, elle te rétribue.", readTime: 5 },
 ];
+
+const categories = [...new Set(articles.map(a => a.cat))];
 ---
 
 <Layout title="Le Journal | Breaking Accelerator" description="Construire une carrière dans le breaking.">
@@ -45,27 +47,56 @@ const articles = [
   </div>
 
   <!-- HEADER -->
-  <header class="py-20 px-6 md:px-12">
-    <div class="max-w-3xl mx-auto">
-      <span class="text-xs text-stone-500 uppercase tracking-widest font-medium block mb-4">Journal</span>
+  <header class="py-16 md:py-20 px-6 md:px-12 text-center">
+    <div class="max-w-3xl mx-auto space-y-4">
+      <span class="text-xs text-stone-500 uppercase tracking-widest font-medium">Journal</span>
       <h1 class="text-3xl md:text-4xl text-stone-900 tracking-tight" style="font-family: 'DM Serif Display', serif;">Construire une carrière dans le breaking</h1>
+      <p class="text-stone-500 font-light text-lg max-w-xl mx-auto">{articles.length} articles pour passer de la passion au métier.</p>
     </div>
   </header>
 
-  <!-- ARTICLES -->
+  <!-- SEARCH + FILTERS -->
+  <section class="px-6 md:px-12 pb-8">
+    <div class="max-w-5xl mx-auto space-y-5">
+      <!-- Search bar -->
+      <div class="max-w-md mx-auto relative">
+        <iconify-icon icon="solar:magnifer-linear" class="absolute left-4 top-1/2 -translate-y-1/2 text-stone-400 text-lg"></iconify-icon>
+        <input type="text" id="journal-search" placeholder="Rechercher un article..." class="w-full pl-11 pr-4 py-3 bg-white border border-stone-200 rounded-full text-sm text-stone-900 placeholder:text-stone-400 focus:outline-none focus:border-stone-400 transition-colors" />
+      </div>
+      <!-- Category filters -->
+      <div class="flex flex-wrap justify-center gap-2">
+        <button class="journal-filter active px-4 py-1.5 text-xs font-medium tracking-wide uppercase rounded-full border border-stone-300 bg-[#1C1C1C] text-white transition-colors" data-cat="all">Tous</button>
+        {categories.map(cat => (
+          <button class="journal-filter px-4 py-1.5 text-xs font-medium tracking-wide uppercase rounded-full border border-stone-300 text-stone-600 hover:bg-stone-100 transition-colors" data-cat={cat}>{cat}</button>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ARTICLES GRID -->
   <section class="px-6 md:px-12 pb-24">
-    <div class="max-w-3xl mx-auto space-y-12">
-      {articles.map(({ slug, cat, title, excerpt }) => (
-        <a href={`/journal/${slug}`} class="group block border-t border-stone-300 pt-8">
-          <span class="text-xs text-stone-500 uppercase tracking-widest font-medium block mb-3">{cat}</span>
-          <h2 class="text-2xl md:text-3xl text-stone-900 tracking-tight mb-4 group-hover:text-stone-600 transition-colors" style="font-family: 'DM Serif Display', serif;">{title}</h2>
-          <p class="text-stone-500 font-light leading-relaxed mb-4">{excerpt}</p>
-          <span class="inline-flex items-center text-sm font-semibold uppercase tracking-wider text-stone-900">
-            Lire <iconify-icon icon="solar:arrow-right-linear" stroke-width="1.5" class="ml-2 group-hover:translate-x-1 transition-transform"></iconify-icon>
-          </span>
+    <div id="articles-grid" class="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      {articles.map(({ slug, cat, title, excerpt, readTime }) => (
+        <a href={`/journal/${slug}`} class="journal-card group flex flex-col bg-white border border-stone-200 rounded-2xl p-6 hover:shadow-lg hover:border-stone-300 transition-all duration-200" data-cat={cat} data-title={title.toLowerCase()} data-excerpt={excerpt.toLowerCase()}>
+          <div class="flex items-center justify-between mb-4">
+            <span class="text-[10px] font-bold uppercase tracking-widest text-stone-500 bg-stone-100 px-3 py-1 rounded-full">{cat}</span>
+          </div>
+          <h2 class="text-lg font-bold text-stone-900 leading-snug mb-3 group-hover:text-stone-600 transition-colors" style="font-family: 'DM Serif Display', serif;">{title}</h2>
+          <p class="text-stone-500 text-sm font-light leading-relaxed mb-5 flex-1">{excerpt}</p>
+          <div class="flex items-center justify-between pt-4 border-t border-stone-100">
+            <span class="inline-flex items-center text-stone-400 text-xs">
+              <iconify-icon icon="solar:clock-circle-linear" class="mr-1.5 text-sm"></iconify-icon>
+              {readTime} min de lecture
+            </span>
+            <span class="inline-flex items-center text-xs font-semibold uppercase tracking-wider text-stone-900 group-hover:text-stone-600 transition-colors">
+              Lire <iconify-icon icon="solar:arrow-right-linear" stroke-width="1.5" class="ml-1 group-hover:translate-x-1 transition-transform text-sm"></iconify-icon>
+            </span>
+          </div>
         </a>
       ))}
     </div>
+    <!-- Empty state -->
+    <p id="no-results" class="hidden max-w-5xl mx-auto text-center text-stone-400 py-12 text-sm">Aucun article trouvé.</p>
   </section>
 
   <!-- FOOTER -->
@@ -110,8 +141,9 @@ const articles = [
     </div>
   </footer>
 
-  <!-- MOBILE MENU SCRIPT -->
+  <!-- SCRIPTS -->
   <script>
+    // Mobile menu
     const toggle = document.getElementById('menu-toggle');
     const menu = document.getElementById('mobile-menu');
     const close = document.getElementById('menu-close');
@@ -135,6 +167,47 @@ const articles = [
       link.addEventListener('click', () => {
         menu?.classList.add('hidden');
         menu?.classList.remove('flex');
+      });
+    });
+
+    // Search + filter
+    const searchInput = document.getElementById('journal-search') as HTMLInputElement;
+    const cards = document.querySelectorAll('.journal-card') as NodeListOf<HTMLElement>;
+    const filterBtns = document.querySelectorAll('.journal-filter') as NodeListOf<HTMLButtonElement>;
+    const noResults = document.getElementById('no-results');
+    let activeCat = 'all';
+
+    function filterCards() {
+      const query = searchInput?.value.toLowerCase().trim() || '';
+      let visible = 0;
+      cards.forEach(card => {
+        const cat = card.dataset.cat || '';
+        const title = card.dataset.title || '';
+        const excerpt = card.dataset.excerpt || '';
+        const matchesCat = activeCat === 'all' || cat === activeCat;
+        const matchesSearch = !query || title.includes(query) || excerpt.includes(query);
+        if (matchesCat && matchesSearch) {
+          card.style.display = '';
+          visible++;
+        } else {
+          card.style.display = 'none';
+        }
+      });
+      if (noResults) noResults.classList.toggle('hidden', visible > 0);
+    }
+
+    searchInput?.addEventListener('input', filterCards);
+
+    filterBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        filterBtns.forEach(b => {
+          b.classList.remove('active', 'bg-[#1C1C1C]', 'text-white');
+          b.classList.add('text-stone-600');
+        });
+        btn.classList.add('active', 'bg-[#1C1C1C]', 'text-white');
+        btn.classList.remove('text-stone-600');
+        activeCat = btn.dataset.cat || 'all';
+        filterCards();
       });
     });
   </script>
