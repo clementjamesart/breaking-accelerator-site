@@ -34,9 +34,9 @@ const LP_URL = '/rejoindre';
   </div>
 
   <!-- HERO (full screen with photo background, like homepage) -->
-  <header class="relative w-full h-screen flex flex-col items-center justify-center text-center px-6 overflow-hidden">
-    <img src="/images/junior-action.jpg" alt="" class="absolute inset-0 w-full h-full object-cover" style="object-position: 45% 75%;" />
-    <div class="absolute inset-0 bg-black/55"></div>
+  <header class="relative w-full h-screen flex flex-col items-center justify-start text-center px-6 overflow-hidden pt-32 md:pt-40">
+    <img id="hero-img" src="/images/junior-mountains.jpg" alt="" class="absolute inset-0 w-full h-full object-cover" />
+    <div class="absolute inset-0 bg-black/65"></div>
     <div class="relative z-10 max-w-3xl mx-auto space-y-6">
       <span class="text-xs text-stone-300 uppercase tracking-widest font-medium">Quand la passion devient une carrière</span>
       <h1 class="text-4xl md:text-5xl lg:text-6xl text-white leading-[1.05] tracking-tight" style="font-family: 'DM Serif Display', serif;">
@@ -82,17 +82,17 @@ const LP_URL = '/rejoindre';
   </section>
 
   <!-- POURQUOI JUNIOR -->
-  <section class="relative py-32 md:py-40 px-6 md:px-12 overflow-hidden">
-    <img src="/images/junior-apropos.jpg" alt="" class="absolute inset-0 w-full h-full object-cover" />
-    <div class="absolute inset-0 bg-black/55"></div>
-    <div class="relative z-10 max-w-3xl mx-auto space-y-6">
+  <section class="relative py-36 md:py-48 px-6 md:px-12 overflow-hidden">
+    <img id="junior-img" src="/images/junior-arches.jpg" alt="" class="absolute inset-0 w-full h-full object-cover" />
+    <div class="absolute inset-0 bg-black/65"></div>
+    <div class="relative z-10 max-w-3xl mx-auto space-y-6" style="text-shadow: 0 1px 8px rgba(0,0,0,0.5);">
       <h2 class="text-2xl md:text-3xl text-white tracking-tight" style="font-family: 'DM Serif Display', serif;">
         Pourquoi Bboy Junior
       </h2>
-      <p class="text-stone-200 text-lg leading-relaxed font-light">
+      <p class="text-white text-lg leading-relaxed font-light">
         25 ans de carrière et des scènes sur les cinq continents. Plus de 1 000 contrats signés. Bboy Junior est l'un des breakers les plus reconnus au monde, et surtout l'un des rares à perdurer dans un milieu où la plupart s'arrêtent après quelques années.
       </p>
-      <p class="text-stone-200 text-lg leading-relaxed font-light">
+      <p class="text-white text-lg leading-relaxed font-light">
         Dans Breaking Accelerator, à ses côtés tu vas découvrir comment trouver des contrats, quelle vision adopter pour durer sur le long terme et comment transformer ta passion en une activité viable.
       </p>
     </div>
@@ -223,6 +223,18 @@ const LP_URL = '/rejoindre';
     .nav-solid .nav-links a { color: #57534e !important; }
     .nav-solid .nav-links a:hover { color: #1C1C1C !important; }
     .nav-solid .nav-toggle { color: #1C1C1C !important; }
+
+    /* Hero image: Junior freeze on mountain rooftop, show full body */
+    #hero-img { object-position: center 55%; }
+    @media (max-width: 768px) {
+      #hero-img { object-position: center 50%; }
+    }
+
+    /* Pourquoi Junior image: freeze in arched corridor */
+    #junior-img { object-position: center center; }
+    @media (max-width: 768px) {
+      #junior-img { object-position: center center; }
+    }
   </style>
 
 </Layout>
