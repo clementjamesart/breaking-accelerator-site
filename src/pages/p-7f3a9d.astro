@@ -79,16 +79,19 @@ const CTA_DELAY_SECONDS = 1460;
     }
 
     /* VIDEO */
-    .video-wrapper {
+    .video-section {
       max-width: 800px;
       margin: 0 auto;
       padding: 0 24px 32px;
+    }
+    .video-wrapper {
       position: relative;
       aspect-ratio: 16 / 9;
     }
     .video-wrapper video {
       width: 100%;
       height: 100%;
+      display: block;
       box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
     }
     /* Overlay unmute */
@@ -123,8 +126,8 @@ const CTA_DELAY_SECONDS = 1460;
       bottom: 0;
       left: 0;
       right: 0;
-      height: 4px;
-      background: rgba(0, 0, 0, 0.1);
+      height: 6px;
+      background: rgba(0, 0, 0, 0.15);
       z-index: 5;
       pointer-events: none;
     }
@@ -228,14 +231,16 @@ const CTA_DELAY_SECONDS = 1460;
   </div>
 
   <!-- VIDEO -->
-  <div class="video-wrapper">
-    <video id="vsl-player" playsinline muted autoplay preload="auto" poster="https://pub-082a1b16b2b048e9ace33389cff3fac5.r2.dev/poster-vsl.jpg">
-      <source src={VSL_VIDEO_URL} type="video/mp4" />
-    </video>
-    <div class="unmute-overlay" id="unmute-overlay">
-      <span>Clique pour activer le son</span>
+  <div class="video-section">
+    <div class="video-wrapper">
+      <video id="vsl-player" playsinline muted autoplay preload="auto" poster="https://pub-082a1b16b2b048e9ace33389cff3fac5.r2.dev/poster-vsl.jpg">
+        <source src={VSL_VIDEO_URL} type="video/mp4" />
+      </video>
+      <div class="unmute-overlay" id="unmute-overlay">
+        <span>Clique pour activer le son</span>
+      </div>
+      <div class="fake-progress-track"><div class="fake-progress" id="fake-progress"></div></div>
     </div>
-    <div class="fake-progress-track"><div class="fake-progress" id="fake-progress"></div></div>
   </div>
 
   <!-- CTA BOOKING (apparait après 1460 secondes) -->
