@@ -208,38 +208,10 @@ const R2_BASE = 'https://pub-082a1b16b2b048e9ace33389cff3fac5.r2.dev';
       position: relative;
       cursor: pointer;
     }
-    .play-btn {
-      position: absolute;
-      inset: 0;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      z-index: 2;
-      border-radius: 8px;
-    }
-    .play-btn:hover .play-circle {
-      transform: scale(1.1);
-    }
-    .play-circle {
-      width: 60px;
-      height: 60px;
-      background: rgba(0, 0, 0, 0.65);
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: transform 0.2s;
-    }
-    .play-circle::after {
-      content: '';
-      display: block;
-      width: 0;
-      height: 0;
-      border-left: 20px solid #FFFFFF;
-      border-top: 12px solid transparent;
-      border-bottom: 12px solid transparent;
-      margin-left: 4px;
-    }
+
+    /* Hide download button in video controls */
+    video::-webkit-media-controls-download-button { display: none !important; }
+    video::-webkit-media-controls-overflow-button { display: none !important; }
 
     /* FOOTER */
     .footer-section {
@@ -295,7 +267,6 @@ const R2_BASE = 'https://pub-082a1b16b2b048e9ace33389cff3fac5.r2.dev';
       <video playsinline preload="none" poster={`${R2_BASE}/merci/thumb-etape1.jpg`}>
         <source src={`${R2_BASE}/merci/etape1-call-booke.mp4`} type="video/mp4" />
       </video>
-      <div class="play-btn"><div class="play-circle"></div></div>
     </div>
 
     <p class="encore">Encore une chose...</p>
@@ -317,19 +288,16 @@ const R2_BASE = 'https://pub-082a1b16b2b048e9ace33389cff3fac5.r2.dev';
         <video playsinline preload="none" poster={`${R2_BASE}/temoignages/thumb-mario.jpg`}>
           <source src={`${R2_BASE}/temoignages/mario.mp4`} type="video/mp4" />
         </video>
-        <div class="play-btn"><div class="play-circle"></div></div>
       </div>
       <div class="play-wrap">
         <video playsinline preload="none" poster={`${R2_BASE}/temoignages/thumb-axel.jpg`}>
           <source src={`${R2_BASE}/temoignages/axel.mp4`} type="video/mp4" />
         </video>
-        <div class="play-btn"><div class="play-circle"></div></div>
       </div>
       <div class="play-wrap">
         <video playsinline preload="none" poster={`${R2_BASE}/temoignages/thumb-phouthone.jpg`}>
           <source src={`${R2_BASE}/temoignages/phouthone.mp4`} type="video/mp4" />
         </video>
-        <div class="play-btn"><div class="play-circle"></div></div>
       </div>
     </div>
     <hr class="divider" />
@@ -549,16 +517,17 @@ const R2_BASE = 'https://pub-082a1b16b2b048e9ace33389cff3fac5.r2.dev';
   </div>
 
   <script is:inline>
-    // Custom play button for ALL videos (inline styles to bypass Astro CSS scoping)
+    // Custom play button for ALL videos
     document.querySelectorAll('video').forEach(function(video) {
       video.removeAttribute('controls');
+      video.setAttribute('controlsList', 'nodownload');
+      video.addEventListener('contextmenu', function(e) { e.preventDefault(); });
 
-      // Use existing .play-wrap or parent (.faq-video / .video-embed) as container
       var wrap = video.closest('.play-wrap') || video.parentNode;
       wrap.style.position = 'relative';
       wrap.style.cursor = 'pointer';
 
-      // Create play overlay with inline styles (Astro scoped CSS won't reach JS-created elements)
+      // Create play overlay
       var btn = document.createElement('div');
       btn.style.position = 'absolute';
       btn.style.top = '0';
