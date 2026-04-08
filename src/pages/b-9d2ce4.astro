@@ -167,6 +167,14 @@ const CAL_LINK = 'breakingaccelerator/appel-bilan-de-carriere';
       hideEventTypeDetails: false,
       layout: "month_view"
     });
+
+    // Redirect vers la thank you page apres booking reussi
+    Cal("on", {
+      action: "bookingSuccessful",
+      callback: function(e) {
+        window.location.href = "/t-4e8b2f";
+      }
+    });
   </script>
 
 </body>
