@@ -1,6 +1,8 @@
 ---
 const WEBHOOK_URL = 'https://automate.dancingaccelerator.com/webhook/optin-ba';
+const TRACKING_URL = 'https://automate.dancingaccelerator.com/webhook/vsl-tracking-ba';
 const VSL_URL = '/p-7f3a9d';
+const PAGE_ID = '/lpa';
 const META_PIXEL_ID = '1525345608489094';
 ---
 
@@ -389,13 +391,30 @@ const META_PIXEL_ID = '1525345608489094';
     }, 0);
   </script>
 
-  <script define:vars={{ WEBHOOK_URL, VSL_URL }}>
+  <script define:vars={{ WEBHOOK_URL, TRACKING_URL, VSL_URL, PAGE_ID }}>
     // UTM capture
     const params = new URLSearchParams(window.location.search);
     ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content'].forEach(function(k) {
       var el = document.getElementById(k);
       if (el && params.get(k)) el.value = params.get(k);
     });
+
+    // LP page_view tracking (fire once on load)
+    try {
+      var device = /Mobi|Android/i.test(navigator.userAgent) ? 'mobile' : 'desktop';
+      var pvPayload = {
+        event_type: 'lp_page_view',
+        email: params.get('email') || '',
+        page: PAGE_ID,
+        utm_source: params.get('utm_source') || '',
+        utm_campaign: params.get('utm_campaign') || '',
+        utm_content: params.get('utm_content') || '',
+        device: device,
+        duration_seconds: 0,
+        metadata: JSON.stringify({ referrer: document.referrer || '' }),
+      };
+      navigator.sendBeacon(TRACKING_URL, JSON.stringify(pvPayload));
+    } catch (e) { /* fail silent — tracking must not block UX */ }
 
     // Popup open
     document.getElementById('open-popup').addEventListener('click', function() {

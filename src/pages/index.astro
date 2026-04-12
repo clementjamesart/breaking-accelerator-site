@@ -277,10 +277,19 @@ const R2_BASE = 'https://pub-082a1b16b2b048e9ace33389cff3fac5.r2.dev';
           msg.classList.add('hidden');
 
           try {
-            const res = await fetch('https://hook.eu1.make.com/j8wt8s7jlxc0t67wcu30bj6v3gn7xa7k', {
+            const utmParams = new URLSearchParams(window.location.search);
+            const res = await fetch('https://automate.dancingaccelerator.com/webhook/optin-ba', {
               method: 'POST',
               headers: { 'Content-Type': 'application/json' },
-              body: JSON.stringify({ email, prenom }),
+              body: JSON.stringify({
+                email,
+                prenom,
+                source: 'homepage-newsletter',
+                utm_source: utmParams.get('utm_source') || 'homepage',
+                utm_medium: utmParams.get('utm_medium') || '',
+                utm_campaign: utmParams.get('utm_campaign') || '',
+                utm_content: utmParams.get('utm_content') || '',
+              }),
             });
             if (res.ok) {
               form.innerHTML = '<p class="text-stone-300 text-center">Inscription confirmée. À très vite.</p>';
