@@ -1,6 +1,6 @@
 ---
 const WEBHOOK_URL = 'https://automate.dancingaccelerator.com/webhook/optin-ba';
-const TRACKING_URL = 'https://automate.dancingaccelerator.com/webhook/vsl-tracking-ba';
+const TRACKING_URL = '/api/track';
 const VSL_URL = '/p-7f3a9d';
 const PAGE_ID = '/lpa';
 const META_PIXEL_ID = '1525345608489094';
@@ -332,6 +332,7 @@ const META_PIXEL_ID = '1525345608489094';
         <input type="hidden" name="utm_medium" id="utm_medium" />
         <input type="hidden" name="utm_campaign" id="utm_campaign" />
         <input type="hidden" name="utm_content" id="utm_content" />
+        <input type="hidden" name="utm_term" id="utm_term" />
         <button type="submit" class="submit-btn" id="submit-btn">
           Je découvre gratuitement
           <small>(avant supression)</small>
@@ -394,7 +395,7 @@ const META_PIXEL_ID = '1525345608489094';
   <script define:vars={{ WEBHOOK_URL, TRACKING_URL, VSL_URL, PAGE_ID }}>
     // UTM capture
     const params = new URLSearchParams(window.location.search);
-    ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content'].forEach(function(k) {
+    ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term'].forEach(function(k) {
       var el = document.getElementById(k);
       if (el && params.get(k)) el.value = params.get(k);
     });
@@ -409,6 +410,7 @@ const META_PIXEL_ID = '1525345608489094';
         utm_source: params.get('utm_source') || '',
         utm_campaign: params.get('utm_campaign') || '',
         utm_content: params.get('utm_content') || '',
+        utm_term: params.get('utm_term') || '',
         device: device,
         duration_seconds: 0,
         metadata: JSON.stringify({ referrer: document.referrer || '' }),
@@ -462,6 +464,7 @@ const META_PIXEL_ID = '1525345608489094';
         utm_medium: data.utm_medium || '',
         utm_campaign: data.utm_campaign || '',
         utm_content: data.utm_content || '',
+        utm_term: data.utm_term || '',
       }).toString();
 
       // Fire webhook in background (sendBeacon survives page navigation)

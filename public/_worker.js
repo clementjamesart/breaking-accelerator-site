@@ -61,6 +61,42 @@ export default {
       }
     }
 
+    if (url.pathname === '/api/track') {
+      const cors = {
+        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Methods': 'POST, OPTIONS',
+        'Access-Control-Allow-Headers': 'Content-Type',
+      };
+
+      if (request.method === 'OPTIONS') {
+        return new Response(null, { headers: cors });
+      }
+
+      if (request.method !== 'POST') {
+        return new Response('method not allowed', { status: 405, headers: cors });
+      }
+
+      let body;
+      try {
+        body = await request.text();
+      } catch {
+        return new Response('bad body', { status: 400, headers: cors });
+      }
+
+      try {
+        await fetch('https://automate.dancingaccelerator.com/webhook/vsl-tracking-ba', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body,
+        });
+      } catch {}
+
+      return new Response('ok', {
+        status: 200,
+        headers: { ...cors, 'Content-Type': 'text/plain' },
+      });
+    }
+
     // Toutes les autres requêtes → fichiers statiques Astro
     return env.ASSETS.fetch(request);
   },

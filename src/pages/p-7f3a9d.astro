@@ -1,7 +1,7 @@
 ---
 const BOOKING_URL = '/b-9d2ce4';
 const VSL_VIDEO_URL = 'https://pub-082a1b16b2b048e9ace33389cff3fac5.r2.dev/vsl-v2.mp4';
-const TRACKING_URL = 'https://automate.dancingaccelerator.com/webhook/vsl-tracking-ba';
+const TRACKING_URL = '/api/track';
 const CTA_DELAY_SECONDS = 1460;
 ---
 
@@ -274,6 +274,7 @@ const CTA_DELAY_SECONDS = 1460;
     var utm_source = params.get('utm_source') || '';
     var utm_campaign = params.get('utm_campaign') || '';
     var utm_content = params.get('utm_content') || '';
+    var utm_term = params.get('utm_term') || '';
     var device = /Mobi|Android/i.test(navigator.userAgent) ? 'mobile' : 'desktop';
 
     // Native video player (no Plyr = no CDN delay)
@@ -316,6 +317,7 @@ const CTA_DELAY_SECONDS = 1460;
         utm_source: utm_source,
         utm_campaign: utm_campaign,
         utm_content: utm_content,
+        utm_term: utm_term,
         device: device,
         duration_seconds: Math.round(player.currentTime || 0),
         metadata: JSON.stringify(Object.assign({
@@ -380,7 +382,7 @@ const CTA_DELAY_SECONDS = 1460;
     // UTM passthrough to booking URL
     var bookingLink = document.getElementById('booking-link');
     var utmParams = new URLSearchParams();
-    ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content'].forEach(function(k) {
+    ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term'].forEach(function(k) {
       var v = params.get(k);
       if (v) utmParams.set(k, v);
     });
