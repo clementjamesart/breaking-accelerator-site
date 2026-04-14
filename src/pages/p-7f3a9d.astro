@@ -1,4 +1,5 @@
 ---
+import PostHog from '../components/PostHog.astro';
 const BOOKING_URL = '/b-9d2ce4';
 const VSL_VIDEO_URL = 'https://pub-082a1b16b2b048e9ace33389cff3fac5.r2.dev/vsl-v2.mp4';
 const TRACKING_URL = '/api/track';
@@ -12,6 +13,7 @@ const CTA_DELAY_SECONDS = 1460;
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Breaking Accelerator | Présentation</title>
   <meta name="robots" content="noindex, nofollow" />
+  <PostHog />
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -326,6 +328,7 @@ const CTA_DELAY_SECONDS = 1460;
         }, extra || {})),
       };
       navigator.sendBeacon(TRACKING_URL, JSON.stringify(payload));
+      try { window.posthog && window.posthog.capture(eventType, payload); } catch (e) {}
     }
 
     // page_view on load (for play rate calculation)

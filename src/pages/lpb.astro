@@ -1,4 +1,5 @@
 ---
+import PostHog from '../components/PostHog.astro';
 const WEBHOOK_URL = 'https://automate.dancingaccelerator.com/webhook/optin-ba';
 const TRACKING_URL = '/api/track';
 const VSL_URL = '/p-7f3a9d';
@@ -13,6 +14,7 @@ const META_PIXEL_ID = '1525345608489094';
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Breaking Accelerator | Candidature</title>
   <meta name="description" content="Découvre comment faire carrière et vivre de ta passion pour le break. Validé par Bboy Junior." />
+  <PostHog />
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -388,6 +390,7 @@ const META_PIXEL_ID = '1525345608489094';
         metadata: JSON.stringify({ referrer: document.referrer || '' }),
       };
       navigator.sendBeacon(TRACKING_URL, JSON.stringify(pvPayload));
+      try { window.posthog && window.posthog.capture('lp_page_view', pvPayload); } catch (e) {}
     } catch (e) { /* fail silent — tracking must not block UX */ }
 
     // Popup open
@@ -442,6 +445,12 @@ const META_PIXEL_ID = '1525345608489094';
       // Fire webhook in background (sendBeacon survives page navigation)
       var blob = new Blob([JSON.stringify(data)], { type: 'application/json' });
       navigator.sendBeacon(WEBHOOK_URL, blob);
+      try {
+        if (window.posthog) {
+          if (data.email) window.posthog.identify(data.email, { email: data.email });
+          window.posthog.capture('optin_submit', data);
+        }
+      } catch (e) {}
 
       // Redirect immediately
       window.location.href = VSL_URL + '?' + vslParams;

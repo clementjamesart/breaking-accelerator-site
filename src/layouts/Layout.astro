@@ -1,4 +1,6 @@
 ---
+import PostHog from '../components/PostHog.astro';
+
 interface Props {
   title?: string;
   description?: string;
@@ -26,6 +28,8 @@ const {
 
   <!-- Icons -->
   <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
+
+  <PostHog />
 
   <style is:global>
     body {
