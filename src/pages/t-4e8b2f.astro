@@ -38,6 +38,8 @@ const R2_BASE = 'https://pub-082a1b16b2b048e9ace33389cff3fac5.r2.dev';
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="preconnect" href={R2_BASE} crossorigin />
+  <link rel="dns-prefetch" href={R2_BASE} />
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet" />
 
   <style>
@@ -264,7 +266,7 @@ const R2_BASE = 'https://pub-082a1b16b2b048e9ace33389cff3fac5.r2.dev';
     <p class="etape-title"><strong>Étape 1 (Important) :</strong> Pour que tu puisses profiter un maximum de notre conversation et que celle-ci soit productive, regarde la <strong>vidéo ci-dessous en priorité</strong></p>
 
     <div class="video-embed play-wrap">
-      <video playsinline preload="none" poster={`${R2_BASE}/merci/thumb-etape1.jpg`}>
+      <video playsinline preload="metadata" poster={`${R2_BASE}/merci/thumb-etape1.jpg`}>
         <source src={`${R2_BASE}/merci/etape1-call-booke.mp4`} type="video/mp4" />
       </video>
     </div>
