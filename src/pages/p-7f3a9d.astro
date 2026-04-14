@@ -270,13 +270,19 @@ const CTA_DELAY_SECONDS = 1460;
   </div>
 
   <script define:vars={{ CTA_DELAY_SECONDS, BOOKING_URL, TRACKING_URL, VSL_VIDEO_URL }}>
-    // Lead identity from URL params (set by optin redirect)
+    // Lead identity + ad attribution from URL params (set by optin redirect)
     var params = new URLSearchParams(window.location.search);
     var email = params.get('email') || '';
     var utm_source = params.get('utm_source') || '';
+    var utm_medium = params.get('utm_medium') || '';
     var utm_campaign = params.get('utm_campaign') || '';
     var utm_content = params.get('utm_content') || '';
     var utm_term = params.get('utm_term') || '';
+    var ad_id = params.get('ad_id') || '';
+    var adset_id = params.get('adset_id') || '';
+    var campaign_id = params.get('campaign_id') || '';
+    var placement = params.get('placement') || '';
+    var fbclid = params.get('fbclid') || '';
     var device = /Mobi|Android/i.test(navigator.userAgent) ? 'mobile' : 'desktop';
 
     // Native video player (no Plyr = no CDN delay)
@@ -317,9 +323,15 @@ const CTA_DELAY_SECONDS = 1460;
         email: email,
         page: '/presentation',
         utm_source: utm_source,
+        utm_medium: utm_medium,
         utm_campaign: utm_campaign,
         utm_content: utm_content,
         utm_term: utm_term,
+        ad_id: ad_id,
+        adset_id: adset_id,
+        campaign_id: campaign_id,
+        placement: placement,
+        fbclid: fbclid,
         device: device,
         duration_seconds: Math.round(player.currentTime || 0),
         metadata: JSON.stringify(Object.assign({
@@ -382,10 +394,10 @@ const CTA_DELAY_SECONDS = 1460;
       document.getElementById('cta-booking').classList.add('visible');
     }, CTA_DELAY_SECONDS * 1000);
 
-    // UTM passthrough to booking URL
+    // Attribution passthrough to booking URL
     var bookingLink = document.getElementById('booking-link');
     var utmParams = new URLSearchParams();
-    ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term'].forEach(function(k) {
+    ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term', 'ad_id', 'adset_id', 'campaign_id', 'placement', 'fbclid', 'email'].forEach(function(k) {
       var v = params.get(k);
       if (v) utmParams.set(k, v);
     });

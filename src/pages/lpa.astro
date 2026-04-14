@@ -335,6 +335,11 @@ const META_PIXEL_ID = '1525345608489094';
         <input type="hidden" name="utm_campaign" id="utm_campaign" />
         <input type="hidden" name="utm_content" id="utm_content" />
         <input type="hidden" name="utm_term" id="utm_term" />
+        <input type="hidden" name="ad_id" id="ad_id" />
+        <input type="hidden" name="adset_id" id="adset_id" />
+        <input type="hidden" name="campaign_id" id="campaign_id" />
+        <input type="hidden" name="placement" id="placement" />
+        <input type="hidden" name="fbclid" id="fbclid" />
         <button type="submit" class="submit-btn" id="submit-btn">
           Je découvre gratuitement
           <small>(avant supression)</small>
@@ -395,9 +400,10 @@ const META_PIXEL_ID = '1525345608489094';
   </script>
 
   <script define:vars={{ WEBHOOK_URL, TRACKING_URL, VSL_URL, PAGE_ID }}>
-    // UTM capture
+    // UTM + ad attribution capture
     const params = new URLSearchParams(window.location.search);
-    ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term'].forEach(function(k) {
+    const ATTR_KEYS = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term', 'ad_id', 'adset_id', 'campaign_id', 'placement', 'fbclid'];
+    ATTR_KEYS.forEach(function(k) {
       var el = document.getElementById(k);
       if (el && params.get(k)) el.value = params.get(k);
     });
@@ -410,9 +416,15 @@ const META_PIXEL_ID = '1525345608489094';
         email: params.get('email') || '',
         page: PAGE_ID,
         utm_source: params.get('utm_source') || '',
+        utm_medium: params.get('utm_medium') || '',
         utm_campaign: params.get('utm_campaign') || '',
         utm_content: params.get('utm_content') || '',
         utm_term: params.get('utm_term') || '',
+        ad_id: params.get('ad_id') || '',
+        adset_id: params.get('adset_id') || '',
+        campaign_id: params.get('campaign_id') || '',
+        placement: params.get('placement') || '',
+        fbclid: params.get('fbclid') || '',
         device: device,
         duration_seconds: 0,
         metadata: JSON.stringify({ referrer: document.referrer || '' }),
@@ -460,7 +472,7 @@ const META_PIXEL_ID = '1525345608489094';
       var formData = new FormData(e.target);
       var data = Object.fromEntries(formData);
 
-      // Build redirect URL
+      // Build redirect URL (carry attribution all the way to the VSL)
       var vslParams = new URLSearchParams({
         email: data.email,
         utm_source: data.utm_source || '',
@@ -468,6 +480,11 @@ const META_PIXEL_ID = '1525345608489094';
         utm_campaign: data.utm_campaign || '',
         utm_content: data.utm_content || '',
         utm_term: data.utm_term || '',
+        ad_id: data.ad_id || '',
+        adset_id: data.adset_id || '',
+        campaign_id: data.campaign_id || '',
+        placement: data.placement || '',
+        fbclid: data.fbclid || '',
       }).toString();
 
       // Fire webhook in background (sendBeacon survives page navigation)

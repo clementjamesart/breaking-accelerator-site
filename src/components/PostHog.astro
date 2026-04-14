@@ -7,4 +7,18 @@
     capture_pageleave: true,
     autocapture: true
   });
+
+  // Register ad attribution as super properties (flow into ALL events for this visitor)
+  try {
+    var _ph_params = new URLSearchParams(window.location.search);
+    var _ph_super = {};
+    ['utm_source','utm_medium','utm_campaign','utm_content','utm_term','ad_id','adset_id','campaign_id','placement','fbclid'].forEach(function(k){
+      var v = _ph_params.get(k);
+      if (v) _ph_super[k] = v;
+    });
+    if (Object.keys(_ph_super).length) {
+      // register_once = only set on first visit, don't overwrite if user comes back via organic
+      posthog.register_once(_ph_super);
+    }
+  } catch (e) {}
 </script>
