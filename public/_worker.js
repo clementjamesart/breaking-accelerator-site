@@ -267,6 +267,85 @@ export default {
       return new Response('ok', { status: 200 });
     }
 
+    if (url.pathname === '/api/kit-webhook') {
+      if (request.method !== 'POST') {
+        return new Response('method not allowed', { status: 405 });
+      }
+
+      const expectedToken = env.KIT_WEBHOOK_TOKEN;
+      if (!expectedToken) {
+        console.error('kit-webhook: KIT_WEBHOOK_TOKEN missing');
+        return new Response('server misconfigured', { status: 500 });
+      }
+      const providedToken = url.searchParams.get('token');
+      if (providedToken !== expectedToken) {
+        console.warn('kit-webhook: invalid token');
+        return new Response('unauthorized', { status: 401 });
+      }
+
+      const projectKey = env.POSTHOG_PROJECT_KEY;
+      if (!projectKey) {
+        console.error('kit-webhook: POSTHOG_PROJECT_KEY missing');
+        return new Response('ok', { status: 200 });
+      }
+
+      let body;
+      try {
+        body = await request.json();
+      } catch {
+        return new Response('bad json', { status: 400 });
+      }
+
+      // Kit webhook payload shape: { subscriber: {...} } or { ... } depending on event
+      const sub = body.subscriber || body;
+      const email = (sub.email_address || sub.email || '').trim().toLowerCase();
+      const subscriberId = sub.id || null;
+      const firstName = sub.first_name || null;
+
+      if (!email) {
+        console.warn('kit-webhook: no email in payload', body);
+        return new Response('ok', { status: 200 });
+      }
+
+      // Map Kit event name (from URL query ?kit_event=xxx) to PostHog event name
+      const kitEvent = url.searchParams.get('kit_event') || 'unknown';
+      const phEventMap = {
+        subscriber_unsubscribe: 'email_unsubscribe',
+        subscriber_bounce: 'email_bounce',
+        subscriber_complain: 'email_complain',
+        link_click: 'email_click',
+      };
+      const phEvent = phEventMap[kitEvent] || `kit_${kitEvent}`;
+
+      try {
+        const phRes = await fetch('https://eu.i.posthog.com/capture/', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            api_key: projectKey,
+            event: phEvent,
+            distinct_id: email,
+            properties: {
+              email,
+              kit_subscriber_id: subscriberId,
+              kit_first_name: firstName,
+              kit_event: kitEvent,
+            },
+            timestamp: new Date().toISOString(),
+          }),
+        });
+        if (!phRes.ok) {
+          const errBody = await phRes.text().catch(() => '');
+          console.error('kit-webhook posthog:', phRes.status, errBody);
+        }
+      } catch (e) {
+        console.error('kit-webhook posthog fetch:', e);
+      }
+
+      console.log('kit-webhook:', phEvent, { email, subscriberId });
+      return new Response('ok', { status: 200 });
+    }
+
     // Toutes les autres requêtes → fichiers statiques Astro
     return env.ASSETS.fetch(request);
   },
