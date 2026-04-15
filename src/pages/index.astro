@@ -278,19 +278,23 @@ const R2_BASE = 'https://pub-082a1b16b2b048e9ace33389cff3fac5.r2.dev';
 
           try {
             const utmParams = new URLSearchParams(window.location.search);
+            const optinPayload = {
+              email,
+              prenom,
+              source: 'homepage-newsletter',
+              utm_source: utmParams.get('utm_source') || 'homepage',
+              utm_medium: utmParams.get('utm_medium') || '',
+              utm_campaign: utmParams.get('utm_campaign') || '',
+              utm_content: utmParams.get('utm_content') || '',
+              utm_term: utmParams.get('utm_term') || '',
+            };
+            // Fire-and-forget push to Kit sequence 2722054 (via CF Pages Function)
+            const kitBlob = new Blob([JSON.stringify(optinPayload)], { type: 'application/json' });
+            navigator.sendBeacon('/api/kit-optin', kitBlob);
             const res = await fetch('https://automate.dancingaccelerator.com/webhook/optin-ba', {
               method: 'POST',
               headers: { 'Content-Type': 'application/json' },
-              body: JSON.stringify({
-                email,
-                prenom,
-                source: 'homepage-newsletter',
-                utm_source: utmParams.get('utm_source') || 'homepage',
-                utm_medium: utmParams.get('utm_medium') || '',
-                utm_campaign: utmParams.get('utm_campaign') || '',
-                utm_content: utmParams.get('utm_content') || '',
-                utm_term: utmParams.get('utm_term') || '',
-              }),
+              body: JSON.stringify(optinPayload),
             });
             if (res.ok) {
               form.innerHTML = '<p class="text-stone-300 text-center">Inscription confirmée. À très vite.</p>';

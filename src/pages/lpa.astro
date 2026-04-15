@@ -490,6 +490,7 @@ const META_PIXEL_ID = '1525345608489094';
       // Fire webhook in background (sendBeacon survives page navigation)
       var blob = new Blob([JSON.stringify(data)], { type: 'application/json' });
       navigator.sendBeacon(WEBHOOK_URL, blob);
+      navigator.sendBeacon('/api/kit-optin', blob);
       try {
         if (window.posthog) {
           if (data.email) window.posthog.identify(data.email, { email: data.email });
