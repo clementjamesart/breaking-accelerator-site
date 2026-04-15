@@ -230,10 +230,27 @@ export default {
         return new Response('bad email', { status: 400 });
       }
 
+      const kitHeaders = { 'Content-Type': 'application/json', 'X-Kit-Api-Key': apiKey };
+      const attendeeName = (body?.payload?.attendees?.[0]?.name || '').trim() || null;
+
+      try {
+        const subRes = await fetch('https://api.kit.com/v4/subscribers', {
+          method: 'POST',
+          headers: kitHeaders,
+          body: JSON.stringify({ email_address: email, first_name: attendeeName, state: 'active' }),
+        });
+        if (!subRes.ok) {
+          const errBody = await subRes.text().catch(() => '');
+          console.error('calcom-booked kit subscriber:', subRes.status, errBody, { email, bookingUid });
+        }
+      } catch (e) {
+        console.error('calcom-booked kit subscriber fetch:', e, { email, bookingUid });
+      }
+
       try {
         const tagRes = await fetch('https://api.kit.com/v4/tags/18936476/subscribers', {
           method: 'POST',
-          headers: { 'Content-Type': 'application/json', 'X-Kit-Api-Key': apiKey },
+          headers: kitHeaders,
           body: JSON.stringify({ email_address: email }),
         });
         if (!tagRes.ok) {
