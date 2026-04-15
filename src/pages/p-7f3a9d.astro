@@ -3,7 +3,7 @@ import PostHog from '../components/PostHog.astro';
 const BOOKING_URL = '/b-9d2ce4';
 const VSL_VIDEO_URL = 'https://pub-082a1b16b2b048e9ace33389cff3fac5.r2.dev/vsl-v2.mp4';
 const TRACKING_URL = '/api/track';
-const CTA_DELAY_SECONDS = 1460;
+const CTA_DELAY_SECONDS = 1316;
 ---
 
 <!DOCTYPE html>
@@ -245,7 +245,7 @@ const CTA_DELAY_SECONDS = 1460;
     </div>
   </div>
 
-  <!-- CTA BOOKING (apparait après 1460 secondes) -->
+  <!-- CTA BOOKING (apparait à 21:56 — premier "clique sur le bouton" du script) -->
   <div class="cta-booking" id="cta-booking">
     <a href={BOOKING_URL} class="cta-btn" id="booking-link">
       Je réserve mon appel (gratuit)
@@ -389,7 +389,7 @@ const CTA_DELAY_SECONDS = 1460;
       sendEvent('vsl_drop', { drop_pct: pct });
     });
 
-    // CTA timer (1460 secondes comme sur Systeme.io)
+    // CTA timer (1316s = 21:56, synchro avec le premier CTA audio)
     setTimeout(function() {
       document.getElementById('cta-booking').classList.add('visible');
     }, CTA_DELAY_SECONDS * 1000);

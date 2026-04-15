@@ -159,10 +159,19 @@ const CAL_LINK = 'breakingaccelerator/appel-bilan-de-carriere';
 
     Cal("init", { origin: "https://app.cal.com" });
 
+    // Prefill from URL params (preserves email entered at optin)
+    var urlParams = new URLSearchParams(window.location.search);
+    var prefilledEmail = urlParams.get('email') || '';
+    var prefilledName = urlParams.get('name') || urlParams.get('prenom') || '';
+
     Cal("inline", {
       elementOrSelector: "#cal-inline",
       calLink: "breakingaccelerator/appel-bilan-de-carriere",
-      config: { layout: "month_view" }
+      config: {
+        layout: "month_view",
+        name: prefilledName,
+        email: prefilledEmail
+      }
     });
 
     Cal("ui", {
