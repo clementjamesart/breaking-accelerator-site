@@ -163,15 +163,22 @@ const CAL_LINK = 'breakingaccelerator/appel-bilan-de-carriere';
     var urlParams = new URLSearchParams(window.location.search);
     var prefilledEmail = urlParams.get('email') || '';
     var prefilledName = urlParams.get('name') || urlParams.get('prenom') || '';
+    var leadId = urlParams.get('lead_id') || '';
+
+    var calLink = "breakingaccelerator/appel-bilan-de-carriere";
+    if (leadId) calLink += "?lead_id=" + encodeURIComponent(leadId);
+
+    var calConfig = {
+      layout: "month_view",
+      name: prefilledName,
+      email: prefilledEmail
+    };
+    if (leadId) calConfig.metadata = { lead_id: leadId };
 
     Cal("inline", {
       elementOrSelector: "#cal-inline",
-      calLink: "breakingaccelerator/appel-bilan-de-carriere",
-      config: {
-        layout: "month_view",
-        name: prefilledName,
-        email: prefilledEmail
-      }
+      calLink: calLink,
+      config: calConfig
     });
 
     Cal("ui", {

@@ -472,9 +472,15 @@ const META_PIXEL_ID = '1525345608489094';
       var formData = new FormData(e.target);
       var data = Object.fromEntries(formData);
 
+      var leadId = crypto.randomUUID ? crypto.randomUUID() : 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+        var r = Math.random() * 16 | 0; return (c === 'x' ? r : (r & 0x3 | 0x8)).toString(16);
+      });
+      data.lead_id = leadId;
+
       // Build redirect URL (carry attribution all the way to the VSL)
       var vslParams = new URLSearchParams({
         email: data.email,
+        lead_id: leadId,
         utm_source: data.utm_source || '',
         utm_medium: data.utm_medium || '',
         utm_campaign: data.utm_campaign || '',

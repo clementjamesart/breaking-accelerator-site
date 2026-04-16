@@ -397,7 +397,7 @@ const CTA_DELAY_SECONDS = 1316;
     // Attribution passthrough to booking URL
     var bookingLink = document.getElementById('booking-link');
     var utmParams = new URLSearchParams();
-    ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term', 'ad_id', 'adset_id', 'campaign_id', 'placement', 'fbclid', 'email'].forEach(function(k) {
+    ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term', 'ad_id', 'adset_id', 'campaign_id', 'placement', 'fbclid', 'email', 'lead_id'].forEach(function(k) {
       var v = params.get(k);
       if (v) utmParams.set(k, v);
     });

@@ -127,6 +127,7 @@ export default {
 
       const email = (payload.email || '').trim().toLowerCase();
       const firstName = (payload.prenom || '').trim() || null;
+      const leadId = (payload.lead_id || '').trim() || null;
 
       if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
         return new Response('bad email', { status: 400, headers: cors });
@@ -137,11 +138,14 @@ export default {
         'X-Kit-Api-Key': apiKey,
       };
 
+      const subBody = { email_address: email, first_name: firstName, state: 'active' };
+      if (leadId) subBody.fields = { lead_id: leadId };
+
       try {
         const subRes = await fetch('https://api.kit.com/v4/subscribers', {
           method: 'POST',
           headers: kitHeaders,
-          body: JSON.stringify({ email_address: email, first_name: firstName, state: 'active' }),
+          body: JSON.stringify(subBody),
         });
         if (!subRes.ok) {
           const errBody = await subRes.text().catch(() => '');
@@ -149,6 +153,14 @@ export default {
         }
       } catch (e) {
         console.error('kit-optin subscriber fetch:', e);
+      }
+
+      if (leadId && env.BA_LEAD_MAP) {
+        try {
+          await env.BA_LEAD_MAP.put(leadId, email, { expirationTtl: 2592000 });
+        } catch (e) {
+          console.error('kit-optin KV put:', e);
+        }
       }
 
       try {
@@ -222,10 +234,17 @@ export default {
         return new Response('ignored', { status: 200 });
       }
 
-      const email = (body?.payload?.attendees?.[0]?.email || '').trim().toLowerCase();
+      const attendeeEmail = (body?.payload?.attendees?.[0]?.email || '').trim().toLowerCase();
       const bookingUid = body?.payload?.uid || null;
+      const leadId = (
+        body?.payload?.responses?.lead_id?.value
+        || body?.payload?.metadata?.lead_id
+        || body?.payload?.booking?.metadata?.lead_id
+        || ''
+      ).trim() || null;
+      console.log('calcom-booked: extracted', { leadId, attendeeEmail: (body?.payload?.attendees?.[0]?.email || ''), bookingUid: body?.payload?.uid, hasResponses: !!body?.payload?.responses, hasMetadata: !!body?.payload?.metadata });
 
-      if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      if (!attendeeEmail || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(attendeeEmail)) {
         console.error('calcom-booked: bad attendee email', { bookingUid });
         return new Response('bad email', { status: 400 });
       }
@@ -233,37 +252,53 @@ export default {
       const kitHeaders = { 'Content-Type': 'application/json', 'X-Kit-Api-Key': apiKey };
       const attendeeName = (body?.payload?.attendees?.[0]?.name || '').trim() || null;
 
+      let targetEmail = attendeeEmail;
+
+      if (leadId && env.BA_LEAD_MAP) {
+        try {
+          const optinEmail = await env.BA_LEAD_MAP.get(leadId);
+          if (optinEmail) {
+            targetEmail = optinEmail;
+            console.log('calcom-booked: lead_id matched via KV', { leadId, targetEmail, attendeeEmail });
+          } else {
+            console.warn('calcom-booked: lead_id not found in KV, falling back to attendee email', { leadId, attendeeEmail });
+          }
+        } catch (e) {
+          console.warn('calcom-booked: KV lookup error', e, { leadId });
+        }
+      }
+
       try {
         const subRes = await fetch('https://api.kit.com/v4/subscribers', {
           method: 'POST',
           headers: kitHeaders,
-          body: JSON.stringify({ email_address: email, first_name: attendeeName, state: 'active' }),
+          body: JSON.stringify({ email_address: targetEmail, first_name: attendeeName, state: 'active' }),
         });
         if (!subRes.ok) {
           const errBody = await subRes.text().catch(() => '');
-          console.error('calcom-booked kit subscriber:', subRes.status, errBody, { email, bookingUid });
+          console.error('calcom-booked kit subscriber:', subRes.status, errBody, { targetEmail, bookingUid });
         }
       } catch (e) {
-        console.error('calcom-booked kit subscriber fetch:', e, { email, bookingUid });
+        console.error('calcom-booked kit subscriber fetch:', e, { targetEmail, bookingUid });
       }
 
       try {
         const tagRes = await fetch('https://api.kit.com/v4/tags/18936476/subscribers', {
           method: 'POST',
           headers: kitHeaders,
-          body: JSON.stringify({ email_address: email }),
+          body: JSON.stringify({ email_address: targetEmail }),
         });
         if (!tagRes.ok) {
           const errBody = await tagRes.text().catch(() => '');
-          console.error('calcom-booked kit tag:', tagRes.status, errBody, { email, bookingUid });
+          console.error('calcom-booked kit tag:', tagRes.status, errBody, { targetEmail, bookingUid });
           return new Response('kit error', { status: 502 });
         }
       } catch (e) {
-        console.error('calcom-booked kit fetch:', e, { email, bookingUid });
+        console.error('calcom-booked kit fetch:', e, { targetEmail, bookingUid });
         return new Response('kit fetch failed', { status: 502 });
       }
 
-      console.log('calcom-booked: tagged', { email, bookingUid });
+      console.log('calcom-booked: tagged', { targetEmail, attendeeEmail, leadId, bookingUid });
       return new Response('ok', { status: 200 });
     }
 

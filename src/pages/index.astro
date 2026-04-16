@@ -278,9 +278,13 @@ const R2_BASE = 'https://pub-082a1b16b2b048e9ace33389cff3fac5.r2.dev';
 
           try {
             const utmParams = new URLSearchParams(window.location.search);
+            const leadId = crypto.randomUUID ? crypto.randomUUID() : 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+              const r = Math.random() * 16 | 0; return (c === 'x' ? r : (r & 0x3 | 0x8)).toString(16);
+            });
             const optinPayload = {
               email,
               prenom,
+              lead_id: leadId,
               source: 'homepage-newsletter',
               utm_source: utmParams.get('utm_source') || 'homepage',
               utm_medium: utmParams.get('utm_medium') || '',
