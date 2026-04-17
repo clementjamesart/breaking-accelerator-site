@@ -2,6 +2,24 @@ export default {
   async fetch(request, env) {
     const url = new URL(request.url);
 
+    if (url.pathname === '/lp' || url.pathname === '/lp/') {
+      const cookies = request.headers.get('Cookie') || '';
+      const match = cookies.match(/ba_lp_variant=(lpa|lpb)/);
+      const variant = match ? match[1] : (Math.random() < 0.5 ? 'lpa' : 'lpb');
+
+      const dest = new URL(`/${variant}`, url.origin);
+      url.searchParams.forEach((v, k) => dest.searchParams.set(k, v));
+
+      return new Response(null, {
+        status: 302,
+        headers: {
+          'Location': dest.toString(),
+          'Set-Cookie': `ba_lp_variant=${variant}; Path=/; Max-Age=2592000; SameSite=Lax; Secure`,
+          'Cache-Control': 'no-store',
+        },
+      });
+    }
+
     if (url.pathname === '/api/subscribe') {
       const headers = {
         'Access-Control-Allow-Origin': '*',
