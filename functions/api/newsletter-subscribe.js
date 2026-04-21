@@ -91,6 +91,16 @@ export async function onRequestPost({ request, env }) {
     }
   }
 
+  try {
+    await fetch('https://automate.dancingaccelerator.com/webhook/newsletter-optin-ba', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email, prenom: firstName || '' }),
+    });
+  } catch (e) {
+    console.error('n8n webhook failed:', e);
+  }
+
   return new Response(JSON.stringify({ success: true }), { status: 200, headers: CORS });
 }
 
