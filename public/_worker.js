@@ -115,7 +115,7 @@ export default {
       });
     }
 
-    if (url.pathname === '/api/kit-optin') {
+    if (url.pathname === '/api/brevo-optin') {
       const cors = {
         'Access-Control-Allow-Origin': '*',
         'Access-Control-Allow-Methods': 'POST, OPTIONS',
@@ -130,9 +130,9 @@ export default {
         return new Response('method not allowed', { status: 405, headers: cors });
       }
 
-      const apiKey = env.KIT_API_KEY;
+      const apiKey = env.BREVO_API_KEY;
       if (!apiKey) {
-        console.error('kit-optin: KIT_API_KEY missing');
+        console.error('brevo-optin: BREVO_API_KEY missing');
         return new Response('ok', { status: 200, headers: cors });
       }
 
@@ -144,55 +144,75 @@ export default {
       }
 
       const email = (payload.email || '').trim().toLowerCase();
-      const firstName = (payload.prenom || '').trim() || null;
       const leadId = (payload.lead_id || '').trim() || null;
 
       if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
         return new Response('bad email', { status: 400, headers: cors });
       }
 
-      const kitHeaders = {
-        'Content-Type': 'application/json',
-        'X-Kit-Api-Key': apiKey,
+      const str = (v) => (v === null || v === undefined ? '' : String(v));
+      const page = str(payload.page || payload.path).toLowerCase();
+      const variant = page.includes('/lpb') ? 'B' : page.includes('/lpa') ? 'A' : '';
+
+      const attributes = {
+        PRENOM: str(payload.prenom).trim(),
+        LEAD_ID: leadId || '',
+        UTM_SOURCE: str(payload.utm_source),
+        UTM_MEDIUM: str(payload.utm_medium),
+        UTM_CAMPAIGN: str(payload.utm_campaign),
+        UTM_CONTENT: str(payload.utm_content),
+        UTM_TERM: str(payload.utm_term),
+        FBCLID: str(payload.fbclid),
+        AD_ID: str(payload.ad_id),
+        ADSET_ID: str(payload.adset_id),
+        CAMPAIGN_ID: str(payload.campaign_id),
+        PLACEMENT: str(payload.placement),
+        FUNNEL_VARIANT: variant,
+        DATE_OPTIN: new Date().toISOString().slice(0, 10),
+        CALL_BOOKED: false,
       };
-
-      const subBody = { email_address: email, first_name: firstName, state: 'active' };
-      if (leadId) subBody.fields = { lead_id: leadId };
-
-      try {
-        const subRes = await fetch('https://api.kit.com/v4/subscribers', {
-          method: 'POST',
-          headers: kitHeaders,
-          body: JSON.stringify(subBody),
-        });
-        if (!subRes.ok) {
-          const errBody = await subRes.text().catch(() => '');
-          console.error('kit-optin subscriber:', subRes.status, errBody);
-        }
-      } catch (e) {
-        console.error('kit-optin subscriber fetch:', e);
-      }
 
       if (leadId && env.BA_LEAD_MAP) {
         try {
           await env.BA_LEAD_MAP.put(leadId, email, { expirationTtl: 2592000 });
         } catch (e) {
-          console.error('kit-optin KV put:', e);
+          console.error('brevo-optin KV put:', e);
         }
       }
 
+      // Fan-out vers n8n (source de vérité NocoDB leads)
       try {
-        const seqRes = await fetch('https://api.kit.com/v4/sequences/2722054/subscribers', {
+        await fetch('https://automate.dancingaccelerator.com/webhook/optin-ba', {
           method: 'POST',
-          headers: kitHeaders,
-          body: JSON.stringify({ email_address: email }),
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload),
         });
-        if (!seqRes.ok) {
-          const errBody = await seqRes.text().catch(() => '');
-          console.warn('kit-optin sequence:', seqRes.status, errBody);
+      } catch (e) {
+        console.error('brevo-optin n8n fanout:', e);
+      }
+
+      // Upsert Brevo contact + ajout liste 6 (déclenche automation Brevo native)
+      try {
+        const res = await fetch('https://api.brevo.com/v3/contacts', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'api-key': apiKey,
+            'accept': 'application/json',
+          },
+          body: JSON.stringify({
+            email,
+            attributes,
+            listIds: [6],
+            updateEnabled: true,
+          }),
+        });
+        if (!res.ok) {
+          const errBody = await res.text().catch(() => '');
+          console.error('brevo-optin:', res.status, errBody);
         }
       } catch (e) {
-        console.error('kit-optin sequence fetch:', e);
+        console.error('brevo-optin fetch:', e);
       }
 
       return new Response('ok', { status: 200, headers: { ...cors, 'Content-Type': 'text/plain' } });
@@ -203,11 +223,11 @@ export default {
         return new Response('method not allowed', { status: 405 });
       }
 
-      const apiKey = env.KIT_API_KEY;
+      const apiKey = env.BREVO_API_KEY;
       const webhookSecret = env.CALCOM_WEBHOOK_SECRET;
 
       if (!apiKey) {
-        console.error('calcom-booked: KIT_API_KEY missing');
+        console.error('calcom-booked: BREVO_API_KEY missing');
         return new Response('ok', { status: 200 });
       }
       if (!webhookSecret) {
@@ -260,15 +280,11 @@ export default {
         || body?.payload?.booking?.metadata?.lead_id
         || ''
       ).trim() || null;
-      console.log('calcom-booked: extracted', { leadId, attendeeEmail: (body?.payload?.attendees?.[0]?.email || ''), bookingUid: body?.payload?.uid, hasResponses: !!body?.payload?.responses, hasMetadata: !!body?.payload?.metadata });
 
       if (!attendeeEmail || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(attendeeEmail)) {
         console.error('calcom-booked: bad attendee email', { bookingUid });
         return new Response('bad email', { status: 400 });
       }
-
-      const kitHeaders = { 'Content-Type': 'application/json', 'X-Kit-Api-Key': apiKey };
-      const attendeeName = (body?.payload?.attendees?.[0]?.name || '').trim() || null;
 
       let targetEmail = attendeeEmail;
 
@@ -286,116 +302,52 @@ export default {
         }
       }
 
-      try {
-        const subRes = await fetch('https://api.kit.com/v4/subscribers', {
-          method: 'POST',
-          headers: kitHeaders,
-          body: JSON.stringify({ email_address: targetEmail, first_name: attendeeName, state: 'active' }),
-        });
-        if (!subRes.ok) {
-          const errBody = await subRes.text().catch(() => '');
-          console.error('calcom-booked kit subscriber:', subRes.status, errBody, { targetEmail, bookingUid });
-        }
-      } catch (e) {
-        console.error('calcom-booked kit subscriber fetch:', e, { targetEmail, bookingUid });
-      }
-
-      try {
-        const tagRes = await fetch('https://api.kit.com/v4/tags/18936476/subscribers', {
-          method: 'POST',
-          headers: kitHeaders,
-          body: JSON.stringify({ email_address: targetEmail }),
-        });
-        if (!tagRes.ok) {
-          const errBody = await tagRes.text().catch(() => '');
-          console.error('calcom-booked kit tag:', tagRes.status, errBody, { targetEmail, bookingUid });
-          return new Response('kit error', { status: 502 });
-        }
-      } catch (e) {
-        console.error('calcom-booked kit fetch:', e, { targetEmail, bookingUid });
-        return new Response('kit fetch failed', { status: 502 });
-      }
-
-      console.log('calcom-booked: tagged', { targetEmail, attendeeEmail, leadId, bookingUid });
-      return new Response('ok', { status: 200 });
-    }
-
-    if (url.pathname === '/api/kit-webhook') {
-      if (request.method !== 'POST') {
-        return new Response('method not allowed', { status: 405 });
-      }
-
-      const expectedToken = env.KIT_WEBHOOK_TOKEN;
-      if (!expectedToken) {
-        console.error('kit-webhook: KIT_WEBHOOK_TOKEN missing');
-        return new Response('server misconfigured', { status: 500 });
-      }
-      const providedToken = url.searchParams.get('token');
-      if (providedToken !== expectedToken) {
-        console.warn('kit-webhook: invalid token');
-        return new Response('unauthorized', { status: 401 });
-      }
-
-      const projectKey = env.POSTHOG_PROJECT_KEY;
-      if (!projectKey) {
-        console.error('kit-webhook: POSTHOG_PROJECT_KEY missing');
-        return new Response('ok', { status: 200 });
-      }
-
-      let body;
-      try {
-        body = await request.json();
-      } catch {
-        return new Response('bad json', { status: 400 });
-      }
-
-      // Kit webhook payload shape: { subscriber: {...} } or { ... } depending on event
-      const sub = body.subscriber || body;
-      const email = (sub.email_address || sub.email || '').trim().toLowerCase();
-      const subscriberId = sub.id || null;
-      const firstName = sub.first_name || null;
-
-      if (!email) {
-        console.warn('kit-webhook: no email in payload', body);
-        return new Response('ok', { status: 200 });
-      }
-
-      // Map Kit event name (from URL query ?kit_event=xxx) to PostHog event name
-      const kitEvent = url.searchParams.get('kit_event') || 'unknown';
-      const phEventMap = {
-        subscriber_unsubscribe: 'email_unsubscribe',
-        subscriber_bounce: 'email_bounce',
-        subscriber_complain: 'email_complain',
-        link_click: 'email_click',
+      const brevoHeaders = {
+        'Content-Type': 'application/json',
+        'api-key': apiKey,
+        'accept': 'application/json',
       };
-      const phEvent = phEventMap[kitEvent] || `kit_${kitEvent}`;
 
+      // Set CALL_BOOKED=true → déclenche exit condition automation Brevo
       try {
-        const phRes = await fetch('https://eu.i.posthog.com/capture/', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            api_key: projectKey,
-            event: phEvent,
-            distinct_id: email,
-            properties: {
-              email,
-              kit_subscriber_id: subscriberId,
-              kit_first_name: firstName,
-              kit_event: kitEvent,
-            },
-            timestamp: new Date().toISOString(),
-          }),
+        const res = await fetch(`https://api.brevo.com/v3/contacts/${encodeURIComponent(targetEmail)}`, {
+          method: 'PUT',
+          headers: brevoHeaders,
+          body: JSON.stringify({ attributes: { CALL_BOOKED: true } }),
         });
-        if (!phRes.ok) {
-          const errBody = await phRes.text().catch(() => '');
-          console.error('kit-webhook posthog:', phRes.status, errBody);
+        if (!res.ok && res.status !== 204) {
+          const errBody = await res.text().catch(() => '');
+          console.error('calcom-booked brevo update:', res.status, errBody, { targetEmail, bookingUid });
+          return new Response('brevo error', { status: 502 });
         }
       } catch (e) {
-        console.error('kit-webhook posthog fetch:', e);
+        console.error('calcom-booked brevo fetch:', e, { targetEmail, bookingUid });
+        return new Response('brevo fetch failed', { status: 502 });
       }
 
-      console.log('kit-webhook:', phEvent, { email, subscriberId });
+      // Arrête le nurturing NocoDB (backup si jamais un cron n8n tourne encore)
+      const nocodbToken = env.NOCODB_API_TOKEN;
+      if (nocodbToken) {
+        try {
+          const findRes = await fetch(
+            `https://sheets.dancingaccelerator.com/api/v2/tables/mgv2xe041qyspnh/records?where=(Email,eq,${encodeURIComponent(targetEmail)})&limit=1`,
+            { headers: { 'xc-token': nocodbToken } },
+          );
+          const findBody = await findRes.json().catch(() => ({}));
+          const leadRow = (findBody.list || [])[0];
+          if (leadRow && leadRow.Id) {
+            await fetch('https://sheets.dancingaccelerator.com/api/v2/tables/mgv2xe041qyspnh/records', {
+              method: 'PATCH',
+              headers: { 'xc-token': nocodbToken, 'Content-Type': 'application/json' },
+              body: JSON.stringify([{ Id: leadRow.Id, nurturing_active: false, Resultat: 'booked' }]),
+            });
+          }
+        } catch (e) {
+          console.error('calcom-booked nocodb stop nurturing:', e);
+        }
+      }
+
+      console.log('calcom-booked: CALL_BOOKED=true + nurturing stopped', { targetEmail, attendeeEmail, leadId, bookingUid });
       return new Response('ok', { status: 200 });
     }
 

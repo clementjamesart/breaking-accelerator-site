@@ -1,6 +1,5 @@
 ---
 import PostHog from '../components/PostHog.astro';
-const WEBHOOK_URL = 'https://automate.dancingaccelerator.com/webhook/optin-ba';
 const TRACKING_URL = '/api/track';
 const VSL_URL = '/p-7f3a9d';
 const PAGE_ID = '/lpb';
@@ -371,7 +370,7 @@ const META_PIXEL_ID = '1525345608489094';
     }, 0);
   </script>
 
-  <script define:vars={{ WEBHOOK_URL, TRACKING_URL, VSL_URL, PAGE_ID }}>
+  <script define:vars={{ TRACKING_URL, VSL_URL, PAGE_ID }}>
     // UTM + ad attribution capture
     const params = new URLSearchParams(window.location.search);
     const ATTR_KEYS = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term', 'ad_id', 'adset_id', 'campaign_id', 'placement', 'fbclid'];
@@ -448,6 +447,7 @@ const META_PIXEL_ID = '1525345608489094';
         var r = Math.random() * 16 | 0; return (c === 'x' ? r : (r & 0x3 | 0x8)).toString(16);
       });
       data.lead_id = leadId;
+      data.page = window.location.pathname;
 
       // Build redirect URL (carry attribution all the way to the VSL)
       var vslParams = new URLSearchParams({
@@ -465,10 +465,9 @@ const META_PIXEL_ID = '1525345608489094';
         fbclid: data.fbclid || '',
       }).toString();
 
-      // Fire webhook in background (sendBeacon survives page navigation)
+      // Fire single optin webhook (same-origin, worker fait le fan-out vers n8n + Brevo)
       var blob = new Blob([JSON.stringify(data)], { type: 'application/json' });
-      navigator.sendBeacon(WEBHOOK_URL, blob);
-      navigator.sendBeacon('/api/kit-optin', blob);
+      navigator.sendBeacon('/api/brevo-optin', blob);
       try {
         if (window.posthog) {
           if (data.email) window.posthog.identify(data.email, { email: data.email });
