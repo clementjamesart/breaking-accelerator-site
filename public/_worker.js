@@ -218,6 +218,105 @@ export default {
       return new Response('ok', { status: 200, headers: { ...cors, 'Content-Type': 'text/plain' } });
     }
 
+    if (url.pathname === '/api/brevo-webhook') {
+      if (request.method !== 'POST') {
+        return new Response('method not allowed', { status: 405 });
+      }
+
+      const expectedToken = env.BREVO_WEBHOOK_TOKEN;
+      if (!expectedToken) {
+        console.error('brevo-webhook: BREVO_WEBHOOK_TOKEN missing');
+        return new Response('server misconfigured', { status: 500 });
+      }
+      if (url.searchParams.get('token') !== expectedToken) {
+        return new Response('unauthorized', { status: 401 });
+      }
+
+      let body;
+      try {
+        body = await request.json();
+      } catch {
+        return new Response('bad json', { status: 400 });
+      }
+
+      const events = Array.isArray(body) ? body : [body];
+
+      const TERMINAL = {
+        hard_bounce: 'bounced',
+        invalid_email: 'invalid',
+        complaint: 'complaint',
+        unsubscribed: 'unsubscribed',
+        blocked: 'blocked',
+        spam: 'spam',
+      };
+
+      const nocodbToken = env.NOCODB_API_TOKEN;
+      const posthogKey = env.POSTHOG_PROJECT_KEY;
+
+      for (const ev of events) {
+        const event = String(ev.event || '').toLowerCase().replace(/-/g, '_');
+        const email = String(ev.email || '').trim().toLowerCase();
+        if (!email) continue;
+
+        if (posthogKey) {
+          try {
+            await fetch('https://eu.i.posthog.com/capture/', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({
+                api_key: posthogKey,
+                event: `brevo_${event}`,
+                distinct_id: email,
+                properties: {
+                  email,
+                  brevo_message_id: ev['message-id'] || ev.message_id || null,
+                  brevo_template_id: ev.template_id || null,
+                  brevo_subject: ev.subject || null,
+                  reason: ev.reason || null,
+                  tag: ev.tag || null,
+                  ts: ev.ts || ev.ts_event || null,
+                },
+                timestamp: new Date(((ev.ts || ev.ts_event || Date.now() / 1000)) * 1000).toISOString(),
+              }),
+            });
+          } catch (e) {
+            console.error('brevo-webhook posthog:', e, { email, event });
+          }
+        }
+
+        const resultat = TERMINAL[event];
+        if (resultat && nocodbToken) {
+          try {
+            const findRes = await fetch(
+              `https://sheets.dancingaccelerator.com/api/v2/tables/mgv2xe041qyspnh/records?where=(Email,eq,${encodeURIComponent(email)})&limit=1`,
+              { headers: { 'xc-token': nocodbToken } },
+            );
+            const findBody = await findRes.json().catch(() => ({}));
+            const leadRow = (findBody.list || [])[0];
+            if (leadRow && leadRow.Id) {
+              const patchRes = await fetch('https://sheets.dancingaccelerator.com/api/v2/tables/mgv2xe041qyspnh/records', {
+                method: 'PATCH',
+                headers: { 'xc-token': nocodbToken, 'Content-Type': 'application/json' },
+                body: JSON.stringify([{ Id: leadRow.Id, nurturing_active: false, Resultat: resultat }]),
+              });
+              if (!patchRes.ok) {
+                const errBody = await patchRes.text().catch(() => '');
+                console.error('brevo-webhook nocodb patch:', patchRes.status, errBody, { email, event });
+              } else {
+                console.log('brevo-webhook nocodb stop', { email, event, resultat });
+              }
+            } else {
+              console.warn('brevo-webhook nocodb no lead found', { email, event });
+            }
+          } catch (e) {
+            console.error('brevo-webhook nocodb:', e, { email, event });
+          }
+        }
+      }
+
+      return new Response('ok', { status: 200 });
+    }
+
     if (url.pathname === '/api/calcom-booked') {
       if (request.method !== 'POST') {
         return new Response('method not allowed', { status: 405 });
