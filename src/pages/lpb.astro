@@ -11,173 +11,238 @@ const META_PIXEL_ID = '1525345608489094';
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Breaking Accelerator | Candidature</title>
-  <meta name="description" content="Découvre comment faire carrière et vivre de ta passion pour le break. Validé par Bboy Junior." />
+  <title>Breaking Accelerator | Pourquoi tu plafonnes en break</title>
+  <meta name="description" content="Junior révèle en 25 minutes les erreurs qui empêchent 90% des breakers de vivre de leur danse. Gratuit." />
   <PostHog />
 
+  <link rel="icon" type="image/png" href="/favicon.png" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link rel="preload" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" as="style" />
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet" />
+  <link rel="preload" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" as="style" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet" />
 
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body {
       font-family: 'Poppins', sans-serif;
-      background-color: #FFFFFF;
-      color: #000000;
-    }
-
-    /* TOPBAR */
-    .topbar {
-      background: #000000;
+      background-color: #0a0a0a;
       color: #FFFFFF;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 10px 24px;
-      font-size: 12px;
-      font-weight: 700;
-    }
-    @media (max-width: 600px) {
-      .topbar {
-        flex-direction: column;
-        gap: 4px;
-        text-align: center;
-      }
+      line-height: 1.5;
     }
 
-    /* HERO */
-    .hero {
-      max-width: 800px;
-      margin: 0 auto;
-      padding: 40px 24px 24px;
+    .topbar {
+      background: #d4af37;
+      color: #000000;
       text-align: center;
-    }
-    .hero .subtitle {
-      font-size: 18px;
-      font-weight: 400;
-      margin-bottom: 16px;
-    }
-    .hero .title {
-      font-size: 23px;
+      padding: 10px 16px;
+      font-size: 13px;
       font-weight: 700;
+      letter-spacing: 0.3px;
+    }
+
+    .container {
+      max-width: 680px;
+      margin: 0 auto;
+      padding: 32px 20px;
+    }
+
+    .hero {
+      text-align: center;
+      margin-bottom: 32px;
+    }
+
+    .hero .qualifier {
+      font-size: 14px;
+      font-weight: 600;
+      color: #d4af37;
       text-transform: uppercase;
-      line-height: 1.3;
+      letter-spacing: 1px;
       margin-bottom: 16px;
     }
+
+    .hero h1 {
+      font-size: 28px;
+      font-weight: 800;
+      line-height: 1.25;
+      margin-bottom: 16px;
+    }
+
     .hero .sub {
-      font-size: 18px;
+      font-size: 17px;
       font-weight: 400;
+      color: #cccccc;
       margin-bottom: 24px;
     }
 
-    @media (max-width: 600px) {
-      .hero .subtitle { font-size: 16px; }
-      .hero .title { font-size: 13px; }
-      .hero .sub { font-size: 16px; }
+    .hero .sub strong {
+      color: #ffffff;
     }
 
-    /* CTA SECTION */
+    .junior-img {
+      width: 180px;
+      height: 180px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 3px solid #d4af37;
+      margin: 0 auto 8px;
+      display: block;
+    }
+
+    .junior-name {
+      font-size: 14px;
+      font-weight: 600;
+      color: #d4af37;
+      text-align: center;
+      margin-bottom: 32px;
+    }
+
+    .bullets {
+      margin-bottom: 32px;
+      padding: 0 8px;
+    }
+
+    .bullets h2 {
+      font-size: 18px;
+      font-weight: 700;
+      margin-bottom: 16px;
+      text-align: center;
+    }
+
+    .bullet-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      margin-bottom: 14px;
+      font-size: 15px;
+      color: #e0e0e0;
+    }
+
+    .bullet-icon {
+      flex-shrink: 0;
+      width: 22px;
+      height: 22px;
+      background: #d4af37;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      font-weight: 700;
+      color: #000;
+      margin-top: 2px;
+    }
+
+    .social-proof {
+      text-align: center;
+      padding: 20px;
+      background: rgba(212, 175, 55, 0.08);
+      border: 1px solid rgba(212, 175, 55, 0.2);
+      border-radius: 8px;
+      margin-bottom: 32px;
+      font-size: 14px;
+      color: #cccccc;
+    }
+
+    .social-proof strong {
+      color: #ffffff;
+    }
+
     .cta-section {
       text-align: center;
-      padding: 0 24px 32px;
+      margin-bottom: 32px;
     }
+
     .cta-btn {
       display: inline-block;
-      background: #0174C7;
-      color: #FFFFFF;
+      background: #d4af37;
+      color: #000000;
       font-family: 'Poppins', sans-serif;
-      font-size: 20px;
-      font-weight: 600;
-      padding: 4px 30px;
-      border: 2px solid #FFFFFF;
+      font-size: 18px;
+      font-weight: 700;
+      padding: 16px 32px;
+      border: none;
       border-radius: 8px;
       cursor: pointer;
-      line-height: 1.6;
-      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
-      transition: transform 0.2s, background-color 0.2s, box-shadow 0.2s;
+      transition: transform 0.2s, box-shadow 0.2s;
+      box-shadow: 0 4px 20px rgba(212, 175, 55, 0.3);
     }
+
     .cta-btn:hover {
-      transform: scale(1.05);
-      background: #28a745;
-      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.5);
+      transform: scale(1.03);
+      box-shadow: 0 6px 25px rgba(212, 175, 55, 0.5);
     }
+
     .cta-btn small {
       display: block;
-      font-size: 14px;
+      font-size: 13px;
       font-weight: 400;
+      margin-top: 4px;
+      color: #333;
     }
 
-    /* HERO BANNER */
-    .hero-banner {
-      max-width: 800px;
-      margin: 0 auto;
-      padding: 0 24px 40px;
+    .credibility {
       text-align: center;
-    }
-    .hero-banner img {
-      width: 100%;
-      max-width: 700px;
-      cursor: pointer;
+      font-size: 13px;
+      color: #888;
+      margin-bottom: 40px;
     }
 
-    /* FOOTER */
     .footer-section {
-      max-width: 800px;
-      margin: 0 auto;
-      padding: 40px 24px;
-    }
-    .disclaimers {
-      font-family: 'Times New Roman', Times, serif;
-      font-size: 9px;
-      font-style: italic;
-      color: #000000;
+      border-top: 1px solid #222;
+      padding-top: 32px;
       text-align: center;
+    }
+
+    .disclaimers {
+      font-size: 10px;
+      color: #555;
       line-height: 1.6;
+      margin-bottom: 16px;
     }
-    .disclaimers p {
-      margin-bottom: 8px;
-    }
+
     .ba-logo {
+      width: 80px;
+      height: 80px;
+      margin: 16px auto;
       display: block;
-      width: 120px;
-      height: 120px;
-      margin: 24px auto;
+      opacity: 0.6;
     }
+
     .legal-links {
       display: flex;
-      gap: 24px;
+      gap: 20px;
       justify-content: center;
-      margin-top: 16px;
-      font-size: 12px;
+      font-size: 11px;
     }
+
     .legal-links a {
-      color: #0174C7;
+      color: #666;
       text-decoration: underline;
     }
 
-    /* POPUP OVERLAY */
+    /* POPUP */
     .overlay {
       display: none;
       position: fixed;
       inset: 0;
-      background: rgba(0, 0, 0, 0.5);
+      background: rgba(0, 0, 0, 0.7);
       z-index: 100;
       align-items: center;
       justify-content: center;
+      padding: 20px;
     }
     .overlay.active { display: flex; }
 
     .popup {
-      background: #FFFFFF;
-      padding: 40px 32px;
-      max-width: 500px;
-      width: 90%;
+      background: #111111;
+      padding: 32px 24px;
+      max-width: 440px;
+      width: 100%;
       position: relative;
-      border: 2px solid #0174C7;
-      border-radius: 4px;
+      border: 1px solid #d4af37;
+      border-radius: 12px;
     }
+
     .popup-close {
       position: absolute;
       top: 8px;
@@ -189,72 +254,72 @@ const META_PIXEL_ID = '1525345608489094';
       cursor: pointer;
       line-height: 1;
     }
+
     .popup h2 {
       font-size: 18px;
       font-weight: 700;
       line-height: 1.4;
-      margin: 0 0 24px;
+      margin: 0 0 8px;
       text-align: center;
-      color: #000000;
+      color: #FFFFFF;
     }
+
+    .popup .popup-sub {
+      font-size: 14px;
+      color: #999;
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
     .popup input {
       display: block;
       width: 100%;
-      padding: 12px 16px;
-      margin-bottom: 16px;
-      background: #FFFFFF;
-      border: 1px solid #B0BACA;
-      border-radius: 5px;
-      color: #000000;
-      font-family: 'Poppins', sans-serif;
-      font-size: 18px;
-      box-sizing: border-box;
-    }
-    .popup input::placeholder { color: #999; }
-    .popup input:focus {
-      outline: none;
-      border-color: #0174C7;
-    }
-    .popup .submit-btn {
-      display: block;
-      width: auto;
-      margin: 0 auto;
-      background: #0174C7;
+      padding: 14px 16px;
+      margin-bottom: 12px;
+      background: #1a1a1a;
+      border: 1px solid #333;
+      border-radius: 8px;
       color: #FFFFFF;
       font-family: 'Poppins', sans-serif;
-      font-size: 20px;
-      font-weight: 600;
-      padding: 4px 30px;
-      border: 2px solid #FFFFFF;
+      font-size: 16px;
+    }
+    .popup input::placeholder { color: #666; }
+    .popup input:focus {
+      outline: none;
+      border-color: #d4af37;
+    }
+
+    .popup .submit-btn {
+      display: block;
+      width: 100%;
+      background: #d4af37;
+      color: #000000;
+      font-family: 'Poppins', sans-serif;
+      font-size: 17px;
+      font-weight: 700;
+      padding: 14px 24px;
+      border: none;
       border-radius: 8px;
       cursor: pointer;
-      line-height: 1.6;
-      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
-      transition: transform 0.2s, background-color 0.2s, box-shadow 0.2s;
+      transition: transform 0.2s, box-shadow 0.2s;
+      box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3);
     }
     .popup .submit-btn:hover {
-      transform: scale(1.05);
-      background: #28a745;
-      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.5);
+      transform: scale(1.02);
+      box-shadow: 0 6px 20px rgba(212, 175, 55, 0.5);
     }
     .popup .submit-btn:disabled {
       opacity: 0.5;
       cursor: wait;
     }
-    .popup .submit-btn small {
-      display: block;
-      font-size: 14px;
-      font-weight: 400;
-    }
+
     .popup .disclaimer {
-      font-family: 'Poppins', sans-serif;
       font-size: 12px;
-      font-style: italic;
-      color: #000000;
+      color: #666;
       text-align: center;
-      margin-top: 16px;
-      line-height: 1.5;
+      margin-top: 12px;
     }
+
     .popup .error-msg {
       color: #EF4444;
       font-size: 13px;
@@ -262,45 +327,97 @@ const META_PIXEL_ID = '1525345608489094';
       margin-bottom: 12px;
       display: none;
     }
+
+    @media (max-width: 600px) {
+      .hero h1 { font-size: 22px; }
+      .hero .sub { font-size: 15px; }
+      .cta-btn { font-size: 16px; padding: 14px 24px; width: 100%; }
+      .bullet-item { font-size: 14px; }
+      .junior-img { width: 140px; height: 140px; }
+    }
   </style>
 </head>
 <body>
 
-  <!-- TOPBAR -->
   <div class="topbar">
-    <span>Message important pour les breakers</span>
-    <span>De la part de Bboy Junior ayant + de 25 ans de carrière</span>
+    Vidéo gratuite de 25 minutes avec Bboy Junior
   </div>
 
-  <!-- HERO -->
-  <div class="hero">
-    <p class="subtitle">Révélé dans ce documentaire gratuit par Bboy Junior :</p>
-    <p class="title">Comment un breaker "normal" a décroché 300 contrats sans être célèbre et pourquoi c'est possible de faire pareil</p>
-    <p class="sub">Sans contact, sans followers et sans avoir gagné un seul battle</p>
-  </div>
+  <div class="container">
 
-  <!-- CTA -->
-  <div class="cta-section">
-    <button class="cta-btn" id="open-popup">
-      Je découvre (gratuitement)
-      <small>Clique ici</small>
-    </button>
-  </div>
+    <div class="hero">
+      <p class="qualifier">Pour les breakers qui veulent en vivre</p>
+      <h1>Pourquoi tu plafonnes en break (et comment relancer ta carrière en 2026)</h1>
+      <p class="sub">Junior révèle en <strong>25 minutes</strong> les erreurs qui empêchent 90% des breakers de vivre de leur danse.</p>
+      <img class="junior-img" src="/images/junior-face.jpeg" alt="Bboy Junior" loading="eager" />
+      <p class="junior-name">Bboy Junior — 25+ ans de carrière professionnelle</p>
+    </div>
 
-  <!-- HERO BANNER -->
-  <div class="hero-banner">
-    <img src="/images/hero-banner.jpg" alt="Bboy Junior en action" id="banner-cta" loading="eager" />
+    <div class="cta-section">
+      <button class="cta-btn" id="open-popup">
+        Voir la vidéo gratuite
+        <small>Accès immédiat</small>
+      </button>
+    </div>
+
+    <div class="bullets">
+      <h2>Dans cette vidéo, tu vas découvrir :</h2>
+      <div class="bullet-item">
+        <span class="bullet-icon">1</span>
+        <span>Comment passer de "je danse le week-end" à "je vis de ma danse" sans dépendre des cours sous-payés</span>
+      </div>
+      <div class="bullet-item">
+        <span class="bullet-icon">2</span>
+        <span>L'erreur qui empêche la plupart des breakers de décrocher des contrats réguliers (et comment la corriger)</span>
+      </div>
+      <div class="bullet-item">
+        <span class="bullet-icon">3</span>
+        <span>Le plan que Junior suivrait s'il devait reconstruire sa carrière de zéro en 2026</span>
+      </div>
+    </div>
+
+    <div class="social-proof">
+      <strong>20 breakers</strong> suivent déjà cette méthode pour structurer leur carrière et vivre de leur passion.
+    </div>
+
+    <div class="cta-section">
+      <button class="cta-btn" id="open-popup-2">
+        Voir la vidéo gratuite
+        <small>Accès immédiat</small>
+      </button>
+    </div>
+
+    <div class="credibility">
+      Bboy Junior : champion du monde, 1000+ contrats internationaux, Red Bull BC One All Star. Il a construit exactement la carrière que tu vises.
+    </div>
+
+    <div class="footer-section">
+      <div class="disclaimers">
+        <p>Ce site ne fait pas partie du site web de Facebook ou de Facebook Inc. En outre, ce site n'est PAS approuvé par Facebook de quelque manière que ce soit. FACEBOOK est une marque déposée de FACEBOOK, Inc.</p>
+        <p>&copy; Breaking Accelerator — Tous droits réservés</p>
+      </div>
+
+      <img class="ba-logo" src="/images/ba-logo.png" alt="Breaking Accelerator" />
+
+      <div class="legal-links">
+        <a href="/cgv">CGV</a>
+        <a href="/confidentialite">Confidentialité</a>
+        <a href="/mentions-legales">Mentions légales</a>
+      </div>
+    </div>
+
   </div>
 
   <!-- POPUP OPTIN -->
   <div class="overlay" id="overlay">
     <div class="popup">
       <button class="popup-close" id="close-popup">&times;</button>
-      <h2>Pour le découvrir, clique sur le bouton après avoir renseigné tes informations :</h2>
+      <h2>Accède à la vidéo gratuite</h2>
+      <p class="popup-sub">Entre ton prénom et ton email pour la regarder maintenant.</p>
       <div class="error-msg" id="error-msg"></div>
       <form id="optin-form">
-        <input type="text" name="prenom" placeholder="Prénom + Nom" required />
-        <input type="email" name="email" placeholder="Email" required />
+        <input type="text" name="prenom" placeholder="Ton prénom" required />
+        <input type="email" name="email" placeholder="Ton email" required />
         <input type="hidden" name="utm_source" id="utm_source" />
         <input type="hidden" name="utm_medium" id="utm_medium" />
         <input type="hidden" name="utm_campaign" id="utm_campaign" />
@@ -312,32 +429,12 @@ const META_PIXEL_ID = '1525345608489094';
         <input type="hidden" name="placement" id="placement" />
         <input type="hidden" name="fbclid" id="fbclid" />
         <button type="submit" class="submit-btn" id="submit-btn">
-          Je découvre gratuitement
-          <small>(avant supression)</small>
+          Regarder la vidéo maintenant
         </button>
       </form>
       <p class="disclaimer">
-        Tes informations sont protégées et ne seront pas partagées.
+        Tes informations restent privées. Pas de spam.
       </p>
-      <p class="disclaimer">
-        Ceci est une vérification pour nous protéger des BOTS et des curieux qui mettent des e-mails erronés.
-      </p>
-    </div>
-  </div>
-
-  <!-- FOOTER -->
-  <div class="footer-section">
-    <div class="disclaimers">
-      <p>Ce site ne fait pas partie du site web de Facebook ou de Facebook Inc. En outre, ce site n'est PAS approuvé par Facebook de quelque manière que ce soit.<br />FACEBOOK est une marque déposée de FACEBOOK, Inc.</p>
-      <p>&copy; Breaking Accelerator - Tous droits réservés</p>
-    </div>
-
-    <img class="ba-logo" src="/images/ba-logo.png" alt="Breaking Accelerator" />
-
-    <div class="legal-links">
-      <a href="/cgv">Conditions générales de vente</a>
-      <a href="/confidentialite">Politique de confidentialité</a>
-      <a href="/mentions-legales">Mentions légales</a>
     </div>
   </div>
 
@@ -402,14 +499,13 @@ const META_PIXEL_ID = '1525345608489094';
       };
       navigator.sendBeacon(TRACKING_URL, JSON.stringify(pvPayload));
       try { window.posthog && window.posthog.capture('lp_page_view', pvPayload); } catch (e) {}
-    } catch (e) { /* fail silent — tracking must not block UX */ }
+    } catch (e) {}
 
-    // Popup open
+    // Popup open (both CTA buttons)
     document.getElementById('open-popup').addEventListener('click', function() {
       document.getElementById('overlay').classList.add('active');
     });
-    // Banner also opens popup
-    document.getElementById('banner-cta').addEventListener('click', function() {
+    document.getElementById('open-popup-2').addEventListener('click', function() {
       document.getElementById('overlay').classList.add('active');
     });
     // Close popup
@@ -427,7 +523,7 @@ const META_PIXEL_ID = '1525345608489094';
       if (e.persisted) {
         var btn = document.getElementById('submit-btn');
         btn.disabled = false;
-        btn.innerHTML = 'Je découvre gratuitement<small style="display:block;font-size:14px;font-weight:400">(avant supression)</small>';
+        btn.textContent = 'Regarder la vidéo maintenant';
       }
     });
 
