@@ -241,9 +241,10 @@ export default {
 
       const events = Array.isArray(body) ? body : [body];
 
+      // Brevo envoie camelCase (hardBounce, softBounce, proxyOpen) et 'invalid' (pas invalid_email)
       const TERMINAL = {
         hard_bounce: 'bounced',
-        invalid_email: 'invalid',
+        invalid: 'invalid',
         complaint: 'complaint',
         unsubscribed: 'unsubscribed',
         blocked: 'blocked',
@@ -254,7 +255,11 @@ export default {
       const posthogKey = env.POSTHOG_PROJECT_KEY;
 
       for (const ev of events) {
-        const event = String(ev.event || '').toLowerCase().replace(/-/g, '_');
+        // camelCase → snake_case puis lowercase, dashes → underscores
+        const event = String(ev.event || '')
+          .replace(/([a-z])([A-Z])/g, '$1_$2')
+          .replace(/-/g, '_')
+          .toLowerCase();
         const email = String(ev.email || '').trim().toLowerCase();
         if (!email) continue;
 
