@@ -442,6 +442,21 @@ export default {
         console.error('calcom-booked brevo list error:', e, { targetEmail });
       }
 
+      // Ajouter à la liste "Calls Bookés BA" (#9)
+      try {
+        const res = await fetch('https://api.brevo.com/v3/contacts/lists/9/contacts/add', {
+          method: 'POST',
+          headers: brevoHeaders,
+          body: JSON.stringify({ emails: [targetEmail] }),
+        });
+        if (!res.ok) {
+          const errBody = await res.text().catch(() => '');
+          console.error('calcom-booked brevo calls list add:', res.status, errBody, { targetEmail });
+        }
+      } catch (e) {
+        console.error('calcom-booked brevo calls list error:', e, { targetEmail });
+      }
+
       // Arrête le nurturing NocoDB (backup si jamais un cron n8n tourne encore)
       const nocodbToken = env.NOCODB_API_TOKEN;
       if (nocodbToken) {
