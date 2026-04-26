@@ -412,7 +412,7 @@ export default {
         'accept': 'application/json',
       };
 
-      // Set CALL_BOOKED=true → déclenche exit condition automation Brevo
+      // Set CALL_BOOKED=true
       try {
         const res = await fetch(`https://api.brevo.com/v3/contacts/${encodeURIComponent(targetEmail)}`, {
           method: 'PUT',
@@ -422,11 +422,24 @@ export default {
         if (!res.ok && res.status !== 204) {
           const errBody = await res.text().catch(() => '');
           console.error('calcom-booked brevo update:', res.status, errBody, { targetEmail, bookingUid });
-          return new Response('brevo error', { status: 502 });
         }
       } catch (e) {
-        console.error('calcom-booked brevo fetch:', e, { targetEmail, bookingUid });
-        return new Response('brevo fetch failed', { status: 502 });
+        console.error('calcom-booked brevo contact error:', e, { targetEmail, bookingUid });
+      }
+
+      // Retirer de la liste #6 → stoppe l'automation nurturing Brevo
+      try {
+        const res = await fetch('https://api.brevo.com/v3/contacts/lists/6/contacts/remove', {
+          method: 'POST',
+          headers: brevoHeaders,
+          body: JSON.stringify({ emails: [targetEmail] }),
+        });
+        if (!res.ok) {
+          const errBody = await res.text().catch(() => '');
+          console.error('calcom-booked brevo list remove:', res.status, errBody, { targetEmail });
+        }
+      } catch (e) {
+        console.error('calcom-booked brevo list error:', e, { targetEmail });
       }
 
       // Arrête le nurturing NocoDB (backup si jamais un cron n8n tourne encore)
