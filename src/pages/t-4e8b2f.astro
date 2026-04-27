@@ -521,13 +521,15 @@ const R2_BASE = 'https://pub-082a1b16b2b048e9ace33389cff3fac5.r2.dev';
   </div>
 
   <script is:inline>
-    // Booking completed tracking (PostHog)
-    // UTMs sont déjà en super properties via register_once du composant PostHog
-    try {
-      if (window.posthog) {
-        window.posthog.capture('booking_completed', { page: '/t-4e8b2f' });
-      }
-    } catch (e) {}
+    (function() {
+      var attempts = 0;
+      (function poll() {
+        if (window.posthog) {
+          window.posthog.capture('thankyou_page_view', { page: '/t-4e8b2f' });
+          window.posthog.capture('booking_completed', { page: '/t-4e8b2f' });
+        } else if (++attempts < 30) { setTimeout(poll, 200); }
+      })();
+    })();
 
     // Custom play button for ALL videos
     document.querySelectorAll('video').forEach(function(video) {

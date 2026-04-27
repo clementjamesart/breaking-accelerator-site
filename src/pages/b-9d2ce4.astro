@@ -128,6 +128,17 @@ const CAL_LINK = 'breakingaccelerator/appel-bilan-de-carriere';
     </div>
   </div>
 
+  <script is:inline>
+    function phCapture(event, props) {
+      var attempts = 0;
+      (function poll() {
+        if (window.posthog) { window.posthog.capture(event, props); }
+        else if (++attempts < 30) { setTimeout(poll, 200); }
+      })();
+    }
+    phCapture('booking_page_view', { page: '/b-9d2ce4' });
+  </script>
+
   <!-- Cal.com Embed -->
   <script is:inline>
     (function (C, A, L) {
