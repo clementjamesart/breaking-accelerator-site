@@ -4,7 +4,9 @@ const CORS = {
   'Access-Control-Allow-Headers': 'Content-Type',
 };
 
-export async function onRequestPost({ request }) {
+const BREVO_LIST_ID = 10;
+
+export async function onRequestPost({ request, env }) {
   let payload;
   try {
     payload = await request.json();
@@ -19,19 +21,32 @@ export async function onRequestPost({ request }) {
     return new Response(JSON.stringify({ error: 'bad email' }), { status: 400, headers: CORS });
   }
 
+  const body = {
+    email,
+    listIds: [BREVO_LIST_ID],
+    updateEnabled: true,
+  };
+  if (prenom) {
+    body.attributes = { PRENOM: prenom };
+  }
+
   try {
-    const res = await fetch('https://automate.dancingaccelerator.com/webhook/newsletter-optin-ba', {
+    const res = await fetch('https://api.brevo.com/v3/contacts', {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ email, prenom }),
+      headers: {
+        'Content-Type': 'application/json',
+        'api-key': env.BREVO_API_KEY,
+      },
+      body: JSON.stringify(body),
     });
-    if (!res.ok) {
-      console.error('n8n webhook error:', res.status);
-      return new Response(JSON.stringify({ error: 'webhook' }), { status: 502, headers: CORS });
+    if (!res.ok && res.status !== 204) {
+      const err = await res.text();
+      console.error('Brevo API error:', res.status, err);
+      return new Response(JSON.stringify({ error: 'api' }), { status: 502, headers: CORS });
     }
   } catch (e) {
-    console.error('n8n webhook failed:', e);
-    return new Response(JSON.stringify({ error: 'webhook' }), { status: 502, headers: CORS });
+    console.error('Brevo API failed:', e);
+    return new Response(JSON.stringify({ error: 'api' }), { status: 502, headers: CORS });
   }
 
   return new Response(JSON.stringify({ success: true }), { status: 200, headers: CORS });
