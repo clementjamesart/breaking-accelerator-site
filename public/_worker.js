@@ -483,6 +483,66 @@ export default {
       return new Response('ok', { status: 200 });
     }
 
+    if (url.pathname === '/api/newsletter-subscribe') {
+      const cors = {
+        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Methods': 'POST, OPTIONS',
+        'Access-Control-Allow-Headers': 'Content-Type',
+      };
+
+      if (request.method === 'OPTIONS') {
+        return new Response(null, { headers: cors });
+      }
+
+      if (request.method !== 'POST') {
+        return new Response(JSON.stringify({ error: 'method not allowed' }), { status: 405, headers: cors });
+      }
+
+      let payload;
+      try {
+        payload = await request.json();
+      } catch {
+        return new Response(JSON.stringify({ error: 'bad json' }), { status: 400, headers: cors });
+      }
+
+      const email = (payload.email || '').trim().toLowerCase();
+      const prenom = (payload.prenom || '').trim() || '';
+
+      if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+        return new Response(JSON.stringify({ error: 'bad email' }), { status: 400, headers: cors });
+      }
+
+      const body = {
+        email,
+        listIds: [10],
+        updateEnabled: true,
+      };
+      if (prenom) {
+        body.attributes = { PRENOM: prenom };
+      }
+
+      try {
+        const res = await fetch('https://api.brevo.com/v3/contacts', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'api-key': env.BREVO_API_KEY,
+          },
+          body: JSON.stringify(body),
+        });
+        if (!res.ok && res.status !== 204) {
+          const err = await res.text();
+          console.error('Brevo newsletter API error:', res.status, err);
+          return new Response(JSON.stringify({ error: 'api' }), { status: 502, headers: cors });
+        }
+      } catch (e) {
+        console.error('Brevo newsletter API failed:', e);
+        return new Response(JSON.stringify({ error: 'api' }), { status: 502, headers: cors });
+      }
+
+      return new Response(JSON.stringify({ success: true }), { status: 200, headers: cors });
+    }
+
     // Toutes les autres requêtes → fichiers statiques Astro
     return env.ASSETS.fetch(request);
   },
