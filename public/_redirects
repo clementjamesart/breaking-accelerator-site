@@ -1,3 +1,7 @@
+# Migration Systeme.io (2026-05-02)
+/lpb https://breaking.dancingaccelerator.com/f6c65326-a900a9d3 301
+/lpb/ https://breaking.dancingaccelerator.com/f6c65326-a900a9d3 301
+
 # Redirections anciennes URLs funnel → URLs obfusquées
 /presentation/* /p-7f3a9d/:splat 301
 /booking/* /b-9d2ce4/:splat 301
