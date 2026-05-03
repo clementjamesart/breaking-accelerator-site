@@ -1,7 +1,7 @@
 ---
 import Layout from '../layouts/Layout.astro';
 
-const LP_URL = '/lpa';
+const LP_URL = 'https://breaking.dancingaccelerator.com/f6c65326';
 const R2_BASE = 'https://pub-082a1b16b2b048e9ace33389cff3fac5.r2.dev';
 ---
 
@@ -402,19 +402,5 @@ const R2_BASE = 'https://pub-082a1b16b2b048e9ace33389cff3fac5.r2.dev';
     .nav-solid .nav-toggle { color: #1C1C1C !important; }
   </style>
 
-  <!-- A/B test LP -->
-  <script>
-    (function() {
-      var variant = localStorage.getItem('ba_lp_variant');
-      if (!variant) {
-        variant = Math.random() < 0.5 ? 'lpa' : 'lpb';
-        localStorage.setItem('ba_lp_variant', variant);
-      }
-      var url = '/' + variant;
-      document.querySelectorAll('[data-lp-link]').forEach(function(a) {
-        a.href = url;
-      });
-    })();
-  </script>
 
 </Layout>
