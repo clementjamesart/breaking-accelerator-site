@@ -512,31 +512,51 @@ export default {
         return new Response(JSON.stringify({ error: 'bad email' }), { status: 400, headers: cors });
       }
 
-      const body = {
-        email,
-        listIds: [10],
-        updateEnabled: true,
-      };
+      const sioPayload = { email };
       if (prenom) {
-        body.attributes = { PRENOM: prenom };
+        sioPayload.fields = [{ slug: 'first_name', value: prenom }];
       }
 
+      const sioHeaders = {
+        'Content-Type': 'application/json',
+        'X-API-Key': env.SYSTEME_API_KEY,
+      };
+
       try {
-        const res = await fetch('https://api.brevo.com/v3/contacts', {
+        const res = await fetch('https://api.systeme.io/api/contacts', {
           method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            'api-key': env.BREVO_API_KEY,
-          },
-          body: JSON.stringify(body),
+          headers: sioHeaders,
+          body: JSON.stringify(sioPayload),
         });
-        if (!res.ok && res.status !== 204) {
+
+        let contactId;
+        if (res.ok) {
+          const data = await res.json();
+          contactId = data.id;
+        } else if (res.status === 409) {
+          const existing = await fetch(
+            'https://api.systeme.io/api/contacts?email=' + encodeURIComponent(email),
+            { headers: sioHeaders }
+          );
+          if (existing.ok) {
+            const d = await existing.json();
+            contactId = d.items?.[0]?.id;
+          }
+        } else {
           const err = await res.text();
-          console.error('Brevo newsletter API error:', res.status, err);
+          console.error('Systeme.io contact create error:', res.status, err);
           return new Response(JSON.stringify({ error: 'api' }), { status: 502, headers: cors });
         }
+
+        if (contactId) {
+          await fetch('https://api.systeme.io/api/contacts/' + contactId + '/tags', {
+            method: 'POST',
+            headers: sioHeaders,
+            body: JSON.stringify({ tagId: 1991698 }),
+          });
+        }
       } catch (e) {
-        console.error('Brevo newsletter API failed:', e);
+        console.error('Systeme.io newsletter API failed:', e);
         return new Response(JSON.stringify({ error: 'api' }), { status: 502, headers: cors });
       }
 
